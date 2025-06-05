@@ -1,0 +1,27 @@
+<h2 class="text-xl w-full text-center font-semibold mb-4">{{ title() }}</h2>
+<div class="max-h-[69vh] overflow-scroll">
+
+    <div class="relative mb-2 items-center w-full">
+        <label class="text-gray-600 text-md">Caminho da tradução</label>
+        <input class="outline-none border-blue-400 w-full border-2 rounded-md p-2"
+            placeholder="Insira aqui o caminho da tradução" [formControl]="form.controls.path" />
+    </div>
+
+
+    @for (language of languages(); track language.key) {
+    @let entry = language | call: getEntry;
+    <app-translations-form-language 
+        [class.p-2]="selectedLanguage()?.key === language.key"
+        [class.bg-blue-50]="selectedLanguage()?.key === language.key"
+        [class.border]="selectedLanguage()?.key === language.key"
+    
+    class="block rounded-md mb-2 border-blue-500" [entry]="entry" [formArray]="form.controls.entries" [language]="language" />
+    }
+</div>
+
+<div class="w-full flex justify-end items-center pt-4">
+    <button (click)="save()" [disabled]="form.invalid"
+        class="bg-blue-800 min-w-[150px] text-white px-4 py-2 transition text-md rounded-md shadow-gray-400 drop-shadow-none shadow-md hover:shadow-lg hover:shadow-gray-400">
+        Criar
+    </button>
+</div>

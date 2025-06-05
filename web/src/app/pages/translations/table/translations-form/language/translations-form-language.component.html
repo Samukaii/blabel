@@ -1,0 +1,5 @@
+
+<label class="text-gray-600 text-md">{{`Tradução em "${language().label}"`}}</label>
+
+<textarea [id]="language().key" class="outline-none border-blue-400 w-full border-2 rounded-md p-2"
+    [placeholder]="`Insira aqui a tradução para '${language().label}'`" [formControl]="form.controls.value"></textarea>

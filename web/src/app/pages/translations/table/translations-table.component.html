@@ -1,0 +1,28 @@
+<div class="overflow-x-auto">
+    <table class="min-w-full border border-t-0 border-gray-200 text-sm">
+        <thead class="bg-gray-100 text-left">
+            <tr>
+                <th class="px-4 py-2 border-b font-medium text-blue-800">Caminho</th>
+                @for (item of languages(); track item) {
+                <th class="px-4 py-2 border-b font-medium text-blue-800">{{item.label}}</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (translation of translations(); track translation) {
+
+            <tr 
+            [class.bg-green-200]="translation.isNew"
+            [class.hover:bg-green-100]="translation.isNew"
+            class="hover:bg-gray-50">
+                <td class="px-4 py-2 border-b text-gray-800 whitespace-nowrap">{{ translation.path }}</td>
+                @for (entry of translation.entries; track entry.language) {
+                <app-translations-table-item [entry]="entry"
+                    (reset)="reset.emit({path: translation.path, language: entry.language.key})"
+                    (edit)="edit.emit({translation: translation, language: entry.language})" />
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
