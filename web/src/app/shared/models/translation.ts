@@ -2,6 +2,6 @@ import { TranslationEntry } from "./translation-entry";
 
 export interface Translation {
     path: string;
-    isNew: boolean;
+    operation: 'none' | 'edit' | 'create' | 'delete';
     entries: TranslationEntry[];
 }
