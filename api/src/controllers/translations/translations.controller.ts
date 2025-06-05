@@ -1,10 +1,10 @@
 import { RequestHandler } from "express";
-import { getTranslations, loadTranslations, saveTranslations } from "../../utils/load-translations";
 import { Translation } from "../../models/translation";
-import { TranslationEntry } from "../../models/translation-entry";
 import { TranslationChange } from "../../models/translation-change";
-import { translationFilesLoader } from "../../utils/translation-files-loader";
+import { TranslationEntry } from "../../models/translation-entry";
 import { TranslationLanguage } from "../../models/translation-language";
+import { getTranslations, loadTranslations, saveTranslations } from "../../utils/load-translations";
+import { translationFilesLoader } from "../../utils/translation-files-loader";
 
 let allChanges: Translation[] = [];
 
@@ -48,22 +48,24 @@ const getAll: RequestHandler = (req, res) => {
 };
 
 const groupByLanguage = (translations: Translation[]) => {
-    const grouped: { language: string; values: { path: string; entry: TranslationEntry }[] }[] = [];
+    const grouped: { language: string; values: { path: string; operation: Translation['operation']; entry: TranslationEntry }[] }[] = [];
 
     translations.forEach(translation => {
         translation.entries.forEach(entry => {
             const existentLanguage = grouped.find(item => item.language === entry.language.key);
 
-            if(!entry.edited && !translation.isNew) return;
+            if (translation.operation === 'none') return;
 
             if (existentLanguage)
                 existentLanguage.values.push({
                     entry,
+                    operation: translation.operation,
                     path: translation.path
                 });
             else grouped.push({
                 language: entry.language.key,
                 values: [{
+                    operation: translation.operation,
                     path: translation.path,
                     entry
                 }]
@@ -74,7 +76,7 @@ const groupByLanguage = (translations: Translation[]) => {
     return grouped;
 }
 
-function updateTranslation(obj: Record<string, any>, entry: { path: string, value: string }) {
+function updateOrCreateTranslation(obj: Record<string, any>, entry: { path: string, value: string }) {
     const keys = entry.path.split('.');
     let current = obj;
 
@@ -139,9 +141,9 @@ const registerChange: RequestHandler = (req, res) => {
 
         allChanges.push({
             path: change.path,
-            isNew: true,
+            operation: 'create',
             entries: change.entries.map(entry => ({
-                edited: false,
+                status: 'idle',
                 language: getLanguageByKey(entry.language),
                 value: entry.value
             }))
@@ -152,7 +154,7 @@ const registerChange: RequestHandler = (req, res) => {
     }
 
     const updated: Translation = {
-        isNew: false,
+        operation: 'edit',
         path: change.path,
         entries: change.entries.map(entry => {
             const originalValue = getOriginalEntry(existent.path, entry.language)?.value;
@@ -160,12 +162,12 @@ const registerChange: RequestHandler = (req, res) => {
             return {
                 language: getLanguageByKey(entry.language),
                 value: entry.value,
-                edited: entry.value !== originalValue
+                status: entry.value !== originalValue ? 'edited' : 'idle'
             } as TranslationEntry
         })
     };
 
-    const hasChanges = updated.entries.some(entry => entry.edited);
+    const hasChanges = updated.entries.some(entry => entry.status);
 
     if (!hasChanges) {
         allChanges = allChanges.filter(existentChange => existentChange.path !== change.path);
@@ -175,31 +177,30 @@ const registerChange: RequestHandler = (req, res) => {
     }
 
     allChanges = allChanges.map(existentChange => {
-        if(existentChange.path === change.path) return updated;
+        if (existentChange.path === change.path) return updated;
 
         return existentChange;
     });
 
-    if(!allChanges.find(existentChange => existentChange.path === change.path))
+    if (!allChanges.find(existentChange => existentChange.path === change.path))
         allChanges.push(updated);
 
     res.json({})
 };
 
-const resetChange: RequestHandler = (req, res) => {
-    const {body} = req;
+const revertEntryChange: RequestHandler = (req, res) => {
+    const { params } = req;
 
-    const translation = body.translation;
-    const path = translation.path;
-    const language = translation.language;
+    const path = params.path;
+    const language = params.language;
 
     allChanges = allChanges.map(change => {
-        if(change.path !== path) return change;
+        if (change.path !== path) return change;
 
         return {
             ...change,
             entries: change.entries.map(entry => {
-                if(entry.language.key !== language) return entry;
+                if (entry.language.key !== language) return entry;
 
                 return getOriginalEntry(path, language)!;
             })
@@ -207,13 +208,91 @@ const resetChange: RequestHandler = (req, res) => {
     });
 
     allChanges = allChanges.filter(change => {
-        if(change.isNew) return true;
+        if (change.operation !== "none" && change.operation !== "edit") return true;
 
-        return change.entries.some(entry => entry.edited);
+        return change.entries.some(entry => entry.status);
     });
 
     res.json({});
 };
+
+const revertTranslationChange: RequestHandler = (req, res) => {
+    const { params } = req;
+
+    const path = params.path;
+
+    allChanges = allChanges.filter(change => change.path !== path);
+    res.json({});
+    return;
+
+    res.json({});
+};
+
+const registerRemoveChange: RequestHandler = (req, res) => {
+    const { params } = req;
+
+    const path = params.path as string;
+
+    const existent = allChanges.find(change => change.path === path);
+
+    if (!existent) {
+        const originalTranslation = getOriginalTranslation(path);
+
+        if (!originalTranslation)
+            throw new Error(`Translation with path ${path} not found`);
+
+        allChanges.push({
+            ...originalTranslation,
+            operation: 'delete'
+        });
+
+        res.json({});
+        return;
+    }
+
+    if (existent.operation === 'create') {
+        allChanges = allChanges.filter(change => change.path !== path);
+        res.json({});
+        return;
+    }
+
+    allChanges = allChanges.map(change => {
+        if (change.path !== path) return change;
+
+        return {
+            ...change,
+            operation: 'delete',
+            entries: change.entries.map(entry => ({
+                ...entry,
+                status: 'idle'
+            }))
+        }
+    })
+
+    res.json({});
+};
+
+const discardAllChanges: RequestHandler = (_, res) => {
+    allChanges = [];
+
+    res.json({});
+};
+
+function removePathFromObject(obj: Record<string, any>, path: string) {
+    const keys = path.split('.');
+    let current = obj;
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        const key = keys[i];
+
+        if (!(key in current)) return;
+
+        current = current[key];
+    }
+
+    const lastKey = keys[keys.length - 1];
+    delete current[lastKey];
+}
 
 const saveAll: RequestHandler = (_, res) => {
     const changes = allChanges;
@@ -228,10 +307,14 @@ const saveAll: RequestHandler = (_, res) => {
         const obj = files[change.language];
 
         change.values.forEach(value => {
-            updateTranslation(obj, {
-                path: value.path,
-                value: value.entry.value
-            });
+            if (value.operation === "create" || value.operation === "edit")
+                updateOrCreateTranslation(obj, {
+                    path: value.path,
+                    value: value.entry.value
+                });
+
+            if (value.operation === "delete")
+                removePathFromObject(obj, value.path);
         });
 
         saveTranslations(change.language, obj);
@@ -246,6 +329,9 @@ const saveAll: RequestHandler = (_, res) => {
 export const translationsController = {
     getAll,
     registerChange,
-    resetChange,
+    registerRemoveChange,
+    discardAllChanges,
+    revertEntryChange,
+    revertTranslationChange,
     saveAll
 };
