@@ -1,14 +1,9 @@
-<div class="px-4 py-2 border-b text-gray-800">
-
-    <div class="flex gap-2 ">
-        <p [class.font-semibold]="entry().edited" class="w-full">
-            {{ entry().value }}
-        </p>
-        @if (entry().edited) {
-        <app-icon class="cursor-pointer text-yellow-400  rounded-full p-2 hover:text-yellow-900 transition"
-            (click)="reset.emit()" name="arrow-uturn-left" />
-        }
-        <app-icon class="cursor-pointer text-blue-400  rounded-full p-2 hover:text-blue-900 transition" name="pencil"
-            (click)="edit.emit()" />
-    </div>
-</div>
+<p [class.font-semibold]="entry().status === 'edited'" class="w-full">
+    {{ entry().value }}
+</p>
+@if (entry().status === 'edited') {
+<app-icon class="cursor-pointer text-yellow-400  rounded-full p-2 hover:text-yellow-900 transition"
+    (click)="reset.emit()" name="arrow-uturn-left" />
+}
+<app-icon class="cursor-pointer text-blue-400  rounded-full p-2 hover:text-blue-900 transition" name="pencil"
+    (click)="edit.emit()" />
