@@ -46,8 +46,8 @@ export class TranslationsComponent {
     });
   }
 
-  reset(change: {path: string; language: string}) {
-    this.service.resetChange(change).subscribe(() => {
+  reset(change: { path: string; language: string }) {
+    this.service.revertEntryChange(change.path, change.language).subscribe(() => {
       this.response.reload();
     })
   }
@@ -74,5 +74,17 @@ export class TranslationsComponent {
         }
       }
     });
+  }
+
+  remove(path: string) {
+    this.service.registerRemoveChange(path).subscribe(() => {
+      this.response.reload();
+    })
+  }
+
+  revertTranslation(path: string) {
+    this.service.revertTranslationChange(path).subscribe(() => {
+      this.response.reload();
+    })
   }
 }
