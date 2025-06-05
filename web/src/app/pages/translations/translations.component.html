@@ -34,7 +34,11 @@
             }
         </p>
     </div>
-    <div class="w-full flex justify-end">
+    <div class="w-full flex gap-2 justify-end">
+        <button (click)="discardAll()"
+            class="bg-red-500 text-white px-4 py-2 transition text-md rounded-md shadow-red-600 drop-shadow-none shadow-md hover:shadow-red-800 hover:bg-red-700">
+            Descartar alterações
+        </button>
         <button (click)="saveAll()"
             class="bg-blue-800 text-white px-4 py-2 transition text-md rounded-md shadow-blue-600 drop-shadow-none shadow-md hover:shadow-blue-800 hover:bg-blue-700">
             Salvar alterações

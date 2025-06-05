@@ -58,6 +58,12 @@ export class TranslationsComponent {
     })
   }
 
+  discardAll() {
+    this.service.discardAllChanges().subscribe(() => {
+      this.response.reload();
+    })
+  }
+
   update($event: { translation: Translation; language: TranslationLanguage; }) {
     this.dialog.open({
       component: TranslationsFormComponent,
