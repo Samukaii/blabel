@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Translation } from '../../shared/models/translation';
-import { TranslationLanguage } from '../../shared/models/translation-language';
 import { TranslationChange } from "../../shared/models/translation-change";
+import { TranslationLanguage } from '../../shared/models/translation-language';
 
 
 @Injectable({
@@ -19,18 +19,28 @@ export class TranslationsService {
   }
 
   registerChange(translation: TranslationChange) {
-    return this.http.post(`${environment.api}/translations/register_change`, {
+    return this.http.post(`${environment.api}/translations/changes`, {
       translation
     })
   }
 
-  resetChange(translation: {path: string; language: string}) {
-    return this.http.patch(`${environment.api}/translations/reset_change`, {
-      translation
-    });
+  revertTranslationChange(path: string) {
+    return this.http.delete(`${environment.api}/translations/${path}/changes/revert`);
+  }
+
+  revertEntryChange(path: string, language: string) {
+    return this.http.delete(`${environment.api}/translations/${path}/changes/entries/${language}/revert`);
+  }
+
+  registerRemoveChange(path: string) {
+    return this.http.post(`${environment.api}/translations/${path}/changes/deletion`, {});
+  }
+
+  discardAllChanges() {
+    return this.http.delete(`${environment.api}/translations/changes/discard_all`);
   }
 
   saveAll() {
-    return this.http.post(`${environment.api}/translations/save_all`, {})
+    return this.http.post(`${environment.api}/translations/changes/save`, {})
   }
 }
