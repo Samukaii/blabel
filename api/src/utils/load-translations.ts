@@ -48,7 +48,7 @@ export const loadTranslations = () => {
   const merged: Translation[] = [];
 
   for (const pathKey of allPaths) {
-    const entry: Translation = { path: pathKey, entries: [], isNew: false };
+    const entry: Translation = { path: pathKey, entries: [], operation: 'none' };
 
     for (const [lang, langMap] of Object.entries(translationsByLang)) {
       const registeredLanguage = registeredLanguages.find(registered => registered.language === lang);
@@ -61,7 +61,7 @@ export const loadTranslations = () => {
           label: registeredLanguage.label,
         },
         value: langMap[pathKey],
-        edited: false
+        status: 'idle'
       });
     }
 
