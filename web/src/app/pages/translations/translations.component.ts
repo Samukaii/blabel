@@ -1,11 +1,11 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { IconComponent } from "../../shared/components/icon/icon.component";
 import { Translation } from '../../shared/models/translation';
 import { TranslationLanguage } from '../../shared/models/translation-language';
-import { TranslationsFormComponent } from './table/translations-form/translations-form.component';
+import { TranslationsFormComponent } from './form/translations-form.component';
 import { TranslationsTableComponent } from './table/translations-table.component';
 import { TranslationsSaveService } from './translations-save.service';
 import { TranslationsService } from './translations.service';
