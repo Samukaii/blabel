@@ -1,10 +1,9 @@
 import fs from "fs";
 import path from "path";
-import { Translation } from "../models/translation";
-import { translationFilesLoader } from "./translation-files-loader";
+import { applicationConfigService } from "../core/services/application-config/application-config.service";
 
 export const getTranslations = () => {
-  const files = translationFilesLoader.get();
+  const files = applicationConfigService.getLanguages();
   const translationsByLang: Record<string, Record<string, string>> = {};
 
   files.forEach(file => {
@@ -12,8 +11,8 @@ export const getTranslations = () => {
     const content = fs.readFileSync(filePath, 'utf-8');
     const parsed = JSON.parse(content);
 
-    translationsByLang[file.language] = parsed;
+    translationsByLang[file.key] = parsed;
   });
 
   return translationsByLang;
-};
+};

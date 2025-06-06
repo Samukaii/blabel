@@ -1,16 +1,16 @@
+import { applicationConfigService } from "../core/services/application-config/application-config.service";
 import { TranslationLanguage } from "../models/translation-language";
-import { translationFilesLoader } from "./translation-files-loader";
 
 export const getLanguageByKey = (language: string) => {
-    const all = translationFilesLoader.get();
+    const registeredLanguages = applicationConfigService.getLanguages();
 
-    const foundLanguage = all.find(registered => registered.language === language);
+    const foundLanguage = registeredLanguages.find(registered => registered.key === language);
 
     if (!foundLanguage)
         throw new Error(`Language "${language}" not found`);
 
     return {
-        key: foundLanguage.language,
+        key: foundLanguage.key,
         label: foundLanguage.label
     } as TranslationLanguage;
 }

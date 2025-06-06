@@ -1,7 +1,7 @@
+import { applicationConfigService } from "../core/services/application-config/application-config.service";
 import { Translation } from "../models/translation";
 import { flattenTranslations } from "./flatten-translations";
 import { getTranslations } from './get-translations';
-import { translationFilesLoader } from "./translation-files-loader";
 
 
 export const loadTranslations = () => {
@@ -19,7 +19,9 @@ export const loadTranslations = () => {
     Object.keys(langMap).forEach(key => allPaths.add(key));
   });
 
-  const registeredLanguages = translationFilesLoader.get();
+  const registeredLanguages = applicationConfigService.getLanguages();
+
+  console.log(registeredLanguages);
 
   const merged: Translation[] = [];
 
@@ -27,13 +29,13 @@ export const loadTranslations = () => {
     const entry: Translation = { path: pathKey, entries: [], operation: 'none' };
 
     for (const [lang, langMap] of Object.entries(translationsByLang)) {
-      const registeredLanguage = registeredLanguages.find(registered => registered.language === lang);
+      const registeredLanguage = registeredLanguages.find(registered => registered.key === lang);
 
       if (!registeredLanguage) continue;
 
       entry.entries.push({
         language: {
-          key: registeredLanguage.language,
+          key: registeredLanguage.key,
           label: registeredLanguage.label,
         },
         value: langMap[pathKey],
@@ -44,7 +46,7 @@ export const loadTranslations = () => {
     merged.push(entry);
   }
 
-  const languages = registeredLanguages.map(registered => ({ key: registered.language, label: registered.label }));
+  const languages = registeredLanguages.map(registered => ({ key: registered.key, label: registered.label }));
 
   return { languages, entries: merged };
 };
