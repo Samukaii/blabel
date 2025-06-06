@@ -1,5 +1,5 @@
 export interface TranslationFile {
     path: string;
-    language: string;
+    key: string;
     label: string;
 }
