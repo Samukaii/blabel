@@ -1,0 +1,10 @@
+.spinner-2 {
+  @apply border-gray-100 size-20 border-[6px] rounded-full animate-spin;
+  @apply border-t-gray-500;
+}
+
+:host ::ng-deep {
+  .language-icon {
+    @apply size-16 text-gray-500;
+  }
+}

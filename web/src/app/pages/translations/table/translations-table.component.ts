@@ -3,6 +3,8 @@ import { Translation } from "../../../shared/models/translation";
 import { TranslationLanguage } from "../../../shared/models/translation-language";
 import { TranslationsTableItemComponent } from "./item/translations-table-item.component";
 import { IconComponent } from "../../../shared/components/icon/icon.component";
+import { NoResults } from "../../../shared/models/no-results";
+import { JsonPipe } from "@angular/common";
 
 
 @Component({
@@ -14,6 +16,11 @@ import { IconComponent } from "../../../shared/components/icon/icon.component";
 export class TranslationsTableComponent {
     languages = input.required<TranslationLanguage[]>();
     translations = input.required<Translation[]>()
+    loading = input(false);
+    noResults = input<NoResults>({
+        label: "Sem resultados"
+    })
+
     edit = output<{ translation: Translation, language: TranslationLanguage }>();
     reset = output<{ path: string, language: string }>();
     remove = output<string>();
