@@ -29,13 +29,14 @@ import { Component, viewChild, ViewContainerRef } from '@angular/core';
         }
 
         .container {
+            border-radius: 5px;
             padding: 1rem;
             width: 100%;
             height: 100%;
             max-width: 1200px;
             max-height: 90vh;
             background-color: white;
-            overflow: scroll;
+            overflow: hidden;
             z-index: 1;
         }
     `,
