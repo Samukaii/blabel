@@ -3,5 +3,10 @@
 @tailwind utilities;
 
 body {
-    position: relative;
+  position: relative;
+}
+
+.spinner {
+  @apply border-yellow-100 size-5 border-[3px] rounded-full animate-spin;
+  @apply border-t-yellow-500;
 }
