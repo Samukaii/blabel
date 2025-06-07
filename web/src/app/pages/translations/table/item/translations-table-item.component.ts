@@ -1,9 +1,7 @@
-import { JsonPipe } from "@angular/common";
-import { Component, computed, effect, input, output, signal, untracked } from "@angular/core";
+import { Component, effect, input, output } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { IconComponent } from "../../../../shared/components/icon/icon.component";
-import { TranslationLanguage } from "../../../../shared/models/translation-language";
 import { TranslationEntry } from "../../../../shared/models/translation-entry";
 
 @Component({
