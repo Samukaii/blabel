@@ -1,3 +1,40 @@
 :host {
   display: block;
 }
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  @apply bg-gray-600;
+  overflow: hidden;
+  position: relative;
+  border-radius: 2px;
+
+  .progress {
+    @apply opacity-0;
+    width: 30%;
+    height: 100%;
+    @apply bg-gray-900;
+    position: absolute;
+    left: -30%;
+    animation: progressLoop 1.5s infinite;
+    border-radius: 2px;
+  }
+
+  &-enabled {
+    @apply bg-white;
+
+    .progress {
+      @apply opacity-100;
+    }
+  }
+}
+
+@keyframes progressLoop {
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}

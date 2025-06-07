@@ -1,48 +1,73 @@
-<div class="w-full bg-blue-400 flex gap-2 justify-end p-4">
-    <button (click)="add()"
-        class="bg-blue-800 text-white px-4 py-2 transition text-md rounded-md shadow-blue-600 drop-shadow-none shadow-md hover:shadow-blue-800 hover:bg-blue-700">
-        Nova tradução
-    </button>
-    <div class="relative w-fit items-center">
-        <input class="outline-none border-blue-400 min-w-[300px] border-2 rounded-md p-2" placeholder="Pesquisar"
-            [formControl]="searchControl" />
+<div class="w-full bg-gray-600 flex gap-2 justify-end p-3">
+  <button
+    (click)="add()"
+    class="bg-gray-800 border-2 border-gray-800 text-white px-4 py-2 transition text-md rounded-md shadow-gray-600 drop-shadow-none shadow-md hover:shadow-gray-800 hover:bg-gray-700"
+  >
+    Nova tradução
+  </button>
+  <div class="relative w-fit items-center">
+    <input
+      class="outline-none border-gray-400 min-w-[300px] border-2 rounded-md p-2"
+      placeholder="Pesquisar"
+      [formControl]="searchControl"
+    />
 
-        <div class="absolute right-2 bottom-0 h-full flex items-center text-blue-400">
-            <app-icon name="magnifying-glass" />
-        </div>
+    <div
+      class="absolute right-2 bottom-0 h-full flex items-center text-gray-400"
+    >
+      <app-icon name="magnifying-glass" />
     </div>
+  </div>
 </div>
 
+<div class="flex w-full">
+  <div class="w-full">
+    <div
+      [class.progress-bar-enabled]="response.status() === 'reloading'"
+      class="progress-bar"
+    >
+      <div class="progress"></div>
+    </div>
 
-<app-translations-table ngSkipHydration [languages]="response.value().languages" (remove)="remove($event)"
-(revertTranslation)="revertTranslation($event)"
-    (edit)="update($event)" (reset)="reset($event)" [translations]="response.value().results" />
+    <app-translations-table
+      ngSkipHydration
+      [noResults]="noResults()"
+      [loading]="response.status() === 'loading'"
+      [languages]="response.value().languages"
+      (remove)="remove($event)"
+      (revertTranslation)="revertTranslation($event)"
+      (edit)="update($event)"
+      (reset)="reset($event)"
+      [translations]="response.value().results"
+    />
 
-@let changesCount = response.value().changesCount;
-
-@if (changesCount) {
-<div class="bg-blue-400 w-full fixed bottom-0 flex justify-between p-2">
-    <div class=" w-full"></div>
-    <div class="font-semibold text-lg w-full flex justify-center items-center">
+    @let changesCount = response.value().changesCount; @if (changesCount) {
+    <div class="bg-gray-600 w-full fixed bottom-0 flex justify-between p-2">
+      <div class="w-full"></div>
+      <div
+        class="font-semibold text-lg w-full flex justify-center text-white items-center"
+      >
         <p>
-            {{changesCount}}
-            @if (changesCount === 1) {
-            tradução alterada
-            }
-            @else {
-            traduções alteradas
-            }
+          {{ changesCount }}
+          @if (changesCount === 1) { tradução alterada } @else { traduções
+          alteradas }
         </p>
-    </div>
-    <div class="w-full flex gap-2 justify-end">
-        <button (click)="discardAll()"
-            class="bg-red-500 text-white px-4 py-2 transition text-md rounded-md shadow-red-600 drop-shadow-none shadow-md hover:shadow-red-800 hover:bg-red-700">
-            Descartar alterações
+      </div>
+      <div class="w-full flex gap-2 justify-end">
+        <button
+          (click)="discardAll()"
+          class="bg-red-400 text-white px-4 py-2 transition font-semibold text-md rounded-md drop-shadow-none shadow-md hover:shadow-red-800 hover:bg-red-700"
+        >
+          Descartar alterações
         </button>
-        <button (click)="saveAll()"
-            class="bg-blue-800 text-white px-4 py-2 transition text-md rounded-md shadow-blue-600 drop-shadow-none shadow-md hover:shadow-blue-800 hover:bg-blue-700">
-            Salvar alterações
+        <button
+          (click)="saveAll()"
+          class="bg-gray-800 font-semibold text-white px-4 py-2 transition text-md rounded-md shadow-gray-600 drop-shadow-none shadow-md hover:shadow-gray-800 hover:bg-gray-700"
+        >
+          Salvar alterações
         </button>
+      </div>
     </div>
+    }
+  </div>
 </div>
-}
