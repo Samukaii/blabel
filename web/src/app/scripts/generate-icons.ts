@@ -1,6 +1,11 @@
 const path = require("node:path");
 const fs = require("node:fs");
 
+const getFileNameWithoutExt = (rawPath: string): string => {
+  const normalizedPath = path.normalize(rawPath);
+  return path.basename(normalizedPath, path.extname(normalizedPath));
+};
+
 const kebabToCamel = (input: string) => {
     return input.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 };
@@ -57,7 +62,7 @@ const generateIcons = () => {
 
     const constIcons = result.map((icon) => {
         const newPath = icon.path.replace(assetsPath, interfaceIconsPath).replace("svg", "ts");
-        const fileName = newPath.split("\\").pop()!;
+        const fileName = getFileNameWithoutExt(newPath);
 
         const constName = kebabToCamel(fileName.replace(".ts", ""));
 
