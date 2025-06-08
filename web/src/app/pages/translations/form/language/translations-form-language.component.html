@@ -1,12 +1,5 @@
-<div class="flex gap-2 items-center">
-  <label class="text-gray-800 font-medium text-sm mb-1">{{
-    language().label
-  }}</label>
-</div>
-
-<textarea
-  [id]="language().key"
-  class="outline-none border-gray-400 w-full border-2 rounded-md p-2"
+<app-textarea
+  [label]="language().label"
   [placeholder]="`Informe aqui a tradução em '${language().label}'`"
-  [formControl]="control"
-></textarea>
+  [control]="control"
+/>

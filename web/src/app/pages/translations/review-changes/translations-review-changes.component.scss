@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.line-through {
+  text-decoration-thickness: .5;
+  text-decoration-style: solid;
+  text-decoration-color: red;
+}

@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Translation } from '../../shared/models/translation';
 import { TranslationChange } from "../../shared/models/translation-change";
 import { TranslationLanguage } from '../../shared/models/translation-language';
+import { TranslationDiff } from '../../shared/models/translation-diff';
 
 
 @Injectable({
@@ -22,6 +23,10 @@ export class TranslationsService {
     return this.http.post(`${environment.api}/translations/changes`, {
       translation
     })
+  }
+
+  getChanges() {
+    return this.http.get<{results: TranslationDiff[]}>(`${environment.api}/translations/changes`);
   }
 
   revertTranslationChange(path: string) {

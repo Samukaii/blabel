@@ -5,10 +5,5 @@ export const getOriginalEntry = (path: string, language: string) => {
 
     if (!existent) return null;
 
-    const entry = existent.entries.find(existentEntry => existentEntry.language.key === language);
-
-    if (!entry)
-        throw new Error(`Language "${language}" not found`);
-
-    return entry;
+    return existent.entries.find(existentEntry => existentEntry.language.key === language);
 }

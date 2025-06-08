@@ -1,5 +1,44 @@
 :host {
-    display: block;
-    width: 100%;
-    scroll-behavior: smooth;
+  display: block;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+
+.checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+  font-family: sans-serif;
+  user-select: none;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #888;
+  border-radius: 4px;
+  background-color: white;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.checkbox-wrapper input:checked + .custom-checkbox {
+    @apply bg-yellow-500 border-yellow-500;
+}
+
+.checkbox-wrapper input:checked + .custom-checkbox::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }

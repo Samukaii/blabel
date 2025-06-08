@@ -1,87 +1,98 @@
 <div class="overflow-x-auto">
   @if (loading()) {
-  <div class="w-full min-h-[90vh] flex justify-center items-center">
-    <div class="spinner-2"></div>
-  </div>
-  } @else if(translations().length) {
-  <table class="min-w-full border border-t-0 border-gray-200 text-sm">
-    <thead class="bg-gray-100 text-left">
-      <tr>
-        <th class="px-4 py-2 border-b font-bold text-gray-800">Caminho</th>
-        @for (item of languages(); track item) {
-        <th class="px-4 py-2 border-b font-bold text-gray-800">
-          <p>
-            {{ item.label }}
-          </p>
-        </th>
-        }
-        <th class="px-4 py-2 border-b font-bold text-gray-800 w-32"></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (translation of translations(); track translation) {
-      <tr
-        [class.bg-green-100]="translation.operation === 'create'"
-        [class.hover:bg-green-100]="translation.operation === 'create'"
-        [class.bg-red-100]="translation.operation === 'delete'"
-        [class.hover:bg-red-100]="translation.operation === 'delete'"
-        class="hover:bg-gray-50"
-      >
-        <td class="px-4 py-2 border-b text-gray-800">
-          {{ translation.path }}
-        </td>
-        @for (entry of translation.entries; track entry.language) {
-        <td class="px-4 py-2 border-b text-gray-800">
-          <app-translations-table-item
-            [entry]="entry"
-            (reset)="
-              reset.emit({
-                path: translation.path,
-                language: entry.language.key
-              })
-            "
-            (edit)="
-              edit.emit({ translation: translation, language: entry.language })
-            "
-          />
-        </td>
-        }
-        <td class="px-4 py-2 border-b text-gray-800 whitespace-nowrap">
-          <div class="flex justify-end">
-            @if (translation.operation === 'delete' || translation.operation ===
-            'create') {
-            <app-icon
-              class="cursor-pointer block h-fit text-gray-900 rounded-full p-2 w-fit hover:text-gray-500 transition"
-              (click)="revertTranslation.emit(translation.path)"
-              name="arrow-uturn-left"
-            />
-            } @else {
-            <app-icon
-              class="cursor-pointer block h-fit text-red-400 rounded-full p-2 hover:text-red-900 transition"
-              name="minus-circle"
-              (click)="remove.emit(translation.path)"
-            />
+    <div class="w-full min-h-[90vh] flex justify-center items-center">
+      <div class="spinner-2"></div>
+    </div>
+  } @else if (translations().length) {
+    <table class="min-w-full border border-t-0 border-gray-200 text-sm">
+      <thead class="bg-gray-100 text-left">
+        <tr>
+          <th class="px-4 py-2 border-b font-bold text-gray-800">Caminho</th>
+          @for (item of languages(); track item.key) {
+            <th class="px-4 py-2 border-b font-bold text-gray-800">
+              <p>
+                {{ item.label }}
+              </p>
+            </th>
+          }
+          <th class="px-4 py-2 border-b font-bold text-gray-800 w-32"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (translation of translations(); track translation.id) {
+          <tr
+            [class.bg-green-100]="translation.operation === 'create'"
+            [class.hover:bg-green-100]="translation.operation === 'create'"
+            [class.bg-red-100]="translation.operation === 'delete'"
+            [class.hover:bg-red-100]="translation.operation === 'delete'"
+            [class.bg-blue-100]="translation.operation === 'edit'"
+            [class.hover:bg-blue-100]="translation.operation === 'edit'"
+            class="hover:bg-gray-50"
+          >
+            <td class="px-4 py-2 border-b text-gray-800">
+              {{ translation.path }}
+            </td>
+            @for (entry of translation.entries; track entry.id) {
+              <td class="px-4 py-2 border-b text-gray-800">
+                <app-translations-table-item
+                  [entry]="entry"
+                  [translation]="translation"
+                  (reset)="
+                    reset.emit({
+                      path: translation.path,
+                      language: entry.language.key,
+                    })
+                  "
+                  (edit)="
+                    edit.emit({
+                      translation: translation,
+                      language: entry.language,
+                    })
+                  "
+                />
+              </td>
             }
-          </div>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
+            <td class="px-4 py-2 border-b text-gray-800 whitespace-nowrap">
+              <div class="flex justify-end">
+                @if (
+                  translation.operation === "delete" ||
+                  translation.operation === "create"
+                ) {
+                  <app-icon
+                    class="cursor-pointer block h-fit text-gray-900 rounded-full p-2 w-fit hover:text-gray-500 transition"
+                    (click)="revertTranslation.emit(translation.path)"
+                    name="arrow-uturn-left"
+                  />
+                } @else {
+                  <app-icon
+                    class="cursor-pointer block h-fit text-red-400 rounded-full p-2 hover:text-red-900 transition"
+                    name="minus-circle"
+                    (click)="remove.emit(translation.path)"
+                  />
+                }
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
   } @else {
-  <div
-    class="min-w-full min-h-[80vh] flex flex-col justify-center items-center"
-  >
-    @let noResultsVar = noResults(); @if (noResultsVar.icon) {
-    <app-icon
-      [name]="noResultsVar.icon.name"
-      [iconClasses]="noResultsVar.icon.classes ?? ''"
-    />
-    }
-    <h1 class="text-xl font-bold text-gray-500">{{ noResultsVar.label }}</h1>
-    @if (noResultsVar.description) {
-    <p class="text-lg font-medium text-gray-400">{{noResultsVar.description}}</p>
-    }
-  </div>
+    <div
+      class="min-w-full min-h-[80vh] flex flex-col justify-center items-center"
+    >
+      @let noResultsVar = noResults();
+      @if (noResultsVar.icon) {
+        <app-icon
+          [name]="noResultsVar.icon.name"
+          [iconClasses]="noResultsVar.icon.classes ?? ''"
+        />
+      }
+      <h1 class="text-xl font-bold text-gray-500">{{ noResultsVar.label }}</h1>
+      @if (noResultsVar.description) {
+        <p class="text-lg font-medium text-gray-400">
+          {{ noResultsVar.description }}
+        </p>
+      }
+    </div>
   }
 </div>

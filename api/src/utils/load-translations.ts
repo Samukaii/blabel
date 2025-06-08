@@ -21,12 +21,10 @@ export const loadTranslations = () => {
 
   const registeredLanguages = applicationConfigService.getLanguages();
 
-  console.log(registeredLanguages);
-
   const merged: Translation[] = [];
 
   for (const pathKey of allPaths) {
-    const entry: Translation = { path: pathKey, entries: [], operation: 'none' };
+    const entry: Translation = {id: pathKey, path: pathKey, entries: [], operation: 'none' };
 
     for (const [lang, langMap] of Object.entries(translationsByLang)) {
       const registeredLanguage = registeredLanguages.find(registered => registered.key === lang);
@@ -34,11 +32,13 @@ export const loadTranslations = () => {
       if (!registeredLanguage) continue;
 
       entry.entries.push({
+        id: `${pathKey}-${registeredLanguage.key}`,
         language: {
           key: registeredLanguage.key,
           label: registeredLanguage.label,
         },
         value: langMap[pathKey],
+        originalValue: langMap[pathKey],
         status: 'idle'
       });
     }

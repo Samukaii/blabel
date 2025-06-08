@@ -37,6 +37,8 @@ import { Component, viewChild, ViewContainerRef } from '@angular/core';
             max-height: 90vh;
             background-color: white;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
             z-index: 1;
         }
     `,

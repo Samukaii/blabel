@@ -9,6 +9,7 @@ const translateEmptyLanguages: RequestHandler = async (req, res) => {
 
     const schema = z.object({
         additionalContext: z.string(),
+        onlyEmptyFields: z.boolean(),
         entries: z.array(z.object({
             language: z.string(),
             value: z.string()
@@ -26,12 +27,20 @@ const translateEmptyLanguages: RequestHandler = async (req, res) => {
         throw new Error(`The main language ${applicationConfig.mainLanguage.label} was not filled`);
 
 
-    const emptyLanguages = entries.filter(entry => !entry.value);
-    const emptyLanguageKeys = emptyLanguages.map(entry => entry.language as AvailableLanguageKey);
+    const languagesToUse = entries.filter(entry => {
 
-    const results = await aiHintsService.translate(mainLanguageValue, emptyLanguageKeys, bodyParsed.additionalContext);
+        if(!bodyParsed.onlyEmptyFields) return entry.language !== applicationConfig.mainLanguage.key;
 
-    res.json(results);
+        console.log(entry, !entry.value && (entry.language !== applicationConfig.mainLanguage.key));
+
+        return !entry.value && (entry.language !== applicationConfig.mainLanguage.key);
+    });
+    const languagesToUseKeys = languagesToUse.map(entry => entry.language as AvailableLanguageKey);
+
+
+    // const results = await aiHintsService.translate(mainLanguageValue, languagesToUseKeys, bodyParsed.additionalContext);
+
+    res.json({languages: {}});
 };
 
 

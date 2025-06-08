@@ -1,10 +1,9 @@
 import { Component, input, output } from "@angular/core";
+import { IconComponent } from "../../../shared/components/icon/icon.component";
+import { NoResults } from "../../../shared/models/no-results";
 import { Translation } from "../../../shared/models/translation";
 import { TranslationLanguage } from "../../../shared/models/translation-language";
 import { TranslationsTableItemComponent } from "./item/translations-table-item.component";
-import { IconComponent } from "../../../shared/components/icon/icon.component";
-import { NoResults } from "../../../shared/models/no-results";
-import { JsonPipe } from "@angular/common";
 
 
 @Component({

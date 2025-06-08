@@ -1,0 +1,12 @@
+<div class="flex gap-2 items-center">
+  <label class="text-gray-800 font-medium text-sm mb-1">{{
+    label()
+  }}</label>
+</div>
+
+<textarea
+  #textarea
+  class="outline-none border-gray-400 w-full border-2 rounded-md p-2"
+  [placeholder]="placeholder()"
+  [formControl]="control()"
+  ></textarea>

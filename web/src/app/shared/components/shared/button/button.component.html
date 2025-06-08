@@ -1,0 +1,11 @@
+<button [disabled]="disabled() || loading()" [class]="`${theme()} ${color()}`">
+  @if (loading()) {
+    <div class="spinner"></div>
+    <p>{{ loadingText() || text() }}</p>
+  } @else {
+    <p>{{ text() }}</p>
+    @if (icon()) {
+      <app-icon class="transition rounded-full" name="sparkles"></app-icon>
+    }
+  }
+</button>

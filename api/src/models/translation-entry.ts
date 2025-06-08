@@ -1,7 +1,9 @@
 import { TranslationLanguage } from "./translation-language";
 
 export interface TranslationEntry {
-    language: TranslationLanguage;
-    value: string;
-    status: 'idle' | 'edited';
+  id: string;
+  language: TranslationLanguage;
+  value: string;
+  originalValue: string;
+  status: "idle" | "edited";
 }

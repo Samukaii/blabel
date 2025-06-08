@@ -22,6 +22,9 @@ import { TranslationChange } from '../../../shared/models/translation-change';
 import { TranslationLanguage } from '../../../shared/models/translation-language';
 import { CallPipe } from '../../../shared/pipes/call.pipe';
 import { TranslationsFormLanguageComponent } from './language/translations-form-language.component';
+import { InputComponent } from "../../../shared/components/shared/input/input.component";
+import { TextareaComponent } from "../../../shared/components/shared/textarea/textarea.component";
+import { ButtonComponent } from "../../../shared/components/shared/button/button.component";
 
 @Component({
   selector: 'app-translations--form',
@@ -31,13 +34,18 @@ import { TranslationsFormLanguageComponent } from './language/translations-form-
     ReactiveFormsModule,
     TranslationsFormLanguageComponent,
     CallPipe,
-    IconComponent
+    IconComponent,
+    InputComponent,
+    TextareaComponent,
+    ButtonComponent
 ],
 })
 export class TranslationsFormComponent implements OnInit {
   title = input.required<string>();
   confirmButtonName = input.required<string>();
   languages = input.required<TranslationLanguage[]>();
+
+  disablePath = input<boolean>();
   translation = input<Translation>();
   selectedLanguage = input<TranslationLanguage>();
   submit = output<TranslationChange>();
@@ -57,7 +65,10 @@ export class TranslationsFormComponent implements OnInit {
     entries: this.fb.nonNullable.record<string>({}),
   });
 
-  additionalContextControl = this.fb.nonNullable.control('');
+  aiHintsForm = this.fb.nonNullable.group({
+    onlyEmptyFields: [false],
+    additionalContext: [""]
+  });
 
   formValue = toSignal(
     this.form.valueChanges.pipe(map(() => this.form.getRawValue())),
@@ -71,7 +82,11 @@ export class TranslationsFormComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.form.controls.path.setValue(this.translation()?.path ?? '');
+    const path = this.form.controls.path;
+
+    path.setValue(this.translation()?.path ?? '');
+
+    if(this.disablePath()) path.disable();
   }
 
   ngAfterViewInit() {
@@ -124,14 +139,18 @@ export class TranslationsFormComponent implements OnInit {
   fillWithAi() {
     this.requestingAi.set(true);
 
-    this.aiService
-      .fillWithAi(
-        this.getFormValue().entries,
-        this.additionalContextControl.value
-      )
-      .subscribe((response: any) => {
-        this.form.controls.entries.patchValue(response['languages']);
-        this.requestingAi.set(false);
-      });
+    console.log(this.aiHintsForm.getRawValue());
+
+    // const value = {
+    //   ...this.aiHintsForm.getRawValue(),
+    //   entries: this.getFormValue().entries
+    // }
+
+    // this.aiService
+    //   .fillWithAi(value)
+    //   .subscribe((response: any) => {
+    //     this.form.controls.entries.patchValue(response['languages']);
+    //     this.requestingAi.set(false);
+    //   });
   }
 }

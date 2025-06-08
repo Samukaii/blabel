@@ -3,6 +3,7 @@ import { toSignal } from "@angular/core/rxjs-interop";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { IconComponent } from "../../../../shared/components/icon/icon.component";
 import { TranslationEntry } from "../../../../shared/models/translation-entry";
+import { Translation } from "../../../../shared/models/translation";
 
 @Component({
     selector: "app-translations-table-item",
@@ -12,6 +13,7 @@ import { TranslationEntry } from "../../../../shared/models/translation-entry";
 })
 export class TranslationsTableItemComponent {
     entry = input.required<TranslationEntry>();
+    translation = input.required<Translation>();
     translationChange = output<string>();
     edit = output();
     reset = output();

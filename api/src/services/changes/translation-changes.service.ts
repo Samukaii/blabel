@@ -1,196 +1,234 @@
-import fs from 'fs';
-import { Translation } from '../../models/translation';
-import { TranslationChange } from '../../models/translation-change';
-import { TranslationEntry } from '../../models/translation-entry';
-import { getLanguageByKey } from '../../utils/get-language-by-key';
-import { getOriginalEntry } from '../../utils/get-original-entry';
-import { getOriginalTranslation } from '../../utils/get-original-translation';
-import { getTranslations } from '../../utils/get-translations';
-import { groupByLanguage } from '../../utils/group-by-language';
-import { updateOrCreateTranslation } from '../../utils/update-or-create-translation';
-import { removePathFromObject } from '../../utils/remove-path-from-object';
-import { saveTranslations } from '../../utils/save-translations';
+import fs from "fs";
+import { Translation } from "../../models/translation";
+import { TranslationChange } from "../../models/translation-change";
+import { TranslationEntry } from "../../models/translation-entry";
+import { getLanguageByKey } from "../../utils/get-language-by-key";
+import { getOriginalEntry } from "../../utils/get-original-entry";
+import { getOriginalTranslation } from "../../utils/get-original-translation";
+import { getTranslations } from "../../utils/get-translations";
+import { groupByLanguage } from "../../utils/group-by-language";
+import { updateOrCreateTranslation } from "../../utils/update-or-create-translation";
+import { removePathFromObject } from "../../utils/remove-path-from-object";
+import { saveTranslations } from "../../utils/save-translations";
 
-const translationChangesPath = 'src/data/translation-changes.json';
+const translationChangesPath = "src/data/translation-changes.json";
+let lastValue: Translation[] | null = null;
 
 export const get = () => {
-    const files = fs.readFileSync(translationChangesPath, { encoding: 'utf-8' });
+  if (lastValue) return lastValue;
 
-    return JSON.parse(files) as Translation[];
-}
+  const files = fs.readFileSync(translationChangesPath, { encoding: "utf-8" });
+
+  return JSON.parse(files) as Translation[];
+};
 
 const save = (changes: Translation[]) => {
-    fs.writeFileSync(translationChangesPath, JSON.stringify(changes, null, 2));
-}
+  lastValue = null;
+  fs.writeFileSync(translationChangesPath, JSON.stringify(changes, null, 2));
+};
 
 const addChange = (change: TranslationChange) => {
-    const existent = getOriginalTranslation(change.path);
-    const allChanges = get();
+  const existent = getOriginalTranslation(change.path);
+  const allChanges = get();
 
-    if (!existent) {
-        const alreadyRegistered = allChanges.find(registered => registered.path === change.path);
+  if (!existent) {
+    const alreadyRegistered = allChanges.find(
+      (registered) => registered.path === change.path
+    );
 
-        if (alreadyRegistered) {
-            return;
-        }
+    if (alreadyRegistered) {
+      save(
+        allChanges.map((registeredChange) => {
+          if (registeredChange.path !== change.path) return registeredChange;
 
-        save([
-            ...allChanges,
-            {
-                path: change.path,
-                operation: 'create',
-                entries: change.entries.map(entry => ({
-                    status: 'idle',
-                    language: getLanguageByKey(entry.language),
-                    value: entry.value
-                }))
-            }
-        ])
-
-        return;
-    }
-
-    const updated: Translation = {
-        operation: 'edit',
-        path: change.path,
-        entries: change.entries.map(entry => {
-            const originalValue = getOriginalEntry(existent.path, entry.language)?.value;
-
-            return {
-                language: getLanguageByKey(entry.language),
-                value: entry.value,
-                status: entry.value !== originalValue ? 'edited' : 'idle'
-            } as TranslationEntry
+          return {
+            id: change.path,
+            path: change.path,
+            operation: "create",
+            entries: change.entries.map((entry) => ({
+              id: `${change.path}-${entry.language}`,
+              status: "idle",
+              language: getLanguageByKey(entry.language),
+              originalValue: entry.value,
+              value: entry.value,
+            })),
+          };
         })
-    };
-
-    const hasChanges = updated.entries.some(entry => entry.status);
-
-    if (!hasChanges) {
-        save(allChanges.filter(existentChange => existentChange.path !== change.path))
-        return;
+      );
+      return;
     }
 
-    save(allChanges.map(existentChange => {
-        if (existentChange.path === change.path) return updated;
+    save([
+      ...allChanges,
+      {
+        id: change.path,
+        path: change.path,
+        operation: "create",
+        entries: change.entries.map((entry) => ({
+          id: `${change.path}-${entry.language}`,
+          status: "idle",
+          language: getLanguageByKey(entry.language),
+          originalValue: entry.value,
+          value: entry.value,
+        })),
+      },
+    ]);
 
-        return existentChange;
-    }))
+    return;
+  }
 
-    if (!allChanges.find(existentChange => existentChange.path === change.path))
-        save([...allChanges, updated]);
-}
+  const updated: Translation = {
+    operation: "edit",
+    id: change.path,
+    path: change.path,
+    entries: change.entries.map((entry): TranslationEntry => {
+      const originalEntry = existent.entries.find(existentEntry => existentEntry.language.key === entry.language)!;
+
+      return {
+        id: `${change.path}-${entry.language}`,
+        language: getLanguageByKey(entry.language),
+        value: entry.value,
+        originalValue: originalEntry.value,
+        status: entry.value !== originalEntry.value ? "edited" : "idle",
+      };
+    }),
+  };
+
+  const hasChanges = updated.entries.some((entry) => entry.status);
+
+  if (!hasChanges) {
+    save(
+      allChanges.filter((existentChange) => existentChange.path !== change.path)
+    );
+    return;
+  }
+
+  save(
+    allChanges.map((existentChange) => {
+      if (existentChange.path === change.path) return updated;
+
+      return existentChange;
+    })
+  );
+
+  if (!allChanges.find((existentChange) => existentChange.path === change.path))
+    save([...allChanges, updated]);
+};
 
 const revertEntryChange = (path: string, language: string) => {
-    let allChanges = get();
+  let allChanges = get();
 
-    allChanges = allChanges.map(change => {
-        if (change.path !== path) return change;
+  allChanges = allChanges.map((change) => {
+    if (change.path !== path) return change;
+
+    return {
+      ...change,
+      entries: change.entries.map((entry) => {
+        if (entry.language.key !== language) return entry;
 
         return {
-            ...change,
-            entries: change.entries.map(entry => {
-                if (entry.language.key !== language) return entry;
-
-                return getOriginalEntry(path, language)!;
-            })
+            ...entry,
+            status: 'idle',
+            value: entry.originalValue
         }
-    });
+      }),
+    };
+  });
 
-    allChanges = allChanges.filter(change => {
-        if (change.operation !== "none" && change.operation !== "edit") return true;
+  allChanges = allChanges.filter((change) => {
+    if (change.operation !== "none" && change.operation !== "edit") return true;
 
-        return change.entries.some(entry => entry.status === "edited");
-    });
+    return change.entries.some((entry) => entry.status === "edited");
+  });
 
-    save(allChanges);
+  save(allChanges);
 };
 
 const revertTranslationChange = (path: string) => {
-    const allChanges = get();
+  const allChanges = get();
 
-    save(allChanges.filter(change => change.path !== path));
+  save(allChanges.filter((change) => change.path !== path));
 };
 
 const registerRemoveChange = (path: string) => {
-    const allChanges = get();
+  const allChanges = get();
 
-    const existent = allChanges.find(change => change.path === path);
+  const existent = allChanges.find((change) => change.path === path);
 
-    if (!existent) {
-        const originalTranslation = getOriginalTranslation(path);
+  if (!existent) {
+    const originalTranslation = getOriginalTranslation(path);
 
-        if (!originalTranslation)
-            throw new Error(`Translation with path ${path} not found`);
+    if (!originalTranslation)
+      throw new Error(`Translation with path ${path} not found`);
 
-        save([
-            ...allChanges,
-            {
-                ...originalTranslation,
-                operation: 'delete'
-            }]
-        );
+    save([
+      ...allChanges,
+      {
+        ...originalTranslation,
+        operation: "delete",
+      },
+    ]);
 
-        return;
-    }
+    return;
+  }
 
-    if (existent.operation === 'create') {
-        revertTranslationChange(path);
-        return;
-    }
+  if (existent.operation === "create") {
+    revertTranslationChange(path);
+    return;
+  }
 
-    save(allChanges.map(change => {
-        if (change.path !== path) return change;
+  save(
+    allChanges.map((change) => {
+      if (change.path !== path) return change;
 
-        return {
-            ...change,
-            operation: 'delete',
-            entries: change.entries.map(entry => ({
-                ...entry,
-                status: 'idle'
-            }))
-        }
-    }))
+      return {
+        ...change,
+        operation: "delete",
+        entries: change.entries.map((entry) => ({
+          ...entry,
+          status: "idle",
+        })),
+      };
+    })
+  );
 };
 
 const discardAllChanges = () => {
-    save([]);
+  save([]);
 };
 
 const saveAll = () => {
-    const changes = get();
+  const changes = get();
 
-    const files = getTranslations();
+  const files = getTranslations();
 
-    const grouped = groupByLanguage(changes);
+  const grouped = groupByLanguage(changes);
 
-    grouped.forEach(change => {
-        const obj = files[change.language];
+  grouped.forEach((change) => {
+    const obj = files[change.language];
 
-        change.values.forEach(value => {
-            if (value.operation === "create" || value.operation === "edit")
-                updateOrCreateTranslation(obj, {
-                    path: value.path,
-                    value: value.entry.value
-                });
-
-            if (value.operation === "delete")
-                removePathFromObject(obj, value.path);
+    change.values.forEach((value) => {
+      if (value.operation === "create" || value.operation === "edit")
+        updateOrCreateTranslation(obj, {
+          path: value.path,
+          value: value.entry.value,
         });
 
-        saveTranslations(change.language, obj);
+      if (value.operation === "delete") removePathFromObject(obj, value.path);
     });
 
-    discardAllChanges();
+    saveTranslations(change.language, obj);
+  });
+
+  discardAllChanges();
 };
 
-
 export const translationChangesService = {
-    addChange,
-    revertEntryChange,
-    revertTranslationChange,
-    registerRemoveChange,
-    discardAllChanges,
-    saveAll,
-    get
-}
+  addChange,
+  revertEntryChange,
+  revertTranslationChange,
+  registerRemoveChange,
+  discardAllChanges,
+  saveAll,
+  get,
+};

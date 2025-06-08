@@ -1,0 +1,21 @@
+:host {
+  @apply block rounded-md mb-2 border-gray-500 transition scroll-smooth w-full;
+
+  textarea {
+    @apply outline-none border-gray-400 w-full border-2 rounded-md p-2;
+
+    &:disabled {
+      @apply opacity-40 grayscale;
+    }
+  }
+
+  &:focus-within {
+    label {
+      @apply text-blue-500 transition;
+    }
+
+    textarea {
+      @apply transition border-blue-500;
+    }
+  }
+}

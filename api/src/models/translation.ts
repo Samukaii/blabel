@@ -1,7 +1,9 @@
 import { TranslationEntry } from "./translation-entry";
+import { TranslationOperation } from "./translation-operation";
 
 export interface Translation {
+    id: string;
     path: string;
-    operation: 'none' | 'edit' | 'create' | 'delete';
+    operation: TranslationOperation;
     entries: TranslationEntry[];
 }

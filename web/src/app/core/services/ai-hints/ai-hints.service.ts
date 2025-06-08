@@ -9,10 +9,7 @@ import { environment } from '../../../environments/environment';
 export class AiHintsService {
   private http = inject(HttpClient);
 
-  fillWithAi(entries: any[], additionalContext: string) {
-    return this.http.post(`${environment.api}/ai_hints/fill_empty_languages`, {
-        entries,
-        additionalContext
-    })
+  fillWithAi(value: Record<string, any>) {
+    return this.http.post(`${environment.api}/ai_hints/fill_empty_languages`, value)
   }
 }

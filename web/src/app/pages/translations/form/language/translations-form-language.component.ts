@@ -2,12 +2,13 @@ import { Component, inject, input, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormRecord, ReactiveFormsModule, Validators } from "@angular/forms";
 import { TranslationEntry } from "../../../../shared/models/translation-entry";
 import { TranslationLanguage } from "../../../../shared/models/translation-language";
+import { TextareaComponent } from "../../../../shared/components/shared/textarea/textarea.component";
 
 @Component({
     selector: "app-translations-form-language",
     templateUrl: "./translations-form-language.component.html",
     styleUrl: "./translations-form-language.component.scss",
-    imports: [ReactiveFormsModule]
+    imports: [ReactiveFormsModule, TextareaComponent]
 })
 export class TranslationsFormLanguageComponent implements OnInit {
     entry = input<TranslationEntry>();
@@ -16,7 +17,7 @@ export class TranslationsFormLanguageComponent implements OnInit {
 
     private fb = inject(FormBuilder);
 
-    control = this.fb.control("", Validators.required); 
+    protected control = this.fb.nonNullable.control("", Validators.required); 
 
     ngOnInit() {
         const form = this.form();

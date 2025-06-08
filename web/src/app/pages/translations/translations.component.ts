@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { debounceTime } from 'rxjs';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { NoResults } from '../../shared/models/no-results';
@@ -9,9 +9,10 @@ import { Translation } from '../../shared/models/translation';
 import { TranslationLanguage } from '../../shared/models/translation-language';
 import { TranslationsFormComponent } from './form/translations-form.component';
 import { TranslationsTableComponent } from './table/translations-table.component';
-import { TranslationsSaveService } from './translations-save.service';
 import { TranslationsService } from './translations.service';
-import { debounceTime } from 'rxjs';
+import { TranslationsReviewChangesComponent } from './review-changes/translations-review-changes.component';
+import { ButtonComponent } from "../../shared/components/shared/button/button.component";
+import { NavbarPlaceComponent } from "../../core/components/navbar/place/navbar-place.component";
 
 @Component({
   selector: 'app--translations',
@@ -21,11 +22,12 @@ import { debounceTime } from 'rxjs';
     ReactiveFormsModule,
     TranslationsTableComponent,
     IconComponent,
-  ],
+    ButtonComponent,
+    NavbarPlaceComponent
+],
 })
 export class TranslationsComponent {
   private service = inject(TranslationsService);
-  protected saveService = inject(TranslationsSaveService);
   private dialog = inject(DialogService);
 
   searchControl = new FormControl('', { nonNullable: true });
@@ -85,6 +87,18 @@ export class TranslationsComponent {
       });
   }
 
+  reviewChanges() {
+    this.dialog.open({
+       component: TranslationsReviewChangesComponent,
+       data: {
+        confirm: () => {
+          this.dialog.closeAll();
+          this.saveAll();
+        }
+       }
+    })
+  }
+
   saveAll() {
     this.service.saveAll().subscribe(() => {
       this.response.reload();
@@ -103,6 +117,7 @@ export class TranslationsComponent {
       data: {
         title: 'Editar tradução',
         confirmButtonName: "Salvar",
+        disablePath: true,
         languages: this.response.value().languages,
         selectedLanguage: $event.language,
         translation: $event.translation,

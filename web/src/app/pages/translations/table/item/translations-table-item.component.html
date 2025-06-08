@@ -1,15 +1,17 @@
 <p [class.font-semibold]="entry().status === 'edited'" class="w-full">
   {{ entry().value }}
 </p>
-@if (entry().status === 'edited') {
-<app-icon
-  class="cursor-pointer text-yellow-400 rounded-full p-2 hover:text-yellow-900 transition"
-  (click)="reset.emit()"
-  name="arrow-uturn-left"
-/>
+@if (entry().status === "edited") {
+  <app-icon
+    class="cursor-pointer text-yellow-400 rounded-full p-2 hover:text-yellow-900 transition"
+    (click)="reset.emit()"
+    name="arrow-uturn-left"
+  />
 }
-<app-icon
-  class="cursor-pointer text-gray-800 rounded-full p-2 hover:text-gray-400 transition"
-  name="pencil-square"
-  (click)="edit.emit()"
-/>
+@if (translation().operation !== "delete") {
+  <app-icon
+    class="cursor-pointer text-gray-800 rounded-full p-2 hover:text-gray-400 transition"
+    name="pencil-square"
+    (click)="edit.emit()"
+  />
+}

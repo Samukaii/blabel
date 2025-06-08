@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/', translationsController.getAll);
 router.post('/changes', translationsController.registerChange);
+router.get('/changes', translationsController.getAllChanges);
 router.post('/:path/changes/deletion', translationsController.registerRemoveChange);
 router.post('/changes/save', translationsController.saveAll);
 
