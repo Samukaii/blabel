@@ -1,8 +1,12 @@
 import fs from "fs";
+import {applicationConfigService} from "../core/services/application-config/application-config.service";
 
 export const saveTranslations = (language: string, object: Record<string, any>) => {
-  const rootDir = 'C:\\ambev\\splan\\frontend\\projects\\cosmic-ui\\src\\assets\\i18n';
-  const filePath = `${rootDir}\\${language}.json`;
+  const registeredLanguages = applicationConfigService.getLanguages();
+  const translationFile = registeredLanguages.find(registeredLanguage => registeredLanguage.key === language);
 
-  fs.writeFileSync(filePath, JSON.stringify(object, null, 2));
+  if(!translationFile)
+    throw new Error(`Language "${language}" not found.`);
+
+  fs.writeFileSync(translationFile.path, JSON.stringify(object, null, 2));
 };

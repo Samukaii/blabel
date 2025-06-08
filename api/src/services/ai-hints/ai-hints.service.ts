@@ -1,6 +1,6 @@
-import { AvailableLanguage, AvailableLanguageKey, availableLanguages } from '../../models/available-languages';
-import { openAiService } from '../../core/services/openai/openai.service';
-import { z } from "zod";
+import {AvailableLanguage, AvailableLanguageKey, availableLanguages} from '../../models/available-languages';
+import {openAiService} from '../../core/services/openai/openai.service';
+import {z} from "zod";
 
 const getLanguagesText = (languages: AvailableLanguage[]) => {
     return languages.map(language => `- ${language.label} (chave: ${language.key})`).join('\n');
@@ -50,19 +50,17 @@ const translate = async (text: string, languageKeys: AvailableLanguageKey[], add
 
     const languagesToTranslate = availableLanguages.filter(language => languageKeys.includes(language.key));
 
-    const result = openAiService.structuredOutput([
+    return openAiService.structuredOutput([
         {
             role: "system",
             content: systemPrompt(
-                text,
-                getLanguagesText(languagesToTranslate),
-                getTranslationExample(languagesToTranslate),
-                additionalContext
+                    text,
+                    getLanguagesText(languagesToTranslate),
+                    getTranslationExample(languagesToTranslate),
+                    additionalContext
             )
         }
     ], schema);
-
-    return result;
 }
 
 export const aiHintsService = {
