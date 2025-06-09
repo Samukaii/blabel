@@ -1,5 +1,5 @@
 import express from 'express';
-import { aiHintsController } from '../controllers/translations/ai-hints.controller';
+import { aiHintsController } from '../controllers/ai-hints/ai-hints.controller';
 
 const router = express.Router();
 

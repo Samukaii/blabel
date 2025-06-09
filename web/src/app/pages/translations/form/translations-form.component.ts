@@ -1,44 +1,29 @@
-import {
-  Component,
-  computed,
-  DOCUMENT,
-  inject,
-  input,
-  OnInit,
-  output,
-  signal,
-} from '@angular/core';
+import { Component, computed, DOCUMENT, inject, input, OnInit, output, signal, } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { AiHintsService } from '../../../core/services/ai-hints/ai-hints.service';
-import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { Translation } from '../../../shared/models/translation';
 import { TranslationChange } from '../../../shared/models/translation-change';
 import { TranslationLanguage } from '../../../shared/models/translation-language';
 import { CallPipe } from '../../../shared/pipes/call.pipe';
 import { TranslationsFormLanguageComponent } from './language/translations-form-language.component';
-import { InputComponent } from "../../../shared/components/shared/input/input.component";
-import { TextareaComponent } from "../../../shared/components/shared/textarea/textarea.component";
-import { ButtonComponent } from "../../../shared/components/shared/button/button.component";
+import { InputComponent } from "../../../shared/components/input/input.component";
+import { TextareaComponent } from "../../../shared/components/textarea/textarea.component";
+import { ButtonComponent } from "../../../shared/components/button/button.component";
 
 @Component({
   selector: 'app-translations--form',
   templateUrl: './translations-form.component.html',
   styleUrl: './translations-form.component.scss',
-  imports: [
-    ReactiveFormsModule,
-    TranslationsFormLanguageComponent,
-    CallPipe,
-    IconComponent,
-    InputComponent,
-    TextareaComponent,
-    ButtonComponent
-],
+	imports: [
+		ReactiveFormsModule,
+		TranslationsFormLanguageComponent,
+		CallPipe,
+		InputComponent,
+		TextareaComponent,
+		ButtonComponent
+	],
 })
 export class TranslationsFormComponent implements OnInit {
   title = input.required<string>();

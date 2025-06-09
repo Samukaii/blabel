@@ -1,0 +1,25 @@
+:host {
+	@apply h-full block;
+}
+
+.side-menu {
+	width: 0;
+	transition: .3s;
+	@apply z-10 overflow-hidden h-full flex-shrink-0;
+
+	&.overlay {
+		@apply absolute;
+	}
+
+	&.show {
+		width: 250px;
+	}
+}
+
+.backdrop {
+	@apply absolute transition pointer-events-none w-full h-full opacity-0 bg-black;
+
+	&.show {
+		@apply pointer-events-auto opacity-50;
+	}
+}

@@ -3,7 +3,6 @@ import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
-import { IconComponent } from '../../shared/components/icon/icon.component';
 import { NoResults } from '../../shared/models/no-results';
 import { Translation } from '../../shared/models/translation';
 import { TranslationLanguage } from '../../shared/models/translation-language';
@@ -11,20 +10,17 @@ import { TranslationsFormComponent } from './form/translations-form.component';
 import { TranslationsTableComponent } from './table/translations-table.component';
 import { TranslationsService } from './translations.service';
 import { TranslationsReviewChangesComponent } from './review-changes/translations-review-changes.component';
-import { ButtonComponent } from "../../shared/components/shared/button/button.component";
-import { NavbarPlaceComponent } from "../../core/components/navbar/place/navbar-place.component";
+import { ButtonComponent } from "../../shared/components/button/button.component";
 
 @Component({
   selector: 'app--translations',
   templateUrl: './translations.component.html',
   styleUrl: './translations.component.scss',
-  imports: [
-    ReactiveFormsModule,
-    TranslationsTableComponent,
-    IconComponent,
-    ButtonComponent,
-    NavbarPlaceComponent
-],
+	imports: [
+		ReactiveFormsModule,
+		TranslationsTableComponent,
+		ButtonComponent
+	],
 })
 export class TranslationsComponent {
   private service = inject(TranslationsService);

@@ -1,0 +1,9 @@
+<app-button
+	(click)="create()"
+	text="Adicionar"
+/>
+
+<app-table
+	[data]="response.value().results"
+	[columnsFn]="columnsFn"
+/>

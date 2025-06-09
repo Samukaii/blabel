@@ -1,14 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from '@angular/core';
-import { IconComponent } from '../../icon/icon.component';
-import { IconName } from '../../../models/icon-name';
-
-type ButtonTheme = 'raised' | 'stroked';
-type AppColor = 'red' | 'primary' | 'yellow';
+import { ChangeDetectionStrategy, Component, input, } from '@angular/core';
+import { IconComponent } from '../icon/icon.component';
+import { IconName } from '../../models/icon-name';
+import { AppColor } from '../../models/app-color';
+import { ButtonTheme } from './models/button-theme';
 
 @Component({
   selector: 'app-button',

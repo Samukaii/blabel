@@ -1,9 +1,10 @@
 <div class="app-container">
-    <div>
-        <app-navbar />
-    </div>
-
-    <div class="flex-1 overflow-auto">
-        <router-outlet />
-    </div>
+	<app-side-menu>
+		<div>
+			<app-navbar/>
+		</div>
+		<div class="flex-1 overflow-auto">
+			<router-outlet/>
+		</div>
+	</app-side-menu>
 </div>

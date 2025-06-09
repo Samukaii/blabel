@@ -1,0 +1,13 @@
+{
+  "name": "i18n-translator",
+  "version": "1.0.0",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "electron:build": "tsc -p tsconfig.electron.json",
+    "electron:dev": "tsc -p tsconfig.electron.json && electron ./dist-electron/main.js"
+  },
+  "devDependencies": {
+    "electron": "^28.2.3",
+    "typescript": "^5.4.3"
+  }
+}

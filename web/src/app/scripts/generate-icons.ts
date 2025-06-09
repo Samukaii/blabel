@@ -7,7 +7,7 @@ const getFileNameWithoutExt = (rawPath: string): string => {
 };
 
 const kebabToCamel = (input: string) => {
-    return input.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+	return input.replace(/-([a-zA-Z0-9])/g, (_, char) => char.toUpperCase());
 };
 
 const generateIconAsConst = (constName: string, content: string) => {

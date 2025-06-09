@@ -4,6 +4,7 @@ import { translationsRoute } from './routes/translations-route';
 import dotenv from 'dotenv';
 import { aiHintsRoute } from './routes/ai-hints-route';
 import { applicationLanguagesRoute } from './routes/application-languages-route';
+import { enumerationsRoute } from './routes/enumerations-route';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/translations', translationsRoute)
 app.use('/ai_hints', aiHintsRoute)
 app.use('/application_config', applicationLanguagesRoute)
+app.use('/enumerations', enumerationsRoute)
 
 
 app.listen(port, () => {

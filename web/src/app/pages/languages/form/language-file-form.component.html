@@ -1,0 +1,27 @@
+<h2 class="text-xl w-full text-center font-semibold mb-4">
+	Adicionar idioma
+</h2>
+<div class="flex-1 overflow-y-auto overflow-x-hidden">
+	<app-autocomplete
+		label="Idioma"
+		placeholder="Selecione aqui o idioma"
+		[control]="form.controls.key"
+		[loading]="availableLanguages.isLoading()"
+		[noResults]="noResults"
+		[options]="availableLanguages.value()"
+		(search)="search.set($event)"
+	/>
+
+	<app-file-selector/>
+
+	{{form.value | json}}
+</div>
+
+<div class="w-full flex justify-end items-center pt-2">
+	<app-button
+		[disabled]="form.invalid"
+		(click)="submit()"
+		theme="raised"
+		text="Adicionar"
+	/>
+</div>

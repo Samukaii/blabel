@@ -1,5 +1,5 @@
 import express from 'express';
-import { applicationLanguagesController } from '../controllers/translations/application-languages.controller';
+import { applicationLanguagesController } from '../controllers/application-languages/application-languages.controller';
 
 const router = express.Router();
 

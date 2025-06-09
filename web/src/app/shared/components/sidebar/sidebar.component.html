@@ -1,0 +1,17 @@
+<div class="relative h-full flex">
+	<div
+		[class.show]="opened()"
+		[class.overlay]="mode() === 'overlay'"
+		class="side-menu">
+		<ng-content select="[side-content]"/>
+	</div>
+	<div class="relative h-full w-full">
+		<div
+			class="backdrop"
+			[class.show]="canShowOverlay()"
+			(click)="backdropClick.emit()"
+		>
+		</div>
+		<ng-content select="[side-main]"/>
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<app-sidebar
+	mode="push"
+	[opened]="service.opened()"
+	(backdropClick)="service.close()">
+	<div side-main>
+		<ng-content/>
+	</div>
+	<div class="bg-gray-700 h-full"
+		 side-content>
+		<div class="flex flex-col p-3 gap-4">
+			<!--			<div class="flex justify-end">-->
+			<!--				<app-icon (click)="service.close()"-->
+			<!--						  name="x-mark"-->
+			<!--						  iconClasses="size-6 text-white cursor-pointer"/>-->
+			<!--			</div>-->
+			<div class="flex flex-col gap-2">
+				@for (group of groups; track group.name) {
+					@if (group.name) {
+						<h2 class="text-gray-400">{{ group.name }}</h2>
+					}
+					@for (menu of group.items; track menu.path) {
+						<div
+							[routerLink]="menu.path"
+							class="w-full bg-gray-600  flex gap-2 text-white rounded-md cursor-pointer transition hover:bg-gray-500 p-2"
+							routerLinkActive="!bg-gray-100 !bg-opacity-40"
+						>
+							<app-icon [name]="menu.icon"/>
+							<p>
+								{{ menu.name }}
+							</p>
+						</div>
+					}
+				}
+			</div>
+		</div>
+	</div>
+</app-sidebar>
