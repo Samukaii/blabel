@@ -1,4 +1,4 @@
-<button [disabled]="disabled() || loading()" [class]="`${theme()} ${color()}`">
+<button [disabled]="disabled() || loading()" [class]="theme() + ' ' + color()">
   @if (loading()) {
     <div class="spinner"></div>
     <p>{{ loadingText() || text() }}</p>
