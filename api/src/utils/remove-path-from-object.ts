@@ -1,15 +1,15 @@
 export const removePathFromObject = (obj: Record<string, any>, path: string) => {
-    const keys = path.split('.');
-    let current = obj;
+	const pathKeys = path.split('.');
+	let current = obj;
 
-    for (let i = 0; i < keys.length - 1; i++) {
-        const key = keys[i];
+	for (let index = 0; index < pathKeys.length - 1; index++) {
+		const key = pathKeys[index];
 
-        if (!(key in current)) return;
+		if (!(key in current)) return;
 
-        current = current[key];
-    }
+		current = current[key];
+	}
 
-    const lastKey = keys[keys.length - 1];
-    delete current[lastKey];
+	const lastKey = pathKeys[pathKeys.length - 1];
+	delete current[lastKey];
 };

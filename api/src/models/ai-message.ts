@@ -1,4 +1,4 @@
 export interface AiMessage {
-    role: 'system' | 'user';
-    content: string;
+	role: 'system' | 'user';
+	content: string;
 }

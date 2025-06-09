@@ -1,12 +1,12 @@
 import { Translation } from "../models/translation";
 
 export const applySearch = (translations: Translation[], search: string) => {
-    const searchLower = search.toLowerCase();
+	const searchLower = search.toLowerCase();
 
-    return translations.filter(({ path, entries }) => {
-        return (
-            path.toLowerCase().includes(searchLower) ||
-            entries.some(lang => lang.value?.toLowerCase().includes(searchLower))
-        );
-    });
+	return translations.filter(({path, entries}) => {
+		return (
+			path.toLowerCase().includes(searchLower) ||
+			entries.some(lang => lang.value?.toLowerCase().includes(searchLower))
+		);
+	});
 }

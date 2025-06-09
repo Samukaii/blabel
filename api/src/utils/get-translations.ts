@@ -1,18 +1,19 @@
-import fs from "fs";
 import path from "path";
-import { applicationConfigService } from "../core/services/application-config/application-config.service";
+import { jsonFileManager } from "../core/json-file-manager";
+import { applicationLanguagesService } from '../services/languages/application-languages.service';
 
-export const getTranslations = () => {
-  const files = applicationConfigService.getLanguages();
-  const translationsByLang: Record<string, Record<string, string>> = {};
+export const getTranslations = async () => {
+	const files = await applicationLanguagesService.getAll();
+	const translationsByLang: Record<string, Record<string, string>> = {};
 
-  files.forEach(file => {
-    const filePath = path.resolve(file.path);
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const parsed = JSON.parse(content);
+	const reads = files.map(async file => {
+		const filePath = path.resolve(file.path);
+		const fileManager = jsonFileManager<Record<string, string>>(filePath);
 
-    translationsByLang[file.key] = parsed;
-  });
+		translationsByLang[file.key] = await fileManager.get();
+	});
 
-  return translationsByLang;
+	await Promise.all(reads);
+
+	return translationsByLang;
 };

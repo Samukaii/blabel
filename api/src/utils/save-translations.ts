@@ -1,12 +1,12 @@
-import fs from "fs";
-import {applicationConfigService} from "../core/services/application-config/application-config.service";
+import { jsonFileManager } from '../core/json-file-manager';
+import { applicationLanguagesService } from '../services/languages/application-languages.service';
 
-export const saveTranslations = (language: string, object: Record<string, any>) => {
-  const registeredLanguages = applicationConfigService.getLanguages();
-  const translationFile = registeredLanguages.find(registeredLanguage => registeredLanguage.key === language);
+export const saveTranslations = async (language: string, object: Record<string, any>) => {
+	const registeredLanguages = await applicationLanguagesService.getAll();
+	const translationFile = registeredLanguages.find(registeredLanguage => registeredLanguage.key === language);
 
-  if(!translationFile)
-    throw new Error(`Language "${language}" not found.`);
+	if (!translationFile)
+		throw new Error(`Language "${language}" not found.`);
 
-  fs.writeFileSync(translationFile.path, JSON.stringify(object, null, 2));
+	await jsonFileManager(translationFile.path).save(object);
 };

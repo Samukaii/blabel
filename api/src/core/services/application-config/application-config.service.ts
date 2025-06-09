@@ -1,33 +1,32 @@
-import fs from 'fs';
 import { ApplicationConfig } from '../../../models/application-config';
+import { localJsonResource } from '../../local-json-resource';
 
-const applicationConfigPath = 'src/data/application-config.json';
+const resource = localJsonResource<ApplicationConfig>('src/data/application-config.json');
 
-const get = () => {
-    const file = fs.readFileSync(applicationConfigPath, { encoding: 'utf-8' });
+const exists = () => resource.exists();
 
-    return JSON.parse(file) as ApplicationConfig;
+const get = async () => {
+	const existsConfig = await exists();
+	if(!existsConfig)
+		return {
+			languageFiles: []
+		}
+
+	return {...(await resource.get())};
+};
+
+const save = async (config: ApplicationConfig) => {
+	await resource.save(config);
 }
 
-const save = (config: ApplicationConfig) => {
-    fs.writeFileSync(applicationConfigPath, JSON.stringify(config, null, 2));
+const update = async (fn: (config: ApplicationConfig) => ApplicationConfig) => {
+	await resource.update(fn);
 }
 
-const getLanguages = () => {
-    const applicationConfig = get();
-
-    return applicationConfig.languageFiles.sort((previous, current) => {
-        const previousIsMainLanguage = previous.key === applicationConfig.mainLanguage.key;
-        const currentIsMainLanguage = current.key === applicationConfig.mainLanguage.key;
-
-        if (previousIsMainLanguage && !currentIsMainLanguage) return -1;
-        if (!previousIsMainLanguage && currentIsMainLanguage) return 1;
-        return 0;
-    });
-}
 
 export const applicationConfigService = {
-    get,
-    getLanguages,
-    save
+	get,
+	exists,
+	save,
+	update
 }
