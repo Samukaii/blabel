@@ -5,7 +5,7 @@ import { AiMessage } from '../../../models/ai-message';
 
 const structuredOutput = async <T extends Record<string, any>>(messages: AiMessage[], schema: ZodObject<T>) => {
 	const response = await openAiClient().responses.parse({
-		model: 'gpt-4o-mini',
+		model: 'gpt-4.1-nano',
 		input: messages,
 		text: {
 			format: zodTextFormat(schema, 'result')

@@ -26,17 +26,12 @@ const translateEmptyLanguages: RequestHandler = async (req, res) => {
 	if (!mainLanguageValue)
 		throw new Error(`The main language ${mainLanguage.label} was not filled`);
 
-
 	const languagesToUse = entries.filter(entry => {
-
 		if (!bodyParsed.onlyEmptyFields) return entry.language !== mainLanguage.key;
-
-		console.log(entry, !entry.value && (entry.language !== mainLanguage.key));
 
 		return !entry.value && (entry.language !== mainLanguage.key);
 	});
 	const languagesToUseKeys = languagesToUse.map(entry => entry.language as AvailableLanguageKey);
-
 
 	const results = await aiHintsService.translate(mainLanguageValue, languagesToUseKeys, bodyParsed.additionalContext);
 

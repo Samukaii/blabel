@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NavbarService } from './navbar.service';
 import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { SideMenuService } from '../side-menu/side-menu.service';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
 	selector: 'app-navbar',
-	imports: [IconComponent],
+	imports: [IconComponent, NgTemplateOutlet],
 	templateUrl: './navbar.component.html',
 	styleUrl: './navbar.component.scss',
 	host: {

@@ -3,7 +3,7 @@ import { jsonFileManager } from "../core/json-file-manager";
 import { applicationLanguagesService } from '../services/languages/application-languages.service';
 
 export const getTranslations = async () => {
-	const files = await applicationLanguagesService.getAll();
+	const files = await applicationLanguagesService.getAllSortedByMain();
 	const translationsByLang: Record<string, Record<string, string>> = {};
 
 	const reads = files.map(async file => {

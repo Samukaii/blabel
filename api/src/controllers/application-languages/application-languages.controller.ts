@@ -6,7 +6,7 @@ import { applicationLanguagesService } from '../../services/languages/applicatio
 const get: RequestHandler = async (_, res) => {
 	const results = await applicationLanguagesService.getAll();
 
-	res.json({results});
+	res.json({results: results.sort((a, b) => a.label.localeCompare(b.label))});
 }
 
 const add: RequestHandler = async (req, res) => {

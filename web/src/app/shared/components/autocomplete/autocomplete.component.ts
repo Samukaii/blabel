@@ -33,6 +33,16 @@ export class AutocompleteComponent {
 
 	searchControl = new FormControl('', {nonNullable: true});
 
+	controlValue = controlValueToSignal(this.control);
+
+	updateSelectedOption = effect(() => {
+		const value = this.controlValue();
+
+		const option = this.options().find(option => option.value === value);
+
+		if(option) this.selectOption(option);
+	})
+
 	searchSignal = controlValueToSignal(this.searchControl, {
 		debounce: 250,
 		defaultToNull: true
@@ -49,6 +59,7 @@ export class AutocompleteComponent {
 
 		this.control().setValue(null);
 
+
 		untracked(() => {
 			this.search.emit(value);
 		})
@@ -60,6 +71,7 @@ export class AutocompleteComponent {
 
 	selectOption(option: AutocompleteOption) {
 		this.selectedOption.set(option);
+		this.search.emit('');
 		this.searchControl.setValue(option.label, {emitEvent: false});
 		this.control().setValue(option.value);
 		this.showOverlay.set(false);

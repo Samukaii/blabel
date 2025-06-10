@@ -1,8 +1,7 @@
-import { Component, effect, ElementRef, inject, input, output, signal } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input, output, signal } from '@angular/core';
 
-@Component({
+@Directive({
 	selector: '[appDragAndDrop]',
-	template: '',
 	host: {
 		'(dragover)': "onDragOver($event)",
 		'(dragleave)': "onDragLeave($event)",
@@ -11,7 +10,7 @@ import { Component, effect, ElementRef, inject, input, output, signal } from '@a
 })
 export class DragAndDropDirective {
 	dropped = output<File[]>();
-	dragOverClass = input('drag-over');
+	dragOverClass = input('drag-and-drop-over');
 
 	private elementRef = inject(ElementRef);
 	private isDraggingOver = signal(false);

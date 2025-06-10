@@ -1,4 +1,4 @@
-import { output } from '@angular/core';
+import { input, output } from '@angular/core';
 import { Component, viewChild, ViewContainerRef } from '@angular/core';
 
 @Component({
@@ -32,19 +32,26 @@ import { Component, viewChild, ViewContainerRef } from '@angular/core';
             border-radius: 5px;
             padding: 1rem;
             width: 100%;
-            height: 100%;
+            height: var(--height);
             max-width: 1200px;
             max-height: 90vh;
             background-color: white;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            z-index: 1;
+            z-index: 20;
         }
     `,
     standalone: true,
+	host: {
+		'[style.--height]': 'height()'
+	}
 })
 export class DialogAnchorComponent {
     backdropClick = output();
+	height = input('100%');
+	width = input('100%');
+	maxHeight = input('90vh');
+
     container = viewChild.required('container', { read: ViewContainerRef });
 }

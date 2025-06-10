@@ -2,7 +2,7 @@ import { AvailableLanguageKey, availableLanguages } from '../../models/available
 import { TranslationFile } from '../../models/translation-file';
 import { applicationConfigService } from '../../core/services/application-config/application-config.service';
 
-const getAll = async () => {
+const getAllSortedByMain = async () => {
 	const applicationConfig = await applicationConfigService.get();
 
 	return applicationConfig.languageFiles.sort((previous, current) => {
@@ -13,6 +13,12 @@ const getAll = async () => {
 		if (!previousIsMainLanguage && currentIsMainLanguage) return 1;
 		return 0;
 	});
+}
+
+const getAll = async () => {
+	const applicationConfig = await applicationConfigService.get();
+
+	return applicationConfig.languageFiles;
 }
 
 const getOne = async (key: AvailableLanguageKey) => {
@@ -37,30 +43,33 @@ const createValidLanguage = async (language: {
 	};
 }
 
-const updateMain = (languages: TranslationFile[]) => {
-	const registeredLanguages = [...languages];
-
-	const hasNoMainLanguage = registeredLanguages.some(registeredLanguage => registeredLanguage.isMain);
-
-	if (hasNoMainLanguage) registeredLanguages[0].isMain = true;
-
-	return registeredLanguages;
-}
 
 const add = async (language: { path: string; key: AvailableLanguageKey; isMain: boolean }) => {
-	let registeredLanguages = [...await getAll()];
+	let registeredLanguages = [...await getAllSortedByMain()];
 
 	const isRegistered = await getOne(language.key);
 
 	if (isRegistered)
 		throw new Error(`Language ${language.key} is already registered`);
 
-	registeredLanguages.unshift(await createValidLanguage(language));
-	const updatedLanguages = updateMain(registeredLanguages);
+	const created = await createValidLanguage(language);
+
+	const hasMainLanguage = registeredLanguages.some(registeredLanguage => registeredLanguage.isMain);
+
+	if (created.isMain)
+		registeredLanguages = registeredLanguages.map((language) => {
+			return {...language, isMain: false}
+		});
+	else if (!hasMainLanguage) registeredLanguages[0].isMain = true;
+
+	registeredLanguages = [
+		created,
+		...registeredLanguages
+	];
 
 	await applicationConfigService.update(config => ({
 		...config,
-		languageFiles: updatedLanguages
+		languageFiles: registeredLanguages
 	}));
 }
 
@@ -72,26 +81,39 @@ const remove = async (languageKey: AvailableLanguageKey) => {
 }
 
 const update = async (key: AvailableLanguageKey, language: { path?: string; isMain: boolean }) => {
-	const registeredLanguage = getOne(key);
+	const registeredLanguage = await getOne(key);
+	let registeredLanguages = await getAllSortedByMain();
 
 	if (!registeredLanguage)
 		throw new Error(`Language "${key}" is not registered`);
 
+
+	registeredLanguages = registeredLanguages.map(registeredLanguage => {
+		if (registeredLanguage.key !== key) return registeredLanguage;
+
+		return {...registeredLanguage, ...language};
+	});
+
+
+	if (language.isMain)
+		registeredLanguages = registeredLanguages.map(registeredLanguage => {
+			if (registeredLanguage.key !== key) return {...registeredLanguage, isMain: false};
+
+			return {...registeredLanguage, ...language};
+		});
+
+	const hasMainLanguage = registeredLanguages.some(registeredLanguage => registeredLanguage.isMain);
+
+	if (!hasMainLanguage) registeredLanguages[0].isMain = true;
+
 	await applicationConfigService.update(config => ({
 		...config,
-		languageFiles: config.languageFiles.map(registeredLanguage => {
-			if (registeredLanguage.key !== key) return registeredLanguage;
-
-			return {
-				...registeredLanguage,
-				...language
-			}
-		})
+		languageFiles: registeredLanguages
 	}))
 }
 
 const getMain = async () => {
-	const all = await getAll();
+	const all = await getAllSortedByMain();
 
 	const mainLanguage = all.find(language => language.isMain);
 
@@ -102,6 +124,7 @@ const getMain = async () => {
 }
 
 export const applicationLanguagesService = {
+	getAllSortedByMain,
 	getAll,
 	getOne,
 	update,

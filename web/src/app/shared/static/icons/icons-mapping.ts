@@ -9,6 +9,7 @@ import { minusCircle } from './minus-circle';
 import { pencilSquare } from './pencil-square';
 import { pencil } from './pencil';
 import { plusCircle } from './plus-circle';
+import { plus } from './plus';
 import { sparkles } from './sparkles';
 import { trash } from './trash';
 import { xMark } from './x-mark';
@@ -26,6 +27,7 @@ export const iconsMapping = {
     'pencil-square': pencilSquare,
     'pencil': pencil,
     'plus-circle': plusCircle,
+    'plus': plus,
     'sparkles': sparkles,
     'trash': trash,
     'x-mark': xMark,

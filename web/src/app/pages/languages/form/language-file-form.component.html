@@ -1,7 +1,7 @@
 <h2 class="text-xl w-full text-center font-semibold mb-4">
 	Adicionar idioma
 </h2>
-<div class="flex-1 overflow-y-auto overflow-x-hidden">
+<div class="w-full h-fit">
 	<app-autocomplete
 		label="Idioma"
 		placeholder="Selecione aqui o idioma"
@@ -11,17 +11,20 @@
 		[options]="availableLanguages.value()"
 		(search)="search.set($event)"
 	/>
-
-	<app-file-selector/>
-
-	{{form.value | json}}
+	<app-file-selector
+		label="Arquivo"
+		[multiple]="false"
+		[control]="form.controls.path"/>
+	<app-checkbox
+		class="mt-4 block"
+		label="Definir como linguagem principal"
+		[control]="form.controls.isMain"/>
 </div>
-
 <div class="w-full flex justify-end items-center pt-2">
 	<app-button
-		[disabled]="form.invalid"
+		[disabled]="!formIsValid()"
 		(click)="submit()"
 		theme="raised"
-		text="Adicionar"
+		[text]="confirmButtonName()"
 	/>
 </div>

@@ -1,19 +1,30 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
+import { join } from 'path';
+
+ipcMain.handle('open-file-dialog', async () => {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+        properties: ['openFile'],
+        filters: [{ name: 'JSON', extensions: ['json'] }],
+    });
+
+    if (canceled) return null;
+    return filePaths[0];
+});
 
 function createWindow() {
     const win = new BrowserWindow({
         width: 1280,
         height: 800,
-        x: 100, // força uma posição visível
+        x: 100,
         y: 100,
-        show: true, // garante que mostre
+        show: true,
         webPreferences: {
-            nodeIntegration: false,
-            contextIsolation: true
+            contextIsolation: true,
+            preload: join(__dirname, 'preload.js') // <-- Aqui
         }
     });
 
-    win.loadURL('http://localhost:4200'); // seu Angular rodando via `ng serve`
+    win.loadURL('http://localhost:4200');
 }
 
 app.whenReady().then(() => {

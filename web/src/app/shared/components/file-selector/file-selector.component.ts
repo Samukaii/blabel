@@ -1,33 +1,79 @@
-import { Component } from '@angular/core';
+import { Component, effect, input, signal, untracked } from '@angular/core';
 import { DragAndDropDirective } from '../../directives/drag-and-drop.directive';
+import { FormControl } from '@angular/forms';
+import { IconComponent } from '../icon/icon.component';
+import { controlValueToSignal } from '../../utils/control-value-to-signal';
+
+declare global {
+	interface Window {
+		electronAPI: {
+			openFileDialog(): Promise<string | null>;
+		};
+	}
+}
 
 @Component({
-  selector: 'app-file-selector',
+	selector: 'app-file-selector',
 	imports: [
-		DragAndDropDirective
+		DragAndDropDirective,
+		IconComponent
 	],
-  templateUrl: './file-selector.component.html',
-  styleUrl: './file-selector.component.scss'
+	templateUrl: './file-selector.component.html',
+	styleUrl: './file-selector.component.scss'
 })
 export class FileSelectorComponent {
+	control = input.required<FormControl<string>>();
+	label = input('')
+	multiple = input(true);
 
+	files = signal<string[]>([]);
 
+	controlValue = controlValueToSignal(this.control);
 
-	select() {
-		const input = document.createElement('input');
-		input.type = 'file';
-		input.accept = 'application/json';
+	updateFiles = effect(() => {
+		const value = this.controlValue();
 
-		input.click();
+		this.files.set(value ? [value] : []);
+	});
 
-		input.addEventListener('change', () => {
-			const value = input.value;
+	updateControl = effect(() => {
+		const files = this.files();
 
-			console.log(input.files, value);
+		untracked(() => {
+			const controlValue = this.controlValue() ?? null;
+			const file = files[0] ?? null;
+
+			if (controlValue === file) return;
+
+			this.control().setValue(file);
 		})
+	})
+
+	async select() {
+		const file = await window.electronAPI.openFileDialog();
+
+		if (!file) return;
+
+		if (!this.multiple()) {
+			this.files.set([file]);
+			return;
+		}
+
+		this.files.update(all => [...all, file]);
 	}
 
-	onDrop($event: File[]) {
-		console.log($event);
+	onDrop(files: File[]) {
+		const file = files[0] as unknown as { path: string };
+
+		if (!this.multiple()) {
+			this.files.set([file.path]);
+			return;
+		}
+
+		this.files.update(all => [...all, file.path]);
+	}
+
+	removeFile(file: string) {
+		this.files.update(all => all.filter(existentFile => existentFile !== file));
 	}
 }

@@ -19,7 +19,7 @@ export const loadTranslations = async () => {
 		Object.keys(langMap).forEach(key => allPaths.add(key));
 	});
 
-	const registeredLanguages = await applicationLanguagesService.getAll();
+	const registeredLanguages = await applicationLanguagesService.getAllSortedByMain();
 
 	const merged: Translation[] = [];
 

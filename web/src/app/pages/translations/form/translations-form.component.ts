@@ -124,18 +124,16 @@ export class TranslationsFormComponent implements OnInit {
   fillWithAi() {
     this.requestingAi.set(true);
 
-    console.log(this.aiHintsForm.getRawValue());
+    const value = {
+      ...this.aiHintsForm.getRawValue(),
+      entries: this.getFormValue().entries
+    }
 
-    // const value = {
-    //   ...this.aiHintsForm.getRawValue(),
-    //   entries: this.getFormValue().entries
-    // }
-
-    // this.aiService
-    //   .fillWithAi(value)
-    //   .subscribe((response: any) => {
-    //     this.form.controls.entries.patchValue(response['languages']);
-    //     this.requestingAi.set(false);
-    //   });
+    this.aiService
+      .fillWithAi(value)
+      .subscribe((response: any) => {
+        this.form.controls.entries.patchValue(response['languages']);
+        this.requestingAi.set(false);
+      });
   }
 }

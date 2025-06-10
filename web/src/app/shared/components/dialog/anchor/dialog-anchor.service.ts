@@ -1,4 +1,16 @@
-import { ApplicationRef, Binding, ComponentRef, createComponent, DOCUMENT, EnvironmentInjector, inject, Injectable, inputBinding, outputBinding, reflectComponentType, signal, ViewContainerRef } from '@angular/core';
+import {
+	ApplicationRef,
+	Binding,
+	createComponent,
+	DOCUMENT,
+	EnvironmentInjector,
+	inject,
+	Injectable,
+	inputBinding,
+	outputBinding,
+	reflectComponentType,
+	signal
+} from '@angular/core';
 import { DialogAnchorComponent } from './dialog-anchor.component';
 import { ComponentInputs } from '../../../models/component-inputs';
 import { ComponentOutputs } from '../../../models/component-outputs';
@@ -15,7 +27,7 @@ export class DialogAnchorService {
   ) {
   }
 
-  createAnchor(options?: ComponentData<DialogAnchorComponent>) {
+  createAnchor(options?: Partial<ComponentData<DialogAnchorComponent>>) {
     const componentRef = createComponent(DialogAnchorComponent, {
       environmentInjector: this.injector,
       bindings: this.getBindings(options)
@@ -29,7 +41,7 @@ export class DialogAnchorService {
     return componentRef;
   }
 
-  private getBindings(options?: ComponentData<DialogAnchorComponent>) {
+  private getBindings(options?: Partial<ComponentData<DialogAnchorComponent>>) {
     const bindings: Binding[] = [];
 
     if(!options) return bindings;

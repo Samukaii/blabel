@@ -20,7 +20,7 @@ const save = async (config: ApplicationConfig) => {
 }
 
 const update = async (fn: (config: ApplicationConfig) => ApplicationConfig) => {
-	await resource.update(fn);
+	await save(fn(await get()));
 }
 
 

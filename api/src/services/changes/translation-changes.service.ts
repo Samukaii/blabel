@@ -54,7 +54,7 @@ const addChange = async (change: TranslationChange) => {
 	const existent = resource.getTranslation(change.path);
 	const allChanges = await get();
 
-	const allLanguages = await applicationLanguagesService.getAll();
+	const allLanguages = await applicationLanguagesService.getAllSortedByMain();
 	const getLanguageByKey = (key: AvailableLanguageKey) =>
 		allLanguages.find(registered => registered.key === key);
 

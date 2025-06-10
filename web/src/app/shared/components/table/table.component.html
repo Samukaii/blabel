@@ -1,52 +1,63 @@
-<div class="overflow-x-auto">
+<div class="overflow-x-auto w-full flex-1">
 	@if (loading()) {
-		<div class="w-full min-h-[90vh] flex justify-center items-center">
-			<div class="spinner-2"></div>
+		<div class="w-full h-[70px] bg-gray-700"></div>
+		<div class="w-full min-h-[90vh] flex flex-col justify-center items-center">
+			<app-spinner/>
 		</div>
 	} @else if (data().length) {
-		<table class="min-w-full border border-t-0 border-gray-200 text-sm">
-			<thead class="bg-gray-100 text-left">
+		<table class="w-full table-fixed border border-t-0 border-gray-200 text-sm">
+			<thead class="bg-gray-700 text-left">
 			<tr>
 				@for (header of headers(); track header.position) {
-					<th class="px-4 py-2 border-b font-bold text-gray-800">
+					<th class="px-4 py-2 border-b text-white font-medium ">
 						<p>
 							{{ header.name }}
 						</p>
 					</th>
 				}
-				<th class="px-4 py-2 border-b font-bold text-gray-800 w-32"></th>
+				<th class="px-4 py-2 border-b font-bold text-gray-800 w-32">
+					<div class="w-full flex justify-end">
+						<app-icon
+							(click)="createAction.emit()"
+							name="plus"
+							iconClasses="text-white size-8"
+							class="bg-yellow-500 transition hover:scale-110 hover:rotate-90 cursor-pointer drop-shadow-none hover:bg-yellow-400 shadow-xl z-20 w-fit h-fit block rounded-full p-2"
+						/>
+					</div>
+				</th>
 			</tr>
 			</thead>
 			<tbody>
 				@for (item of columns(); track item) {
 					<tr
-						class="hover:bg-gray-50"
+						[class]="'hover:bg-gray-50 ' + (item.item | call: classesFn())"
 					>
-						@for (column of item; track column.position) {
-							<td class="px-4 py-2 border-b text-gray-800">
-								{{ column.value }}
+						@for (column of item.columns; track column.position) {
+							<td class="px-4 py-2 break-words border-b text-gray-800">
+								@if ('component' in column) {
+									<app-custom-cell-renderer
+										[column]="column"
+									/>
+								} @else {
+									<div [class]="(column.classes ?? []) | toClass">
+										{{ column.value }}
+									</div>
+								}
 							</td>
 						}
-						<!--						<td class="px-4 py-2 border-b text-gray-800 whitespace-nowrap">-->
-						<!--							<div class="flex justify-end">-->
-						<!--								@if (-->
-						<!--									translation.operation === "delete" ||-->
-						<!--									translation.operation === "create"-->
-						<!--									) {-->
-						<!--									<app-icon-->
-						<!--										class="cursor-pointer block h-fit text-gray-900 rounded-full p-2 w-fit hover:text-gray-500 transition"-->
-						<!--										(click)="revertTranslation.emit(translation.path)"-->
-						<!--										name="arrow-turn-left"-->
-						<!--									/>-->
-						<!--								} @else {-->
-						<!--									<app-icon-->
-						<!--										class="cursor-pointer block h-fit text-red-400 rounded-full p-2 hover:text-red-900 transition"-->
-						<!--										name="minus-circle"-->
-						<!--										(click)="remove.emit(translation.path)"-->
-						<!--									/>-->
-						<!--								}-->
-						<!--							</div>-->
-						<!--						</td>-->
+						<td class="px-4 py-2 border-b text-gray-800 whitespace-nowrap">
+							<div class="flex justify-end">
+								@for (action of actions()[$index]; track action.name) {
+									@if (action.condition) {
+										<app-icon
+											[class]="'cursor-pointer hover:scale-125 transition ' + ((action.classes ?? []) | toClass)"
+											(click)="action.click()"
+											[name]="action.icon"
+										/>
+									}
+								}
+							</div>
+						</td>
 					</tr>
 				}
 			</tbody>

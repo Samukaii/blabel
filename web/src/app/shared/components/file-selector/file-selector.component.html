@@ -1,8 +1,32 @@
+<div class="flex gap-2 items-center">
+	<label class="text-gray-800 font-medium text-sm mb-1">{{ label() }}</label>
+</div>
+
 <div
 	appDragAndDrop
 	(dropped)="onDrop($event)"
-	(click)="select()" class="border-2 cursor-pointer min-h-32 border-gray-400 p-4 w-full flex items-center justify-center rounded-md">
-	<p class="w-fit font-medium text-lg">
-		Clique para selecionar ou arraste um arquivo para cá
-	</p>
+	class="border-2  h-fit border-gray-400 p-2 w-full flex items-center justify-start rounded-md">
+	@if (files().length) {
+		<div class="flex gap-4 justify-between w-full items-center">
+			<div class="flex flex-wrap gap-4">
+				@for (file of files(); track file) {
+					<div class="rounded-full bg-gray-200 p-2 flex gap-2 items-center drop-shadow shadow-md text-sm font-medium">
+						{{ file }}
+						<app-icon (click)="removeFile(file)"
+								  name="x-mark"
+								  class="hover:bg-gray-400 transition hover:text-white p-1 bg-gray-100 text-white rounded-full"
+								  iconClasses="cursor-pointer block hover:text-white text-black size-4"/>
+					</div>
+				}
+			</div>
+			<app-icon (click)="select()"
+					  name="pencil-square"
+					  iconClasses="cursor-pointer block text-black size-6"/>
+		</div>
+	} @else {
+		<p class="w-full h-full font-medium text-lg cursor-pointer"
+		   (click)="select()">
+			Clique para selecionar ou arraste um arquivo para cá
+		</p>
+	}
 </div>

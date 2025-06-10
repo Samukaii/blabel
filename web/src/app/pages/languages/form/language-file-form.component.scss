@@ -1,3 +1,7 @@
 :host {
 	@apply flex h-full flex-col;
 }
+
+.drag-and-drop-over {
+	@apply bg-red-500;
+}

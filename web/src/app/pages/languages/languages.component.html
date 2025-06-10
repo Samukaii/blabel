@@ -1,9 +1,6 @@
-<app-button
-	(click)="create()"
-	text="Adicionar"
-/>
-
 <app-table
+	(createAction)="create()"
 	[data]="response.value().results"
+	[actionsFn]="actionsFn"
 	[columnsFn]="columnsFn"
 />

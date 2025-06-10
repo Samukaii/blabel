@@ -1,11 +1,11 @@
-<div class="relative h-full flex">
+<div class="relative h-full w-full flex">
 	<div
 		[class.show]="opened()"
 		[class.overlay]="mode() === 'overlay'"
 		class="side-menu">
 		<ng-content select="[side-content]"/>
 	</div>
-	<div class="relative h-full w-full">
+	<div class="relative overflow-auto flex-1 w-full h-full">
 		<div
 			class="backdrop"
 			[class.show]="canShowOverlay()"

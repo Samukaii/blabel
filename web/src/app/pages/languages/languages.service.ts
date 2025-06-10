@@ -34,4 +34,8 @@ export class LanguagesService {
 	create(payload: InferFormValueFn<typeof languageFileForm>) {
 		return this.http.post(this.baseUrl, {language: payload});
 	}
+
+	update(key: string, form: Partial<InferFormValueFn<typeof languageFileForm>>) {
+		return this.http.patch(`${this.baseUrl}/${key}`, {language: form});
+	}
 }

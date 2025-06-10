@@ -1,18 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TableComponent } from '../../shared/components/table/table.component';
+import { TableActionFn, TableComponent } from '../../shared/components/table/table.component';
 import { TableColumnFn } from '../../shared/components/table/models/table-column-fn';
 import { LanguagesService } from './languages.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { LanguageFile } from '../../shared/models/language-file';
-import { ButtonComponent } from '../../shared/components/button/button.component';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { LanguageFileFormComponent } from './form/language-file-form.component';
 
 @Component({
 	selector: 'app-languages',
 	imports: [
-		TableComponent,
-		ButtonComponent
+		TableComponent
 	],
 	templateUrl: './languages.component.html',
 	styleUrl: './languages.component.scss',
@@ -32,24 +30,96 @@ export class LanguagesComponent {
 			{
 				position: "label",
 				name: "Idioma",
-				value: item.label
+				value: item.label,
+				classes: [
+					'font-bold'
+				]
 			},
 			{
 				position: "path",
 				name: "Arquivo",
-				value: item.path
+				value: item.path,
+				classes: [
+					'bg-gray-100',
+					'truncate',
+					'p-2',
+					'rounded-full',
+					'w-fit',
+					'drop-shadow',
+					'shadow-md',
+					'font-medium',
+					'text-sm'
+				]
+			},
+			{
+				position: "isMain",
+				name: "Linguagem principal",
+				value: item.isMain ? "Sim" : "Não",
+				classes: item.isMain ? [
+					'bg-green-700',
+					'w-fit',
+					'min-w-16',
+					'justify-center',
+					'text-center',
+					'p-1',
+					'rounded-full',
+					'text-white',
+				] : [
+					'bg-red-500',
+					'w-fit',
+					'min-w-16',
+					'justify-center',
+					'text-center',
+					'p-1',
+					'rounded-full',
+					'text-white',
+				]
 			},
 		]
 	};
+
+	protected actionsFn: TableActionFn<LanguageFile> = item => [
+		{
+			icon: "pencil-square",
+			name: 'edit',
+			condition: true,
+			click: () => this.update(item),
+		}
+	]
+
 	protected create() {
 		this.dialog.open({
 			component: LanguageFileFormComponent,
 			data: {
+				confirmButtonName: "Adicionar",
 				confirm: form => {
 					this.service.create(form).subscribe(() => {
 						this.response.reload();
+						this.dialog.closeAll();
 					})
 				}
+			},
+			panelOptions: {
+				height: "fit-content",
+			}
+		})
+	}
+
+	protected update(item: LanguageFile) {
+		this.dialog.open({
+			component: LanguageFileFormComponent,
+			data: {
+				language: item,
+				confirmButtonName: "Salvar",
+				confirm: form => {
+					this.service.update(form.key, form).subscribe(() => {
+						this.response.reload();
+						this.dialog.closeAll();
+					})
+				}
+			},
+			panelOptions: {
+				height: "fit-content",
 			}
 		})
 	}

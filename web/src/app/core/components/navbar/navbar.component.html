@@ -1,9 +1,15 @@
 <div class="w-full bg-gray-600 flex gap-2 items-center justify-between p-4">
-	<app-icon (click)="sideMenuService.toggle()"
-			  name="bars-3"
-			  iconClasses="size-8 text-white cursor-pointer"/>
-	<img class="w-[140px]"
-		 alt="logo"
-		 src="assets/logo/logo-text-white.svg"/>
-	<div></div>
+	<div class="w-full">
+		<app-icon (click)="sideMenuService.toggle()"
+				  name="bars-3"
+				  iconClasses="size-8 text-white cursor-pointer"/>
+	</div>
+	<div class="w-full flex justify-center">
+		<img class="w-[140px]"
+			 alt="logo"
+			 src="assets/logo/logo-text-white.svg"/>
+	</div>
+	<div class="w-full">
+		<ng-container [ngTemplateOutlet]="service.templates()['right']"></ng-container>
+	</div>
 </div>

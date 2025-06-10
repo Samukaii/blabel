@@ -2,10 +2,11 @@
 	mode="push"
 	[opened]="service.opened()"
 	(backdropClick)="service.close()">
-	<div side-main>
+	<div class="w-full h-full flex flex-col"
+		 side-main>
 		<ng-content/>
 	</div>
-	<div class="bg-gray-700 h-full"
+	<div class="bg-gray-700 w-full h-full"
 		 side-content>
 		<div class="flex flex-col p-3 gap-4">
 			<!--			<div class="flex justify-end">-->
