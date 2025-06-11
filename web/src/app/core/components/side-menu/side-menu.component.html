@@ -1,5 +1,5 @@
 <app-sidebar
-	mode="push"
+	mode="overlay"
 	[opened]="service.opened()"
 	(backdropClick)="service.close()">
 	<div class="w-full h-full flex flex-col"
@@ -8,12 +8,7 @@
 	</div>
 	<div class="bg-gray-700 w-full h-full"
 		 side-content>
-		<div class="flex flex-col p-3 gap-4">
-			<!--			<div class="flex justify-end">-->
-			<!--				<app-icon (click)="service.close()"-->
-			<!--						  name="x-mark"-->
-			<!--						  iconClasses="size-6 text-white cursor-pointer"/>-->
-			<!--			</div>-->
+		<div class="flex z-20 flex-col p-3 gap-4">
 			<div class="flex flex-col gap-2">
 				@for (group of groups; track group.name) {
 					@if (group.name) {

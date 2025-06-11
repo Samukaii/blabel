@@ -1,12 +1,12 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  contentChild,
-  effect,
-  ElementRef,
-  inject,
-  TemplateRef,
-  untracked,
+	ChangeDetectionStrategy,
+	Component,
+	contentChild,
+	effect,
+	inject,
+	OnDestroy,
+	TemplateRef,
+	untracked,
 } from '@angular/core';
 import { NavbarService } from '../navbar.service';
 
@@ -17,15 +17,19 @@ import { NavbarService } from '../navbar.service';
   styleUrl: './navbar-place.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarPlaceComponent {
-  a = contentChild('right', { read: TemplateRef });
+export class NavbarPlaceComponent implements OnDestroy {
+  rightTemplateRef = contentChild('right', { read: TemplateRef });
   service = inject(NavbarService);
 
-  b = effect(() => {
-    const rightTemplate = this.a();
+  registerTemplates = effect(() => {
+    const rightTemplate = this.rightTemplateRef();
 
     untracked(() => {
       if (rightTemplate) this.service.registerTemplate('right', rightTemplate);
     });
   });
+
+  ngOnDestroy() {
+		  this.service.unregisterTemplate('right');
+  }
 }

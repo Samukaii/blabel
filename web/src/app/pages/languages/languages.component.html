@@ -1,6 +1,19 @@
+<app-navbar-place>
+	<ng-template ngSkipHydration
+				 #right>
+		<div class="w-full z-0 flex justify-end">
+			<app-icon
+				(click)="create()"
+				name="plus"
+				iconClasses="text-white size-8"
+				class="bg-yellow-500 transition hover:scale-110 hover:rotate-90 cursor-pointer drop-shadow-none hover:bg-yellow-400 shadow-xl z-0 w-fit h-fit block rounded-full p-2"
+			/>
+		</div>
+	</ng-template>
+</app-navbar-place>
 <app-table
-	(createAction)="create()"
 	[data]="response.value().results"
+	[noResults]="noResults"
 	[actionsFn]="actionsFn"
 	[columnsFn]="columnsFn"
 />

@@ -5,7 +5,7 @@
 .side-menu {
 	width: 0;
 	transition: .3s;
-	@apply z-10 overflow-hidden h-full flex-shrink-0;
+	@apply z-20 overflow-hidden h-full flex-shrink-0;
 
 	&.overlay {
 		@apply absolute;

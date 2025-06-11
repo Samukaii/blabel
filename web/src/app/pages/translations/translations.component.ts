@@ -59,7 +59,7 @@ export class TranslationsComponent {
 
 		return {
 			label: 'Nenhuma tradução registrada',
-			description: 'Vá em menu > Configurações para selecionar os arquivos',
+			description: 'Vá em "Menu > Idiomas" para adicionar novos idiomas',
 			icon: {
 				name: 'language',
 				classes: 'size-14 text-gray-500',

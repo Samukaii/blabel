@@ -5,7 +5,7 @@
 			<app-spinner/>
 		</div>
 	} @else if (data().length) {
-		<table class="w-full table-fixed border border-t-0 border-gray-200 text-sm">
+		<table class="w-full table-fixed border border-t-0 border-l-0 border-r-0 border-gray-200 text-sm">
 			<thead class="bg-gray-700 text-left">
 			<tr>
 				@for (header of headers(); track header.position) {
@@ -16,14 +16,6 @@
 					</th>
 				}
 				<th class="px-4 py-2 border-b font-bold text-gray-800 w-32">
-					<div class="w-full flex justify-end">
-						<app-icon
-							(click)="createAction.emit()"
-							name="plus"
-							iconClasses="text-white size-8"
-							class="bg-yellow-500 transition hover:scale-110 hover:rotate-90 cursor-pointer drop-shadow-none hover:bg-yellow-400 shadow-xl z-20 w-fit h-fit block rounded-full p-2"
-						/>
-					</div>
 				</th>
 			</tr>
 			</thead>

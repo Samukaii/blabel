@@ -5,9 +5,9 @@
 		class="side-menu">
 		<ng-content select="[side-content]"/>
 	</div>
-	<div class="relative overflow-auto flex-1 w-full h-full">
+	<div class="relative overflow-auto  flex-1 w-full h-full">
 		<div
-			class="backdrop"
+			class="backdrop z-10"
 			[class.show]="canShowOverlay()"
 			(click)="backdropClick.emit()"
 		>

@@ -1,2 +1,6 @@
 node_modules/
-dist-electron
+dist/
+.env
+data/
+!data/.gitkeep
+release/

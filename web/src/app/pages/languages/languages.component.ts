@@ -6,11 +6,16 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { LanguageFile } from '../../shared/models/language-file';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { LanguageFileFormComponent } from './form/language-file-form.component';
+import { IconComponent } from '../../shared/components/icon/icon.component';
+import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-place.component';
+import { NoResults } from '../../shared/models/no-results';
 
 @Component({
 	selector: 'app-languages',
 	imports: [
-		TableComponent
+		TableComponent,
+		IconComponent,
+		NavbarPlaceComponent
 	],
 	templateUrl: './languages.component.html',
 	styleUrl: './languages.component.scss',
@@ -24,6 +29,15 @@ export class LanguagesComponent {
 		defaultValue: {results: []},
 		stream: () => this.service.getAll()
 	});
+
+	protected noResults: NoResults = {
+		label: "Nenhum idioma registrado",
+		description: "Clique em '+' para adicionar um novo idioma",
+		icon: {
+			name: "globe-alt",
+			classes: 'size-14 text-gray-500',
+		}
+	}
 
 	protected columnsFn: TableColumnFn<LanguageFile> = item => {
 		return [
@@ -45,6 +59,7 @@ export class LanguagesComponent {
 					'p-2',
 					'rounded-full',
 					'w-fit',
+					'max-w-full',
 					'drop-shadow',
 					'shadow-md',
 					'font-medium',

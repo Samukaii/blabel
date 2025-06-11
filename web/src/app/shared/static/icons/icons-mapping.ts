@@ -5,7 +5,9 @@ import { cog6Tooth } from './cog-6-tooth';
 import { globeAlt } from './globe-alt';
 import { language } from './language';
 import { magnifyingGlass } from './magnifying-glass';
+import { maximize } from './maximize';
 import { minusCircle } from './minus-circle';
+import { minus } from './minus';
 import { pencilSquare } from './pencil-square';
 import { pencil } from './pencil';
 import { plusCircle } from './plus-circle';
@@ -23,7 +25,9 @@ export const iconsMapping = {
     'globe-alt': globeAlt,
     'language': language,
     'magnifying-glass': magnifyingGlass,
+    'maximize': maximize,
     'minus-circle': minusCircle,
+    'minus': minus,
     'pencil-square': pencilSquare,
     'pencil': pencil,
     'plus-circle': plusCircle,

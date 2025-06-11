@@ -4,14 +4,6 @@ import { FormControl } from '@angular/forms';
 import { IconComponent } from '../icon/icon.component';
 import { controlValueToSignal } from '../../utils/control-value-to-signal';
 
-declare global {
-	interface Window {
-		electronAPI: {
-			openFileDialog(): Promise<string | null>;
-		};
-	}
-}
-
 @Component({
 	selector: 'app-file-selector',
 	imports: [
@@ -50,7 +42,7 @@ export class FileSelectorComponent {
 	})
 
 	async select() {
-		const file = await window.electronAPI.openFileDialog();
+		const file = await window.electronAPI?.openFileDialog();
 
 		if (!file) return;
 

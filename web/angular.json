@@ -17,7 +17,8 @@
 				"build": {
 					"builder": "@angular/build:application",
 					"options": {
-						"outputPath": "dist/translator",
+						"baseHref": "./",
+						"outputPath": "dist",
 						"index": "src/index.html",
 						"browser": "src/main.ts",
 						"tsConfig": "tsconfig.app.json",
