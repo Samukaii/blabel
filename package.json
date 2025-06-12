@@ -1,7 +1,9 @@
 {
-  "name": "i18n-translator",
+  "name": "blabel",
   "version": "1.0.0",
   "main": "dist/main.js",
+  "author": "Samuel Alejandro",
+  "description": "Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.",
   "scripts": {
     "build:web": "cd web && npx ng build --configuration production",
     "build:electron": "tsc -p tsconfig.electron.json",
@@ -12,17 +14,23 @@
     "dist": "npm run build:web && npm run build:electron && npm run copy:assets && electron-builder"
   },
   "build": {
-    "appId": "com.babelt.babelt",
-    "productName": "BabelT",
+    "appId": "com.blabel.app",
+    "productName": "Blabel",
     "directories": {
       "output": "release"
     },
     "files": [
-      "dist/**/*"
+      "dist/**/*",
+      "main.js"
     ],
-    "asar": true,
     "win": {
-      "target": "nsis"
+      "icon": "assets/icons/icon.ico"
+    },
+    "mac": {
+      "icon": "assets/icons/icon.icns"
+    },
+    "linux": {
+      "icon": "assets/icons/512x512.png"
     }
   },
   "dependencies": {

@@ -51,6 +51,8 @@ function createMainWindow() {
 
     const isDev = !app.isPackaged;
 
+    console.log(join(__dirname, 'web', 'dist', 'browser', 'favicon.ico'));
+
     mainWindow = new BrowserWindow({
         width: 1280,
         height: 800,
@@ -58,6 +60,7 @@ function createMainWindow() {
         y: 100,
         titleBarStyle: isDev ? 'default' : "hidden",
         frame: isDev,
+        icon: join(__dirname, 'assets', 'logo', 'win', 'favicon.ico'),
         show: true,
         webPreferences: {
             contextIsolation: true,
