@@ -54,6 +54,7 @@ npm run dev
 
 # Compilar app para produção
 npm run build
+```
 
 > ⚠️ O ícone do app já está configurado para Windows, macOS e Linux. Sinta-se livre para substituí-lo com sua versão personalizada em /build/icons/.
 
