@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Translation } from '../../shared/models/translation';
 import { TranslationChange } from "../../shared/models/translation-change";
 import { TranslationLanguage } from '../../shared/models/translation-language';

@@ -51,16 +51,16 @@ function createMainWindow() {
 
     const isDev = !app.isPackaged;
 
-    console.log(join(__dirname, 'web', 'dist', 'browser', 'favicon.ico'));
+    const icon = join(__dirname, 'assets', 'icons', 'icon.ico');
 
     mainWindow = new BrowserWindow({
         width: 1280,
         height: 800,
         x: 100,
         y: 100,
-        titleBarStyle: isDev ? 'default' : "hidden",
-        frame: isDev,
-        icon: join(__dirname, 'assets', 'logo', 'win', 'favicon.ico'),
+        titleBarStyle: "hidden",
+        frame: false,
+        icon,
         show: true,
         webPreferences: {
             contextIsolation: true,
@@ -69,7 +69,6 @@ function createMainWindow() {
         },
     });
 
-    console.log(isDev);
     if (isDev) {
         mainWindow.loadURL('http://localhost:4200');
     } else {

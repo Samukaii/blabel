@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { LanguageFile } from '../../shared/models/language-file';
 import { InferFormValueFn } from '../../shared/models/infer-form-value-fn';
 import { languageFileForm } from './form/language-file-form';
