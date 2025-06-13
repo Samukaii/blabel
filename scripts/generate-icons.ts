@@ -40,8 +40,8 @@ const generateIconsMapping = (icons: { path: string; content: string; constName:
 }
 
 const generateIcons = () => {
-    const assetsPath = path.resolve(`public/assets/icons`);
-    const interfaceIconsPath = path.resolve(`src/app/shared/static/icons`);
+    const assetsPath = path.resolve(`assets/app-icons`);
+    const interfaceIconsPath = path.resolve(`src/web/app/shared/static/icons`);
 
     if (!fs.existsSync(interfaceIconsPath)) {
         fs.mkdirSync(interfaceIconsPath);

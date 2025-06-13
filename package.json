@@ -7,6 +7,7 @@
 	"scripts": {
 		"start:web": "ng serve",
 		"build:web": "ng build --configuration production",
+		"generate-icons": "ts-node-dev --transpile-only scripts/generate-icons.ts",
 		"build:electron": "tsc -p tsconfig.electron.json",
 		"watch:electron": "tsc -p tsconfig.electron.json --watch",
 		"start:electron": "electron .",
