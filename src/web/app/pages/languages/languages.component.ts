@@ -1,33 +1,32 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, resource } from '@angular/core';
 import { TableActionFn, TableComponent } from '../../shared/components/table/table.component';
 import { TableColumnFn } from '../../shared/components/table/models/table-column-fn';
-import { LanguagesService } from './languages.service';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { LanguageFile } from '../../shared/models/language-file';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { LanguageFileFormComponent } from './form/language-file-form.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-place.component';
 import { NoResults } from '../../shared/models/no-results';
+import { getElectron } from '../../shared/di/functions/get-electron';
+import { TranslationFile } from '@shared/models/translation-file';
 
 @Component({
 	selector: 'app-languages',
 	imports: [
 		TableComponent,
 		IconComponent,
-		NavbarPlaceComponent
+		NavbarPlaceComponent,
 	],
 	templateUrl: './languages.component.html',
 	styleUrl: './languages.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LanguagesComponent {
-	private service = inject(LanguagesService);
 	private dialog = inject(DialogService);
+	private api = getElectron().api;
 
-	protected response = rxResource({
+	protected response = resource({
 		defaultValue: {results: []},
-		stream: () => this.service.getAll()
+		loader: () => this.api.languages.get()
 	});
 
 	protected noResults: NoResults = {
@@ -39,7 +38,7 @@ export class LanguagesComponent {
 		}
 	}
 
-	protected columnsFn: TableColumnFn<LanguageFile> = item => {
+	protected columnsFn: TableColumnFn<TranslationFile> = item => {
 		return [
 			{
 				position: "label",
@@ -69,7 +68,7 @@ export class LanguagesComponent {
 			{
 				position: "isMain",
 				name: "Linguagem principal",
-				value: item.isMain ? "Sim" : "Não",
+				value: item.isMain ? "Sim":"Não",
 				classes: item.isMain ? [
 					'bg-green-700',
 					'w-fit',
@@ -79,7 +78,7 @@ export class LanguagesComponent {
 					'p-1',
 					'rounded-full',
 					'text-white',
-				] : [
+				]:[
 					'bg-red-500',
 					'w-fit',
 					'min-w-16',
@@ -93,7 +92,7 @@ export class LanguagesComponent {
 		]
 	};
 
-	protected actionsFn: TableActionFn<LanguageFile> = item => [
+	protected actionsFn: TableActionFn<TranslationFile> = item => [
 		{
 			icon: "pencil-square",
 			name: 'edit',
@@ -107,11 +106,10 @@ export class LanguagesComponent {
 			component: LanguageFileFormComponent,
 			data: {
 				confirmButtonName: "Adicionar",
-				confirm: form => {
-					this.service.create(form).subscribe(() => {
-						this.response.reload();
-						this.dialog.closeAll();
-					})
+				confirm: async (form) => {
+					await this.api.languages.add(form)
+					this.response.reload();
+					this.dialog.closeAll();
 				}
 			},
 			panelOptions: {
@@ -120,17 +118,18 @@ export class LanguagesComponent {
 		})
 	}
 
-	protected update(item: LanguageFile) {
+	protected update(item: TranslationFile) {
 		this.dialog.open({
 			component: LanguageFileFormComponent,
 			data: {
 				language: item,
 				confirmButtonName: "Salvar",
-				confirm: form => {
-					this.service.update(form.key, form).subscribe(() => {
-						this.response.reload();
-						this.dialog.closeAll();
+				confirm: async (form) => {
+					await this.api.languages.update(item.key, {
+						...form
 					})
+					this.response.reload();
+					this.dialog.closeAll();
 				}
 			},
 			panelOptions: {

@@ -1,5 +1,5 @@
-const path = require("node:path");
-const fs = require("node:fs");
+import path from "path";
+import fs from "fs";
 
 const getFileNameWithoutExt = (rawPath: string): string => {
   const normalizedPath = path.normalize(rawPath);
@@ -40,7 +40,7 @@ const generateIconsMapping = (icons: { path: string; content: string; constName:
 }
 
 const generateIcons = () => {
-    const assetsPath = path.resolve(`assets/app-icons`);
+    const assetsPath = path.resolve(`public/assets/app-icons`);
     const interfaceIconsPath = path.resolve(`src/web/app/shared/static/icons`);
 
     if (!fs.existsSync(interfaceIconsPath)) {

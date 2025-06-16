@@ -1,12 +1,13 @@
 import { Component, effect, input, output, signal, untracked } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
-import { AutocompleteOption } from '../../models/autocomplete-option';
 import { controlValueToSignal } from '../../utils/control-value-to-signal';
 import { outsideClickEffect } from '../../utils/outside-click-effect';
 import { IconComponent } from '../icon/icon.component';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { NoResults } from '../../models/no-results';
+import { MarkUsed } from '../../utils/mark-used';
+import { AutocompleteOption } from '@shared/models/autocomplete-option';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class AutocompleteComponent {
 
 	controlValue = controlValueToSignal(this.control);
 
+	@MarkUsed()
 	updateSelectedOption = effect(() => {
 		const value = this.controlValue();
 
@@ -52,6 +54,7 @@ export class AutocompleteComponent {
 
 	protected selectedOption = signal<AutocompleteOption | null>(null);
 
+	@MarkUsed()
 	protected emitSearch = effect(() => {
 		const value = this.searchSignal();
 
@@ -65,6 +68,7 @@ export class AutocompleteComponent {
 		})
 	});
 
+	@MarkUsed()
 	protected closeOverlayOnOutsideClick = outsideClickEffect(() => {
 		this.showOverlay.set(false);
 	});

@@ -8,7 +8,7 @@
 		[control]="form.controls.key"
 		[loading]="availableLanguages.isLoading()"
 		[noResults]="noResults"
-		[options]="availableLanguages.value()"
+		[options]="availableLanguages.value().results"
 		(search)="search.set($event)"
 	/>
 	<app-file-selector

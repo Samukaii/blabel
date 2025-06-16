@@ -1,14 +1,35 @@
 {
-	"extends": "./tsconfig.base.json",
 	"compilerOptions": {
-		"target": "ES2020",
-		"module": "CommonJS",
-		"outDir": "./dist/electron",
-		"rootDir": "src/electron",
-		"moduleResolution": "node",
-		"types": ["node"]
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"strict": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"noImplicitOverride": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"baseUrl": "src",
+		"paths": {
+			"@shared/*": ["shared/*"]
+		},
+		"outDir": "dist",
+		"rootDir": "src"
+	},
+	"tsc-alias": {
+		"resolveFullPaths": true,
+		"fileExtensions": {
+			"inputGlob": "{js,jsx,mjs}",
+			"outputCheck": ["js", "json", "jsx", "mjs"]
+		}
 	},
 	"include": [
-		"src/electron/**/*.ts"
+		"src/backend",
+		"src/shared"
 	]
 }

@@ -56,7 +56,7 @@ npm run dev
 npm run build
 ```
 
-> ⚠️ O ícone do app já está configurado para Windows, macOS e Linux. Sinta-se livre para substituí-lo com sua versão personalizada em /build/icons/.
+> ⚠️ O ícone do aplicativo já está configurado para Windows, macOS e Linux. Sinta-se livre para substituí-lo com sua versão personalizada em /build/icons/.
 
 ---
 
@@ -68,5 +68,5 @@ npm run build
 
 ✨ Autor
 
-Feito com carinho por @Samuka 💛
+Feito com carinho por Samuel 💛
 Logo, conceito, arquitetura e sistema de revisão por IA criados com base em experiências reais com projetos multilíngues.

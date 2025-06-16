@@ -1,13 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  output,
-} from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { Translation } from '../../../shared/models/translation';
-import { TranslationsService } from '../translations.service';
+import { ChangeDetectionStrategy, Component, output, resource, } from '@angular/core';
 import { IconComponent } from "../../../shared/components/icon/icon.component";
+import { getElectron } from '../../../shared/di/functions/get-electron';
 
 @Component({
   selector: 'app-translations-review-changes',
@@ -18,21 +11,10 @@ import { IconComponent } from "../../../shared/components/icon/icon.component";
 })
 export class TranslationsReviewChangesComponent {
   confirm = output<void>();
-  private service = inject(TranslationsService);
+  private api = getElectron().api;
 
-  changes = rxResource({
+  changes = resource({
     defaultValue: { results: [] },
-    stream: () => this.service.getChanges(),
+    loader: () => this.api.translations.getAllChanges(),
   });
-
-  getOperationLabel(change: Translation) {
-    switch (change.operation) {
-      case 'create':
-        return 'Adição';
-      case 'delete':
-        return 'Deleção';
-      default:
-        return 'Edição';
-    }
-  }
 }

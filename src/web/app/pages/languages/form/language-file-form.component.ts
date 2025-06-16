@@ -1,15 +1,14 @@
-import { Component, computed, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, OnInit, output, resource, signal } from '@angular/core';
 import { languageFileForm } from './language-file-form';
 import { InferFormValueFn } from '../../../shared/models/infer-form-value-fn';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { AutocompleteComponent } from '../../../shared/components/autocomplete/autocomplete.component';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { LanguagesService } from '../languages.service';
 import { NoResults } from '../../../shared/models/no-results';
 import { FileSelectorComponent } from '../../../shared/components/file-selector/file-selector.component';
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
-import { LanguageFile } from '../../../shared/models/language-file';
 import { FormGroup } from '@angular/forms';
+import { TranslationFile } from '@shared/models/translation-file';
+import { getElectron } from '../../../shared/di/functions/get-electron';
 
 const formStatusSignal = <Form extends FormGroup>(formGroup: Form) => {
 	const destroyRef = inject(DestroyRef);
@@ -51,20 +50,20 @@ const formIsValid = (form: FormGroup) => {
 })
 export class LanguageFileFormComponent implements OnInit {
 	confirm = output<InferFormValueFn<typeof languageFileForm>>();
-	language = input<LanguageFile>()
+	language = input<TranslationFile>()
 	confirmButtonName = input.required<string>()
 
 	protected form = languageFileForm();
-	private service = inject(LanguagesService);
+	private api = getElectron().api;
 
 	formIsValid = formIsValid(this.form);
 	search = signal('');
 
-	protected availableLanguages = rxResource({
+	protected availableLanguages = resource({
 		params: this.search,
-		defaultValue: [],
-		stream: ({params}) =>
-			this.service.getAvailableLanguages({search: params})
+		defaultValue: { results: []},
+		loader: ({params}) =>
+			this.api.languages.autocomplete(params)
 	});
 
 	protected noResults: NoResults = {

@@ -1,3 +1,5 @@
+// noinspection JSUnusedLocalSymbols
+
 import { Directive, effect, ElementRef, inject, input, output, signal } from '@angular/core';
 
 @Directive({

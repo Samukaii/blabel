@@ -1,4 +1,4 @@
-<div class="w-full bg-gray-600 flex z-0 gap-2 items-center justify-between p-1">
+<div class="w-full bg-gray-600 flex z-0 gap-2 items-center justify-between px-4 py-2">
 	<div class="w-full">
 		<app-icon (click)="sideMenuService.toggle()"
 				  name="bars-3"
@@ -7,7 +7,7 @@
 	<div class="w-full flex justify-center">
 		<img class="w-[140px]"
 			 alt="logo"
-			 src="assets/logo/logo-text-white.svg"/>
+			 src="assets/logos/logo-text-white.svg"/>
 	</div>
 	<div class="w-full">
 		<ng-container [ngTemplateOutlet]="service.templates()['right']"></ng-container>

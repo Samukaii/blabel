@@ -8,11 +8,18 @@
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
+		"rootDir": ".",
 		"experimentalDecorators": true,
 		"importHelpers": true,
 		"noImplicitOverride": true,
 		"noPropertyAccessFromIndexSignature": true,
 		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"baseUrl": "src",
+		"paths": {
+			"@shared/*": [
+				"shared/*"
+			]
+		}
 	}
 }

@@ -1,13 +1,10 @@
-import { Component, computed, inject } from '@angular/core';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, inject, resource } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { NoResults } from '../../shared/models/no-results';
-import { Translation } from '../../shared/models/translation';
-import { TranslationLanguage } from '../../shared/models/translation-language';
 import { TranslationsFormComponent } from './form/translations-form.component';
-import { TranslationsService } from './translations.service';
 import { TranslationsReviewChangesComponent } from './review-changes/translations-review-changes.component';
 import { ButtonComponent } from "../../shared/components/button/button.component";
 import { TableActionFn, TableClassesFn, TableComponent } from '../../shared/components/table/table.component';
@@ -18,6 +15,10 @@ import {
 } from '../../shared/components/table/cells/action/translations-cells-action.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-place.component';
+import { getElectron } from '../../shared/di/functions/get-electron';
+import { AvailableLanguageKey } from '@shared/models/available-languages.js';
+import { Translation } from '@shared/models/translation';
+import { TranslationLanguage } from '@shared/models/translation-language';
 
 @Component({
 	selector: 'app--translations',
@@ -28,22 +29,22 @@ import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-
 		ButtonComponent,
 		TableComponent,
 		IconComponent,
-		NavbarPlaceComponent
+		NavbarPlaceComponent,
 	],
 })
 export class TranslationsComponent {
-	private service = inject(TranslationsService);
 	private dialog = inject(DialogService);
+	private api = getElectron().api;
 
 	searchControl = new FormControl('', {nonNullable: true});
 	searchControlValue = toSignal(this.searchControl.valueChanges.pipe(debounceTime(200)), {
 		initialValue: this.searchControl.value,
 	});
 
-	protected response = rxResource({
+	protected response = resource({
 		params: this.searchControlValue,
 		defaultValue: {results: [], languages: [], changesCount: 0},
-		stream: ({params: search}) => this.service.getAll({search}),
+		loader: ({params: search}) => this.api.translations.getAll({search}),
 	});
 
 	noResults = computed<NoResults>(() => {
@@ -74,46 +75,40 @@ export class TranslationsComponent {
 				title: 'Adicionar tradução',
 				confirmButtonName: "Adicionar",
 				languages: this.response.value().languages,
-				submit: (form) => {
-					this.service.registerChange(form).subscribe(() => {
-						this.dialog.closeAll();
-						this.response.reload();
-					});
+				submit: async (form) => {
+					await this.api.translations.registerChange(form);
+					this.dialog.closeAll();
+					this.response.reload();
 				},
 			},
 		});
 	}
 
-	reset(path: string, language: string) {
-		this.service
-			.revertEntryChange(path, language)
-			.subscribe(() => {
-				this.response.reload();
-			});
+	async reset(path: string, language: AvailableLanguageKey) {
+		await this.api.translations.revertEntryChange(path, language);
+		this.response.reload();
 	}
 
 	reviewChanges() {
 		this.dialog.open({
 			component: TranslationsReviewChangesComponent,
 			data: {
-				confirm: () => {
+				confirm: async () => {
+					await this.saveAll();
 					this.dialog.closeAll();
-					this.saveAll();
 				}
 			}
 		})
 	}
 
-	saveAll() {
-		this.service.saveAll().subscribe(() => {
-			this.response.reload();
-		});
+	async saveAll() {
+		await this.api.translations.saveAll();
+		this.response.reload();
 	}
 
-	discardAll() {
-		this.service.discardAllChanges().subscribe(() => {
-			this.response.reload();
-		});
+	async discardAll() {
+		await this.api.translations.discardAllChanges();
+		this.response.reload();
 	}
 
 	update(translation: Translation, language: TranslationLanguage) {
@@ -126,26 +121,23 @@ export class TranslationsComponent {
 				languages: this.response.value().languages,
 				selectedLanguage: language,
 				translation: translation,
-				submit: (form) => {
-					this.service.registerChange(form).subscribe(() => {
-						this.dialog.closeAll();
-						this.response.reload();
-					});
+				submit: async (form) => {
+					await this.api.translations.registerChange(form);
+					this.dialog.closeAll();
+					this.response.reload();
 				},
 			},
 		});
 	}
 
-	remove(path: string) {
-		this.service.registerRemoveChange(path).subscribe(() => {
-			this.response.reload();
-		});
+	async remove(path: string) {
+		await this.api.translations.registerRemoveChange(path);
+		this.response.reload();
 	}
 
-	revertTranslation(path: string) {
-		this.service.revertTranslationChange(path).subscribe(() => {
-			this.response.reload();
-		});
+	async revertTranslation(path: string) {
+		await this.api.translations.revertTranslationChange(path);
+		this.response.reload();
 	}
 
 	columnsFn = computed((): TableColumnFn<Translation> => {
@@ -163,19 +155,19 @@ export class TranslationsComponent {
 					text: {
 						value: entry.value,
 						classes: [
-							entry.status === "edited" ? "font-bold" : ""
+							entry.status==="edited" ? "font-bold":""
 						]
 					},
 					actions: [
 						{
 							icon: "arrow-turn-left",
 							click: () => this.reset(element.path, entry.language.key),
-							condition: entry.status === "edited",
+							condition: entry.status==="edited",
 							classes: ['text-yellow-500']
 						},
 						{
 							icon: "pencil-square",
-							condition: entry.status !== "edited",
+							condition: entry.status!=="edited",
 							click: () => this.update(element, entry.language),
 							classes: ['text-blue-900']
 						},
@@ -189,27 +181,27 @@ export class TranslationsComponent {
 		{
 			icon: "minus-circle",
 			name: "delete",
-			condition: translation.operation !== "delete",
+			condition: translation.operation!=="delete",
 			classes: ['text-red-500'],
-			click: () => {
-				this.remove(translation.path);
+			click: async () => {
+				await this.remove(translation.path);
 			}
 		},
 		{
 			icon: "arrow-turn-left",
 			name: "revert",
-			condition: translation.operation === "delete",
+			condition: translation.operation==="delete",
 			classes: ['text-yellow-700'],
-			click: () => {
-				this.revertTranslation(translation.path);
+			click: async () => {
+				await this.revertTranslation(translation.path);
 			}
 		},
 	];
 
 	classesFn: TableClassesFn<Translation> = item => {
-		if (item.operation === 'create') return 'bg-green-50 transition hover:bg-green-100';
-		if (item.operation === 'delete') return 'bg-red-50 transition hover:bg-red-100';
-		if (item.operation === 'edit') return 'bg-blue-50 transition hover:bg-blue-100';
+		if (item.operation==='create') return 'bg-green-50 transition hover:bg-green-100';
+		if (item.operation==='delete') return 'bg-red-50 transition hover:bg-red-100';
+		if (item.operation==='edit') return 'bg-blue-50 transition hover:bg-blue-100';
 
 		return '';
 	}

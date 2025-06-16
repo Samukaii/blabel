@@ -9,7 +9,7 @@
 	],
 	"include": [
 		"src/web/**/*.ts",
-		"src/**/*.d.ts"
+		"src/shared"
 	],
 	"angularCompilerOptions": {
 		"enableI18nLegacyMessageIdFormat": false,

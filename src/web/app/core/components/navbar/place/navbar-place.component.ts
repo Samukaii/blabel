@@ -9,27 +9,29 @@ import {
 	untracked,
 } from '@angular/core';
 import { NavbarService } from '../navbar.service';
+import { MarkUsed } from '../../../../shared/utils/mark-used';
 
 @Component({
-  selector: 'app-navbar-place',
-  imports: [],
-  templateUrl: './navbar-place.component.html',
-  styleUrl: './navbar-place.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-navbar-place',
+	imports: [],
+	templateUrl: './navbar-place.component.html',
+	styleUrl: './navbar-place.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarPlaceComponent implements OnDestroy {
-  rightTemplateRef = contentChild('right', { read: TemplateRef });
-  service = inject(NavbarService);
+	rightTemplateRef = contentChild('right', {read: TemplateRef});
+	service = inject(NavbarService);
 
-  registerTemplates = effect(() => {
-    const rightTemplate = this.rightTemplateRef();
+	@MarkUsed()
+	registerTemplates = effect(() => {
+		const rightTemplate = this.rightTemplateRef();
 
-    untracked(() => {
-      if (rightTemplate) this.service.registerTemplate('right', rightTemplate);
-    });
-  });
+		untracked(() => {
+			if (rightTemplate) this.service.registerTemplate('right', rightTemplate);
+		});
+	});
 
-  ngOnDestroy() {
-		  this.service.unregisterTemplate('right');
-  }
+	ngOnDestroy() {
+		this.service.unregisterTemplate('right');
+	}
 }

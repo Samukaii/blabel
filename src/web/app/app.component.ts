@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./core/components/navbar/navbar.component";
 import { SideMenuComponent } from './core/components/side-menu/side-menu.component';
 import { IconComponent } from './shared/components/icon/icon.component';
+import { getElectron } from './shared/di/functions/get-electron';
 
 @Component({
 	selector: 'app-root',
@@ -11,15 +12,15 @@ import { IconComponent } from './shared/components/icon/icon.component';
 	styleUrl: './app.component.scss'
 })
 export class AppComponent {
+	private electron = getElectron();
 
 	close() {
-		window.electronAPI?.windowClose();
+		this.electron.window.close();
 	}
 	maximize() {
-		window.electronAPI?.windowMaximize();
-
+		this.electron.window.maximize();
 	}
 	minimize() {
-		window.electronAPI?.windowMinimize();
+		this.electron.window.minimize();
 	}
 }

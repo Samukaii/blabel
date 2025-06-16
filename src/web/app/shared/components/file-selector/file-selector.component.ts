@@ -3,6 +3,8 @@ import { DragAndDropDirective } from '../../directives/drag-and-drop.directive';
 import { FormControl } from '@angular/forms';
 import { IconComponent } from '../icon/icon.component';
 import { controlValueToSignal } from '../../utils/control-value-to-signal';
+import { MarkUsed } from '../../utils/mark-used';
+import { getElectron } from '../../di/functions/get-electron';
 
 @Component({
 	selector: 'app-file-selector',
@@ -14,6 +16,7 @@ import { controlValueToSignal } from '../../utils/control-value-to-signal';
 	styleUrl: './file-selector.component.scss'
 })
 export class FileSelectorComponent {
+	electron = getElectron();
 	control = input.required<FormControl<string>>();
 	label = input('')
 	multiple = input(true);
@@ -22,12 +25,14 @@ export class FileSelectorComponent {
 
 	controlValue = controlValueToSignal(this.control);
 
+	@MarkUsed()
 	updateFiles = effect(() => {
 		const value = this.controlValue();
 
 		this.files.set(value ? [value] : []);
 	});
 
+	@MarkUsed()
 	updateControl = effect(() => {
 		const files = this.files();
 
@@ -42,7 +47,7 @@ export class FileSelectorComponent {
 	})
 
 	async select() {
-		const file = await window.electronAPI?.openFileDialog();
+		const file = await this.electron.files.openDialog();
 
 		if (!file) return;
 

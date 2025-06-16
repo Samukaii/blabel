@@ -1,8 +1,8 @@
 import { Component, inject, input, OnInit } from "@angular/core";
 import { FormBuilder, FormRecord, ReactiveFormsModule, Validators } from "@angular/forms";
-import { TranslationEntry } from "../../../../shared/models/translation-entry";
-import { TranslationLanguage } from "../../../../shared/models/translation-language";
 import { TextareaComponent } from "../../../../shared/components/textarea/textarea.component";
+import { TranslationLanguage } from '@shared/models/translation-language';
+import { TranslationEntry } from '@shared/models/translation-entry';
 
 @Component({
     selector: "app-translations-form-language",
