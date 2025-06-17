@@ -26,7 +26,7 @@ const getWindowUrl = () => {
 	if (isProduction()) {
 		return (
 			format({
-				pathname: join(__dirname, '..', 'web', 'browser', 'index.html'),
+				pathname: join(__dirname, '..', '..', 'web', 'browser', 'index.html'),
 				protocol: 'file:',
 				slashes: true,
 			}) + '#/translations'
@@ -39,7 +39,7 @@ const getWindowUrl = () => {
 const create = () => {
 	if (mainWindow) return;
 
-	const icon = join(__dirname, 'public', 'assets', 'icons', 'icon.ico');
+	const icon = join(__dirname, '..', 'public', 'assets', 'icons', 'icon.ico');
 
 	mainWindow = new electron.BrowserWindow({
 		width: 1280,
