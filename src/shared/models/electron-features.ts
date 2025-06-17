@@ -9,6 +9,8 @@ export interface ElectronFeatures {
 	};
 	development: {
 		openDevTools: () => void;
+		isProduction: () => Promise<boolean>,
+		isDebugAllowed: () => Promise<boolean>;
 	}
 	files: {
 		openDialog: () => Promise<string | null>;
