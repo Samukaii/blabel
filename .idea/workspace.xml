@@ -7,7 +7,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b99a53a-fb0d-431d-8c4c-22a7a6f57ea6" name="Changes" comment="chore(icons): update `icon.svg` with revised dimensions and styling" />
+    <list default="true" id="5b99a53a-fb0d-431d-8c4c-22a7a6f57ea6" name="Changes" comment="chore(gitignore): uncomment `/dist` directory for tracking">
+      <change afterPath="$PROJECT_DIR$/scripts/convert-icons-from-svg.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/snap/gui/blabel.desktop" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/snap/gui/blabel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/snapcraft.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/preload.generated.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/preload.generated.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-turn-left.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-turn-left.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/bars-3.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/bars-3.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/check.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/check.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/cog-6-tooth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/cog-6-tooth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/globe-alt.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/globe-alt.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/icons-mapping.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/icons-mapping.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/language.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/language.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/magnifying-glass.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/magnifying-glass.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/maximize.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/maximize.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus-circle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus-circle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil-square.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil-square.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus-circle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus-circle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/sparkles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/sparkles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/trash.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/trash.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/x-mark.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/x-mark.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,45 +80,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/samue/programming/blabel/src/shared/models/handlers&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.Build app.executor&quot;: &quot;Run&quot;,
-    &quot;npm.Generate Electron preload.executor&quot;: &quot;Run&quot;,
-    &quot;npm.Generate web icons.executor&quot;: &quot;Run&quot;,
-    &quot;npm.run.executor&quot;: &quot;Run&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.HTML&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\samue\\programming\\blabel\\node_modules\\typescript\\lib&quot;,
-    &quot;typescript.add.unambiguous.imports.on.the.fly&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "//wsl.localhost/Ubuntu-20.04/home/samuel/programming/blabel/snap",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.Build app.executor": "Run",
+    "npm.Generate Electron preload.executor": "Run",
+    "npm.Generate favicons.executor": "Run",
+    "npm.Generate web icons.executor": "Run",
+    "npm.run.executor": "Run",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.sourceCode.HTML",
+    "ts.external.directory.path": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\samuel\\programming\\blabel\\node_modules\\typescript\\lib",
+    "typescript.add.unambiguous.imports.on.the.fly": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl.localhost\Ubuntu-20.04\home\samuel\programming\blabel\snap" />
       <recent name="C:\Users\samue\programming\blabel\src\shared\models\handlers" />
       <recent name="C:\Users\samue\programming\blabel\src\electron\controllers" />
       <recent name="C:\Users\samue\programming\blabel" />
       <recent name="C:\Users\samue\programming\blabel\src\shared\models" />
-      <recent name="C:\Users\samue\programming\blabel\scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl.localhost\Ubuntu-20.04\home\samuel\programming\blabel" />
+      <recent name="\\wsl.localhost\Ubuntu-20.04\home\samuel\programming\blabel\snap" />
+      <recent name="\\wsl.localhost\Ubuntu-20.04\home\samuel\programming\blabel\snap\gui" />
       <recent name="C:\Users\samue\programming\blabel\src\shared\models" />
       <recent name="C:\Users\samue\programming\blabel\src\backend\models" />
-      <recent name="C:\Users\samue\programming\blabel" />
-      <recent name="C:\Users\samue\programming\blabel\public" />
-      <recent name="C:\Users\samue\programming\blabel\scripts" />
     </key>
     <key name="es6.move.members.recent.items">
       <recent name="C:\Users\samue\programming\blabel\src\shared\models\ai-hints-payload.ts" />
@@ -149,6 +178,16 @@
         <script value="generate-preload" />
       </scripts>
       <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="Generate favicons" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="generate-favicons" />
+      </scripts>
+      <node-interpreter value="wsl://Ubuntu-20.04@/home/samuel/.nvm/versions/node/v20.19.2/bin/node" />
       <envs />
       <method v="2" />
     </configuration>
@@ -246,7 +285,39 @@
       <option name="project" value="LOCAL" />
       <updated>1750122701219</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="refactor(backend): remove unused controllers, handlers, services, and routes&#10;&#10;- eliminate redundant backend codebase components&#10;- cleanup includes ai-hints, translations, application-languages, and related routing files">
+      <option name="closed" value="true" />
+      <created>1750133634684</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1750133634684</updated>
+    </task>
+    <task id="LOCAL-00008" summary="chore(idea): add project-specific configuration files to version control&#10;&#10;- include .gitignore for IntelliJ IDEA-specific files&#10;- add module configuration (blabel.iml) and project modules file (modules.xml)">
+      <option name="closed" value="true" />
+      <created>1750133709575</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1750133709575</updated>
+    </task>
+    <task id="LOCAL-00009" summary="chore(assets): add favicon assets and icons&#10;&#10;- include multiple favicon sizes and formats (e.g., ico, icns, png, svg)&#10;- enhance asset availability for diverse platforms and resolutions">
+      <option name="closed" value="true" />
+      <created>1750133776415</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1750133776415</updated>
+    </task>
+    <task id="LOCAL-00010" summary="chore(gitignore): uncomment `/dist` directory for tracking">
+      <option name="closed" value="true" />
+      <created>1750133793386</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1750133793386</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,6 +329,10 @@
     <MESSAGE value="add icons" />
     <MESSAGE value="feat(build): update Linux packaging configuration  &#10;&#10;- add AppImage and deb targets for Linux builds  &#10;- include application category as &quot;Utility&quot; in metadata" />
     <MESSAGE value="chore(icons): update `icon.svg` with revised dimensions and styling" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(icons): update `icon.svg` with revised dimensions and styling" />
+    <MESSAGE value="refactor(backend): remove unused controllers, handlers, services, and routes&#10;&#10;- eliminate redundant backend codebase components&#10;- cleanup includes ai-hints, translations, application-languages, and related routing files" />
+    <MESSAGE value="chore(idea): add project-specific configuration files to version control&#10;&#10;- include .gitignore for IntelliJ IDEA-specific files&#10;- add module configuration (blabel.iml) and project modules file (modules.xml)" />
+    <MESSAGE value="chore(assets): add favicon assets and icons&#10;&#10;- include multiple favicon sizes and formats (e.g., ico, icns, png, svg)&#10;- enhance asset availability for diverse platforms and resolutions" />
+    <MESSAGE value="chore(gitignore): uncomment `/dist` directory for tracking" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore(gitignore): uncomment `/dist` directory for tracking" />
   </component>
 </project>
