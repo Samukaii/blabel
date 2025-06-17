@@ -1,3 +1,4 @@
+import { developmentHandler } from 'backend/handlers/development/development-handler';
 import * as electron from 'electron';
 import { dirname, join } from 'path';
 import { fileURLToPath, format } from 'url';
@@ -14,16 +15,10 @@ const get = () => {
 	return mainWindow;
 }
 
-const isProduction = () => {
-	return electron.app.isPackaged;
-};
+const getWindowUrl = async () => {
+	const isProduction = await developmentHandler.isProduction();
 
-const isDebugAllowed = () => {
-	return true;
-}
-
-const getWindowUrl = () => {
-	if (isProduction()) {
+	if (isProduction) {
 		return (
 			format({
 				pathname: join(__dirname, '..', '..', 'web', 'browser', 'index.html'),
@@ -36,8 +31,11 @@ const getWindowUrl = () => {
 	}
 };
 
-const create = () => {
+const create = async () => {
 	if (mainWindow) return;
+
+	const isDebugAllowed = await developmentHandler.isDebugAllowed();
+	const windowUrl = await getWindowUrl();
 
 	const icon = join(__dirname, '..', 'public', 'assets', 'icons', 'icon.ico');
 
@@ -51,12 +49,12 @@ const create = () => {
 		show: true,
 		webPreferences: {
 			contextIsolation: true,
-			devTools: isDebugAllowed(),
+			devTools: isDebugAllowed,
 			preload: join(__dirname, '..', 'preload.generated.js'),
 		},
 	});
 
-	mainWindow.loadURL(getWindowUrl()).then();
+	mainWindow.loadURL(windowUrl).then();
 
 	mainWindow.on('closed', () => {
 		mainWindow = null;
