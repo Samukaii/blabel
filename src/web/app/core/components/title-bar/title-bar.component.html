@@ -1,17 +1,18 @@
 <div class="bg-gray-900 w-full flex justify-between p-1 title-bar">
 	<div class="w-full flex items-center text-gray-400 text-sm ml-2 p-1">
-		<img class="w-16"
-			 alt="logo"
-			 src="assets/logos/logo-text-white.svg">
+		<img class="w-16" alt="logo" src="assets/logos/logo-text-white.svg" />
 	</div>
 	<div class="w-full flex justify-end items-center">
 		<div class="w-fit no-drag flex justify-end items-center">
-			<app-icon
-				(click)="openDevTools()"
-				name="wrench-screwdriver"
-				class="bg-transparent size-8 flex justify-center items-center hover:bg-gray-700 cursor-pointer transition rounded-md"
-				iconClasses="text-white size-6"
-			/>
+			@if (isDebugAllowed | async) {
+				<app-icon
+					(click)="openDevTools()"
+					name="wrench-screwdriver"
+					class="bg-transparent size-8 flex justify-center items-center hover:bg-gray-700 cursor-pointer transition rounded-md"
+					iconClasses="text-white size-6"
+				/>
+			}
+
 			<app-icon
 				(click)="minimize()"
 				name="minus"
