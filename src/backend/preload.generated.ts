@@ -33,5 +33,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     aiHints: {
       translateEmptyLanguages: (...args: any[]) => invoke('api:aiHints:translateEmptyLanguages', ...args)
     }
+  },
+  development: {
+    openDevTools: (...args: any[]) => invoke('development:openDevTools', ...args)
   }
 });

@@ -7,6 +7,9 @@ export interface ElectronFeatures {
 		minimize: () => void;
 		maximize: () => void;
 	};
+	development: {
+		openDevTools: () => void;
+	}
 	files: {
 		openDialog: () => Promise<string | null>;
 	}
