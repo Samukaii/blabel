@@ -1,35 +1,35 @@
-import { originalTranslationsResource } from "../../utils/original-translations-resource.js";
-import { groupByLanguage } from "../../utils/group-by-language.js";
-import { updateOrCreateTranslation } from "../../utils/update-or-create-translation.js";
-import { removePathFromObject } from "../../utils/remove-path-from-object.js";
-import { saveTranslations } from "../../utils/save-translations.js";
-import { localJsonResource } from '../../core/local-json-resource.js';
-import { applicationLanguagesService } from '../languages/application-languages.service.js';
+import { AvailableLanguageKey } from '@shared/models/available-languages.js';
 import { TranslationChange } from '@shared/models/translation-change';
-import { getTranslations } from "../../utils/get-translations.js";
 import { TranslationEntry } from '@shared/models/translation-entry';
 import { Translation } from "@shared/models/translation.js";
-import { TranslationsHandler } from '@shared/models/handlers/translations-handler';
-import { AvailableLanguageKey } from '@shared/models/available-languages.js';
+import { localJsonResource } from '../../core/local-json-resource.js';
+import { getTranslations } from "../../utils/get-translations.js";
+import { groupByLanguage } from "../../utils/group-by-language.js";
+import { originalTranslationsResource } from "../../utils/original-translations-resource.js";
+import { removePathFromObject } from "../../utils/remove-path-from-object.js";
+import { saveTranslations } from "../../utils/save-translations.js";
+import { updateOrCreateTranslation } from "../../utils/update-or-create-translation.js";
+import { applicationLanguagesService } from '../languages/application-languages.service.js';
 
-const resource = localJsonResource<Translation[]>(
+
+const getResource = () => localJsonResource<Translation[]>(
 	"data/translation-changes.json"
 );
 
 const get = async () => {
-	const exists = await resource.exists();
+	const exists = await getResource().exists();
 
 	if (!exists) return [];
 
-	return await resource.get()
+	return await getResource().get()
 };
 
 const save = async (changes: Translation[]) => {
-	await resource.save(changes);
+	await getResource().save(changes);
 };
 
 const updateOne = async (path: string, value: Partial<Translation>) => {
-	await resource.update(all => {
+	await getResource().update(all => {
 		return all.map(translation => {
 			if (translation.path !== path) return translation;
 
@@ -42,7 +42,7 @@ const updateOne = async (path: string, value: Partial<Translation>) => {
 };
 
 const add = async (translation: Translation) => {
-	await resource.update(all => [
+	await getResource().update(all => [
 		...all,
 		translation
 	]);

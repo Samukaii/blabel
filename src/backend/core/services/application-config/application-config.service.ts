@@ -1,9 +1,9 @@
 import { ApplicationConfig } from '../../../models/application-config.js';
 import { localJsonResource } from '../../local-json-resource.js';
 
-const resource = localJsonResource<ApplicationConfig>('data/application-config.json');
+const getResource = () => localJsonResource<ApplicationConfig>('data/application-config.json');
 
-const exists = () => resource.exists();
+const exists = () => getResource().exists();
 
 const get = async () => {
 
@@ -13,11 +13,11 @@ const get = async () => {
 			languageFiles: []
 		}
 
-	return {...(await resource.get())};
+	return {...(await getResource().get())};
 };
 
 const save = async (config: ApplicationConfig) => {
-	await resource.save(config);
+	await getResource().save(config);
 }
 
 const update = async (fn: (config: ApplicationConfig) => ApplicationConfig) => {
