@@ -7,35 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b99a53a-fb0d-431d-8c4c-22a7a6f57ea6" name="Changes" comment="chore(gitignore): uncomment `/dist` directory for tracking">
-      <change afterPath="$PROJECT_DIR$/scripts/convert-icons-from-svg.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/snap/gui/blabel.desktop" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/snap/gui/blabel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/snapcraft.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/icon.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/preload.generated.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/preload.generated.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-turn-left.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-turn-left.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/bars-3.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/bars-3.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/check.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/check.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/cog-6-tooth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/cog-6-tooth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/globe-alt.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/globe-alt.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/icons-mapping.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/icons-mapping.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/language.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/language.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/magnifying-glass.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/magnifying-glass.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/maximize.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/maximize.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus-circle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus-circle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil-square.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil-square.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus-circle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus-circle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/sparkles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/sparkles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/trash.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/trash.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/x-mark.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/x-mark.ts" afterDir="false" />
-    </list>
+    <list default="true" id="5b99a53a-fb0d-431d-8c4c-22a7a6f57ea6" name="Changes" comment="chore(idea): update project dictionaries and workspace configuration&#10;&#10;- add `icns` to project dictionary&#10;- adjust IntelliJ IDEA configuration for recent file paths, tasks, and npm scripts&#10;- include `generate-favicons` npm configuration" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -317,7 +289,39 @@
       <option name="project" value="LOCAL" />
       <updated>1750133793386</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="chore(package): enhance package.json and dependencies  &#10;&#10;- update author details to include structured name and email  &#10;- add new script `generate-favicons` for icon conversion  &#10;- add dependencies `icon-gen`, `fs-extra`, `sharp`, `svgo`, and `png-to-ico`  &#10;- update package-lock.json to reflect dependency changes">
+      <option name="closed" value="true" />
+      <created>1750133964545</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1750133964545</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat(scripts): add script to convert SVG to favicon formats&#10;&#10;- create `convert-icons-from-svg.ts` for SVG optimization and conversion&#10;- generate PNG, ICO, and ICNS formats from a single SVG input&#10;- integrate tools like `svgo`, `sharp`, `png-to-ico`, and `icon-gen`">
+      <option name="closed" value="true" />
+      <created>1750134070655</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1750134070655</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat(snap): add Snapcraft configuration for Blabel&#10;&#10;- create `snapcraft.yaml` for packaging Blabel as a Snap&#10;- add desktop file and icon under `snap/gui`&#10;- configure strict confinement with GNOME extensions and required plugs&#10;- include stage-packages for dependencies">
+      <option name="closed" value="true" />
+      <created>1750134114482</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1750134114482</updated>
+    </task>
+    <task id="LOCAL-00014" summary="chore(idea): update project dictionaries and workspace configuration&#10;&#10;- add `icns` to project dictionary&#10;- adjust IntelliJ IDEA configuration for recent file paths, tasks, and npm scripts&#10;- include `generate-favicons` npm configuration">
+      <option name="closed" value="true" />
+      <created>1750134137339</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1750134137339</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,6 +337,10 @@
     <MESSAGE value="chore(idea): add project-specific configuration files to version control&#10;&#10;- include .gitignore for IntelliJ IDEA-specific files&#10;- add module configuration (blabel.iml) and project modules file (modules.xml)" />
     <MESSAGE value="chore(assets): add favicon assets and icons&#10;&#10;- include multiple favicon sizes and formats (e.g., ico, icns, png, svg)&#10;- enhance asset availability for diverse platforms and resolutions" />
     <MESSAGE value="chore(gitignore): uncomment `/dist` directory for tracking" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(gitignore): uncomment `/dist` directory for tracking" />
+    <MESSAGE value="chore(package): enhance package.json and dependencies  &#10;&#10;- update author details to include structured name and email  &#10;- add new script `generate-favicons` for icon conversion  &#10;- add dependencies `icon-gen`, `fs-extra`, `sharp`, `svgo`, and `png-to-ico`  &#10;- update package-lock.json to reflect dependency changes" />
+    <MESSAGE value="feat(scripts): add script to convert SVG to favicon formats&#10;&#10;- create `convert-icons-from-svg.ts` for SVG optimization and conversion&#10;- generate PNG, ICO, and ICNS formats from a single SVG input&#10;- integrate tools like `svgo`, `sharp`, `png-to-ico`, and `icon-gen`" />
+    <MESSAGE value="feat(snap): add Snapcraft configuration for Blabel&#10;&#10;- create `snapcraft.yaml` for packaging Blabel as a Snap&#10;- add desktop file and icon under `snap/gui`&#10;- configure strict confinement with GNOME extensions and required plugs&#10;- include stage-packages for dependencies" />
+    <MESSAGE value="chore(idea): update project dictionaries and workspace configuration&#10;&#10;- add `icns` to project dictionary&#10;- adjust IntelliJ IDEA configuration for recent file paths, tasks, and npm scripts&#10;- include `generate-favicons` npm configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore(idea): update project dictionaries and workspace configuration&#10;&#10;- add `icns` to project dictionary&#10;- adjust IntelliJ IDEA configuration for recent file paths, tasks, and npm scripts&#10;- include `generate-favicons` npm configuration" />
   </component>
 </project>
