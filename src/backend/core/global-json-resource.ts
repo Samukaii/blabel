@@ -1,6 +1,6 @@
 import { fileManager } from "./file-manager.js";
 
-export const jsonFileManager = <T extends Record<string, any>>(path: string) => {
+export const globalJsonResource = <T extends Record<string, any>>(path: string) => {
 	const manager = fileManager(path);
 
 	const get = async () => {
@@ -13,5 +13,9 @@ export const jsonFileManager = <T extends Record<string, any>>(path: string) => 
 		await manager.save(JSON.stringify(content, null, 2));
 	};
 
-	return {get, save, exists: manager.exists};
+	const update = async (fn: (content: T) => T) => {
+		await save(fn(await get()));
+	};
+
+	return {get, save, update, exists: () => manager.exists()};
 };
