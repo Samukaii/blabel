@@ -2,13 +2,18 @@
 	"name": "blabel",
 	"version": "1.0.0",
 	"main": "dist/backend/main.js",
-	"author": "Samuel Alejandro",
+	"author": {
+		"name": "Samuel Alejandro",
+		"email": "samuelalejandro.dev@gmail.com"
+	},
+	"email": "samuelalejandro.dev@gmail.com",
 	"type": "module",
 	"description": "Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.",
 	"scripts": {
 		"start:web": "npm run generate-icons && ng serve",
 		"build:web": "npm run generate-icons && ng build --configuration production",
 		"generate-icons": "tsx --tsconfig tsconfig.scripts.json scripts/generate-icons.ts",
+		"generate-favicons": "tsx --tsconfig tsconfig.scripts.json scripts/convert-icons-from-svg.ts",
 		"build:electron": "tsc -p tsconfig.electron.json && tsc-alias -p tsconfig.electron.json --outDir dist",
 		"start:electron": "npm run generate-preload && npm run build:electron && electron dist/backend/main.js",
 		"generate-preload": "tsx --tsconfig tsconfig.scripts.json scripts/generate-electron-preload.ts",
@@ -31,7 +36,10 @@
 			"icon": "public/assets/favicons/icon.icns"
 		},
 		"linux": {
-			"target": ["AppImage", "deb"],
+			"target": [
+				"AppImage",
+				"deb"
+			],
 			"icon": "public/assets/favicons/512x512.png",
 			"category": "Utility"
 		}
@@ -59,6 +67,10 @@
 	"devDependencies": {
 		"@angular/build": "^20.0.0",
 		"@angular/cli": "^20.0.0",
+		"icon-gen": "^5.0.0",
+		"fs-extra": "^11.3.0",
+		"png-to-ico": "^2.1.8",
+		"sharp": "^0.34.2",
 		"@angular/compiler-cli": "^20.0.0",
 		"@tailwindcss/cli": "^4.1.8",
 		"@types/cors": "^2.8.18",
@@ -80,6 +92,7 @@
 		"npx": "^10.2.2",
 		"postcss": "^8.5.4",
 		"prettier": "^3.5.3",
+		"svgo": "^3.3.2",
 		"tailwindcss": "^3.4.1",
 		"ts-morph": "^26.0.0",
 		"ts-node": "^10.9.2",
