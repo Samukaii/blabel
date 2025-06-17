@@ -1,14 +1,16 @@
 import { promises as fs } from 'fs';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 import { FileCache } from '../models/file-cache.js';
 
 const cacheMap = new Map<string, FileCache>();
 const pendingReads = new Map<string, Promise<string>>();
 
 export const fileManager = (path: string) => {
+	const getPath = () => join(...path.split('/'));
+
 	const exists = async () => {
 		try {
-			await fs.access(path);
+			await fs.access(getPath());
 			return true;
 		} catch {
 			return false;
@@ -24,7 +26,7 @@ export const fileManager = (path: string) => {
 		}
 
 		const readPromise = (async () => {
-			const stats = await fs.stat(path);
+			const stats = await fs.stat(getPath());
 			const lastModified = stats.mtimeMs;
 			const cache = cacheMap.get(path) ?? null;
 
@@ -33,7 +35,7 @@ export const fileManager = (path: string) => {
 				return cache.content;
 			}
 
-			const file = await fs.readFile(path, 'utf-8');
+			const file = await fs.readFile(getPath(), 'utf-8');
 
 			cacheMap.set(path, {
 				content: file,
@@ -50,13 +52,13 @@ export const fileManager = (path: string) => {
 	};
 
 	const save = async (content: string) => {
-		const dir = dirname(path);
-		await fs.mkdir(dir, {recursive: true});
-		await fs.writeFile(path, content);
+		const dir = dirname(getPath());
+		await fs.mkdir(dir, { recursive: true });
+		await fs.writeFile(getPath(), content);
 
 		await new Promise(r => setTimeout(r, 10));
 
-		const stats = await fs.stat(path);
+		const stats = await fs.stat(getPath());
 		const lastModified = stats.mtimeMs;
 
 		cacheMap.set(path, {
@@ -72,5 +74,5 @@ export const fileManager = (path: string) => {
 		pendingReads.delete(path);
 	};
 
-	return {get, save, exists, invalidate};
+	return { get, save, exists, invalidate };
 };
