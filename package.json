@@ -31,7 +31,9 @@
 			"icon": "public/assets/favicons/icon.icns"
 		},
 		"linux": {
-			"icon": "public/assets/favicons/512x512.png"
+			"target": ["AppImage", "deb"],
+			"icon": "public/assets/favicons/512x512.png",
+			"category": "Utility"
 		}
 	},
 	"dependencies": {
