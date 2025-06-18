@@ -11,6 +11,7 @@ yarn-error.log
 
 # IDEs and editors
 .idea/
+!.idea/
 !.idea/modules.xml
 !.idea/blabel.iml
 !.idea/webResources.xml
