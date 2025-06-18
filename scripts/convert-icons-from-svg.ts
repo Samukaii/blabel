@@ -62,7 +62,26 @@ async function convertSvgToIcons() {
 			console.log('✅ ICNS renomeado para:', icnsPath)
 		}
 
-		console.log('\n🚀 Ícones gerados com sucesso, mo! Pode buildar sem medo 💜')
+
+		console.log('\n🧪 Gerando estrutura de ícones Linux...');
+		const linuxSizes = [16, 32, 48, 64, 128, 256, 512];
+		const linuxBaseDir = path.join(outputDir, 'linux-icons');
+
+		await fs.ensureDir(linuxBaseDir);
+
+
+		for (const size of linuxSizes) {
+			const outputFile = path.join(linuxBaseDir, `${size}x${size}.png`);
+
+
+			await sharp(pngBuffer)
+				.resize(size, size)
+				.toFile(outputFile);
+
+			console.log(`🖼️  ${size}x${size} gerado`);
+		}
+
+		console.log('\n🚀 Ícones gerados com sucesso, mo! Pode buildar sem medo 💜');
 	} catch (err) {
 		console.error('❌ Erro:', err)
 	}

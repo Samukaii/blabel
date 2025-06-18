@@ -1,5 +1,7 @@
 import { fileManager } from './file-manager.js';
 import * as electron from 'electron';
+import stripJsonComments from 'strip-json-comments';
+
 
 export const localJsonResource = <
 	T extends Record<string, any> | Record<string, any>[],
@@ -13,8 +15,9 @@ export const localJsonResource = <
 		if (lastResult) return lastResult;
 
 		const file = await manager.get();
+		const withoutComments = stripJsonComments(file);
 
-		return JSON.parse(file) as T;
+		return JSON.parse(withoutComments) as T;
 	};
 
 	const save = async (content: T) => {

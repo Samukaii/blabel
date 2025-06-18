@@ -1,13 +1,9 @@
 import * as electron from 'electron';
-import { join } from 'path';
 import { currentWindow } from './core/current-window';
 import { ipcHandlers } from './ipc-handlers.js';
 import { registerHandlers } from './register-handlers';
 
-electron.app.setPath(
-	'userData',
-	join(electron.app.getPath('home'), '.meu-app-cache'),
-);
+electron.app.setName("Blabel");
 
 registerHandlers(ipcHandlers);
 
