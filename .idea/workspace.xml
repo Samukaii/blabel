@@ -7,7 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b99a53a-fb0d-431d-8c4c-22a7a6f57ea6" name="Changes" comment="chore(icons): update `icon.svg` with revised dimensions and styling" />
+    <list default="true" id="5b99a53a-fb0d-431d-8c4c-22a7a6f57ea6" name="Changes" comment="chore: update `.idea` configuration files and adjust `.gitignore`&#10;&#10;- Add project-specific IDE settings under `.idea/`&#10;- Update `.gitignore` to stop ignoring `.idea/` directory">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -196,7 +198,8 @@
       <workItem from="1749980556028" duration="6336000" />
       <workItem from="1750034917611" duration="3811000" />
       <workItem from="1750111562419" duration="2959000" />
-      <workItem from="1750123276612" duration="15000" />
+      <workItem from="1750123276612" duration="54000" />
+      <workItem from="1750134406046" duration="179000" />
     </task>
     <task id="LOCAL-00001" summary="refactor: update project structure and configurations for environment handling&#10;&#10;- adjust file imports for environment files&#10;- introduce separate `environment.prod.ts` for production builds&#10;- enable conditional hashing in app routes based on environment&#10;- refine Electron main process settings (frame, icon, titleBarStyle)&#10;- rename project in metadata and package files to &quot;Blabel&quot;&#10;- restore `globals.d.ts` for Electron API typings&#10;- fix navbar padding and minor script adjustment in `package.json`">
       <option name="closed" value="true" />
@@ -246,7 +249,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750122701219</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="chore: update `.idea` configuration files and adjust `.gitignore`&#10;&#10;- Add project-specific IDE settings under `.idea/`&#10;- Update `.gitignore` to stop ignoring `.idea/` directory">
+      <option name="closed" value="true" />
+      <created>1750123306482</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1750123306482</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,6 +269,7 @@
     <MESSAGE value="add icons" />
     <MESSAGE value="feat(build): update Linux packaging configuration  &#10;&#10;- add AppImage and deb targets for Linux builds  &#10;- include application category as &quot;Utility&quot; in metadata" />
     <MESSAGE value="chore(icons): update `icon.svg` with revised dimensions and styling" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(icons): update `icon.svg` with revised dimensions and styling" />
+    <MESSAGE value="chore: update `.idea` configuration files and adjust `.gitignore`&#10;&#10;- Add project-specific IDE settings under `.idea/`&#10;- Update `.gitignore` to stop ignoring `.idea/` directory" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update `.idea` configuration files and adjust `.gitignore`&#10;&#10;- Add project-specific IDE settings under `.idea/`&#10;- Update `.gitignore` to stop ignoring `.idea/` directory" />
   </component>
 </project>
