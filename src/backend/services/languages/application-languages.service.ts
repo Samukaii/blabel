@@ -2,7 +2,6 @@ import { applicationConfigService } from '../../core/services/application-config
 import { AvailableLanguageKey } from '@shared/models/available-languages.js';
 import { availableLanguages } from '@shared/constants/available-languages.js';
 import { TranslationFile } from '@shared/models/translation-file';
-import path from 'path';
 
 const getAllSortedByMain = async () => {
     const applicationConfig = await applicationConfigService.get();
@@ -40,7 +39,7 @@ const createValidLanguage = async (language: {
         throw new Error(`Language ${language.key} is not a valid language`);
 
     return {
-		id: `${path}-${language.key}`,
+		id: `${language.path}-${language.key}`,
         ...validLanguage,
         ...language
     };
