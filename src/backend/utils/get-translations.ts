@@ -1,5 +1,5 @@
 import path from "path";
-import { jsonFileManager } from "../core/json-file-manager.js";
+import { globalJsonResource } from "../core/global-json-resource.js";
 import { applicationLanguagesService } from '../services/languages/application-languages.service.js';
 
 export const getTranslations = async () => {
@@ -8,7 +8,7 @@ export const getTranslations = async () => {
 
 	const reads = files.map(async file => {
 		const filePath = path.resolve(file.path);
-		const fileManager = jsonFileManager<Record<string, string>>(filePath);
+		const fileManager = globalJsonResource<Record<string, string>>(filePath);
 
 		translationsByLang[file.key] = await fileManager.get();
 	});

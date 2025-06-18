@@ -1,4 +1,4 @@
-import { jsonFileManager } from '../core/json-file-manager.js';
+import { globalJsonResource } from '../core/global-json-resource.js';
 import { applicationLanguagesService } from '../services/languages/application-languages.service.js';
 
 export const saveTranslations = async (language: string, object: Record<string, any>) => {
@@ -8,5 +8,5 @@ export const saveTranslations = async (language: string, object: Record<string, 
 	if (!translationFile)
 		throw new Error(`Language "${language}" not found.`);
 
-	await jsonFileManager(translationFile.path).save(object);
+	await globalJsonResource(translationFile.path).save(object);
 };
