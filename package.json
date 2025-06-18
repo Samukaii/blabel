@@ -29,6 +29,12 @@
 			"dist/**/*",
 			"main.js"
 		],
+		"extraResources": [
+			{
+			"from": "public/assets/favicons",
+			"to": "assets/favicons"
+			}
+		],
 		"win": {
 			"icon": "public/assets/favicons/icon.ico"
 		},
@@ -36,11 +42,8 @@
 			"icon": "public/assets/favicons/icon.icns"
 		},
 		"linux": {
-			"target": [
-				"AppImage",
-				"deb"
-			],
-			"icon": "public/assets/favicons/512x512.png",
+			"target": ["AppImage", "deb"],
+			"icon": "public/assets/favicons/linux-icons",
 			"category": "Utility"
 		}
 	},
