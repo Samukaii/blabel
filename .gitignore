@@ -1,5 +1,5 @@
 # Compiled output
-#/dist
+/dist
 /tmp
 /out-tsc
 /bazel-out
@@ -10,6 +10,16 @@ npm-debug.log
 yarn-error.log
 
 # IDEs and editors
+.idea/
+.idea/vcs.xml
+.idea/.gitignore
+!.idea/
+!.idea/modules.xml
+!.idea/blabel.iml
+!.idea/webResources.xml
+!.idea/dictionaries/
+!.idea/inspectionProfiles/
+
 .project
 .classpath
 .c9/

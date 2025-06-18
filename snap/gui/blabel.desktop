@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Blabel
+Exec=blabel
+Icon=${SNAP}/meta/gui/blabel.png
+Type=Application
+Categories=Utility;

@@ -14,6 +14,7 @@ import { plusCircle } from './plus-circle';
 import { plus } from './plus';
 import { sparkles } from './sparkles';
 import { trash } from './trash';
+import { wrenchScrewdriver } from './wrench-screwdriver';
 import { xMark } from './x-mark';
 
 
@@ -34,5 +35,6 @@ export const iconsMapping = {
     'plus': plus,
     'sparkles': sparkles,
     'trash': trash,
+    'wrench-screwdriver': wrenchScrewdriver,
     'x-mark': xMark,
 };
