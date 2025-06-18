@@ -10,6 +10,13 @@ npm-debug.log
 yarn-error.log
 
 # IDEs and editors
+.idea
+!.idea/modules.xml
+!.idea/blabel.iml
+!.idea/webResources.xml
+!.idea/dictionaries
+!.idea/inspectionProfiles/
+
 .project
 .classpath
 .c9/
@@ -45,3 +52,4 @@ release/
 
 # Secrets
 .env
+/.idea/
