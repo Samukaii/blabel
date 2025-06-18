@@ -1,12 +1,12 @@
 import { promises as fs } from 'fs';
-import { dirname, join } from 'path';
+import { dirname, join, resolve } from 'path';
 import { FileCache } from '../models/file-cache.js';
 
 const cacheMap = new Map<string, FileCache>();
 const pendingReads = new Map<string, Promise<string>>();
 
 export const fileManager = (path: string) => {
-	const getPath = () => join(...path.split('/'));
+	const getPath = () => resolve(path);
 
 	const exists = async () => {
 		try {

@@ -1,3 +1,4 @@
+import stripJsonComments from "strip-json-comments";
 import { fileManager } from "./file-manager.js";
 
 export const globalJsonResource = <T extends Record<string, any>>(path: string) => {
@@ -6,7 +7,9 @@ export const globalJsonResource = <T extends Record<string, any>>(path: string) 
 	const get = async () => {
 		const file = await manager.get();
 
-		return JSON.parse(file) as T;
+		const withoutComments = stripJsonComments(file);
+
+		return JSON.parse(withoutComments) as T;
 	};
 
 	const save = async (content: T) => {
@@ -17,5 +20,5 @@ export const globalJsonResource = <T extends Record<string, any>>(path: string) 
 		await save(fn(await get()));
 	};
 
-	return {get, save, update, exists: () => manager.exists()};
+	return { get, save, update, exists: () => manager.exists() };
 };
