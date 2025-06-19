@@ -1,55 +1,57 @@
 <h2 class="text-xl w-full text-center font-semibold mb-4">{{ title() }}</h2>
 <div class="max-h-[72vh] overflow-y-auto overflow-x-hidden">
-  <app-input
-    label="Caminho da tradução"
-    placeholder="Insira aqui o caminho da tradução"
-    [control]="form.controls.path"
-  />
+	<app-input
+		label="Caminho da tradução"
+		placeholder="Insira aqui o caminho da tradução"
+		[control]="form.controls.path"
+	/>
 
-  <app-translations-form-language
-    [entry]="mainLanguageEntry()"
-    [form]="form.controls.entries"
-    [language]="mainLanguage()"
-  />
+	<app-translations-form-language
+		[entry]="mainLanguageEntry()"
+		[form]="form.controls.entries"
+		[language]="mainLanguage()"
+	/>
 
-  @if (!mainLanguageIsEmpty()) {
-    <app-textarea
-      label="Contexto adicional"
-      placeholder="Para uma tradução mais precisa, você pode fornecer uma explicação mais ampla sobre este texto como qual o sentido dele ou onde ele está localizado"
-      [control]="aiHintsForm.controls.additionalContext"
-    />
-    <div class="flex items-center gap-2">
-      <app-button
-        [loading]="requestingAi()"
-        (click)="fillWithAi()"
-        icon="sparkles"
-        text="Preencher os outros idiomas com IA"
-        loadingText="Preenchendo..."
-        color="yellow"
-        theme="stroked"
-      />
-    </div>
-  }
+	@if (canShowAi()) {
+		<app-textarea
+			label="Contexto adicional"
+			placeholder="Para uma tradução mais precisa, você pode fornecer uma explicação mais ampla sobre este texto como qual o sentido dele ou onde ele está localizado"
+			[control]="aiHintsForm.controls.additionalContext"
+		/>
+		<div class="flex items-center gap-2">
+			<app-button
+				[loading]="requestingAi()"
+				(click)="fillWithAi()"
+				icon="sparkles"
+				text="Preencher os outros idiomas com IA"
+				loadingText="Preenchendo..."
+				color="yellow"
+				theme="stroked"
+			/>
+		</div>
+	}
 
-  <h2 class="text-xl w-full text-center font-semibold mb-4">
-    {{ "Outros idiomas" }}
-  </h2>
+	@if (!!otherLanguages().length) {
+		<h2 class="text-xl w-full text-center font-semibold mb-4">
+			{{ "Outros idiomas" }}
+		</h2>
+	}
 
-  @for (language of otherLanguages(); track language.key) {
-    @let entry = language | call: getEntry;
-    <app-translations-form-language
-      [entry]="entry"
-      [form]="form.controls.entries"
-      [language]="language"
-    />
-  }
+	@for (language of otherLanguages(); track language.key) {
+		@let entry = language | call: getEntry;
+		<app-translations-form-language
+			[entry]="entry"
+			[form]="form.controls.entries"
+			[language]="language"
+		/>
+	}
 </div>
 
 <div class="w-full flex justify-end items-center pt-2">
-  <app-button
-    [disabled]="form.invalid"
-    (click)="save()"
-    theme="raised"
-    [text]="confirmButtonName()"
-  />
+	<app-button
+		[disabled]="form.invalid"
+		(click)="save()"
+		theme="raised"
+		[text]="confirmButtonName()"
+	/>
 </div>
