@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, resource } from '@angular/core';
-import { TableActionFn, TableComponent } from '../../shared/components/table/table.component';
+import { TableComponent } from '../../shared/components/table/table.component';
 import { TableColumnFn } from '../../shared/components/table/models/table-column-fn';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { LanguageFileFormComponent } from './form/language-file-form.component';
@@ -8,6 +8,7 @@ import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-
 import { NoResults } from '../../shared/models/no-results';
 import { getElectron } from '../../shared/di/functions/get-electron';
 import { TranslationFile } from '@shared/models/translation-file';
+import { TableActionFn } from '../../shared/components/table/models/table-action-fn';
 
 @Component({
 	selector: 'app-languages',
@@ -96,9 +97,17 @@ export class LanguagesComponent {
 		{
 			icon: "pencil-square",
 			name: 'edit',
+			classes: ['text-gray-500'],
 			condition: true,
 			click: () => this.update(item),
-		}
+		},
+		{
+			icon: "trash",
+			name: 'remove',
+			classes: ['text-red-500'],
+			condition: true,
+			click: () => this.remove(item),
+		},
 	]
 
 	protected create() {
@@ -136,5 +145,10 @@ export class LanguagesComponent {
 				height: "fit-content",
 			}
 		})
+	}
+
+	protected async remove(language: TranslationFile) {
+		await this.api.languages.remove(language.key);
+		this.response.reload();
 	}
 }
