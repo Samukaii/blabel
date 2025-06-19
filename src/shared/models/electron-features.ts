@@ -15,4 +15,7 @@ export interface ElectronFeatures {
 	files: {
 		openDialog: () => Promise<string | null>;
 	}
+	ai: {
+		hasIntegratedAi: () => PromiseLike<boolean>;
+	}
 }

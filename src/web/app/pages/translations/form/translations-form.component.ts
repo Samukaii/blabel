@@ -1,4 +1,15 @@
-import { AfterViewInit, Component, computed, DOCUMENT, inject, input, OnInit, output, signal, } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	computed,
+	DOCUMENT,
+	inject,
+	input,
+	OnInit,
+	output,
+	resource,
+	signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { map } from 'rxjs';
@@ -24,7 +35,7 @@ import { AiHintsPayload } from '@shared/models/ai-hints-payload';
 		CallPipe,
 		InputComponent,
 		TextareaComponent,
-		ButtonComponent
+		ButtonComponent,
 	],
 })
 export class TranslationsFormComponent implements OnInit, AfterViewInit {
@@ -45,7 +56,12 @@ export class TranslationsFormComponent implements OnInit, AfterViewInit {
 
 	private fb = inject(FormBuilder);
 	private document = inject(DOCUMENT);
-	private api = getElectron().api;
+	private electronFeatures = getElectron();
+	private api = this.electronFeatures.api;
+
+	private hasIntegratedAi = resource({
+		loader: () => this.electronFeatures.ai.hasIntegratedAi(),
+	})
 
 	form = this.fb.nonNullable.group({
 		path: ['', Validators.required],
@@ -62,11 +78,15 @@ export class TranslationsFormComponent implements OnInit, AfterViewInit {
 		{initialValue: this.form.getRawValue()}
 	);
 
-	mainLanguageIsEmpty = computed(() => {
+	mainLanguageIsFilled = computed(() => {
 		const formValue = this.formValue();
 
-		return !formValue.entries[this.mainLanguage().key];
+		return !!formValue.entries[this.mainLanguage().key];
 	});
+
+	canShowAi = computed(() => {
+		return !!this.hasIntegratedAi.value() && this.mainLanguageIsFilled();
+	})
 
 	ngOnInit() {
 		const path = this.form.controls.path;
