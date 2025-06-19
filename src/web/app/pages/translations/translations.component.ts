@@ -7,7 +7,7 @@ import { NoResults } from '../../shared/models/no-results';
 import { TranslationsFormComponent } from './form/translations-form.component';
 import { TranslationsReviewChangesComponent } from './review-changes/translations-review-changes.component';
 import { ButtonComponent } from "../../shared/components/button/button.component";
-import { TableActionFn, TableClassesFn, TableComponent } from '../../shared/components/table/table.component';
+import { TableComponent } from '../../shared/components/table/table.component';
 import { TableColumnFn } from '../../shared/components/table/models/table-column-fn';
 import {
 	customTableColumn,
@@ -19,6 +19,8 @@ import { getElectron } from '../../shared/di/functions/get-electron';
 import { AvailableLanguageKey } from '@shared/models/available-languages.js';
 import { Translation } from '@shared/models/translation';
 import { TranslationLanguage } from '@shared/models/translation-language';
+import { TableActionFn } from '../../shared/components/table/models/table-action-fn';
+import { TableClassesFn } from '../../shared/components/table/models/table-classes-fn';
 
 @Component({
 	selector: 'app--translations',
