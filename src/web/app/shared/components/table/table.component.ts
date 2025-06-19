@@ -4,22 +4,13 @@ import { NoResults } from '../../models/no-results';
 import { TableColumn } from './models/table-column';
 import { TableColumnFn } from './models/table-column-fn';
 import { Identifiable } from '../../models/identifiable';
-import { IconName } from '../../models/icon-name';
 import { CallPipe } from '../../pipes/call.pipe';
 import { CustomCellRendererComponent } from './cell-renderer/custom-cell-renderer.component';
 import { toClassPipe } from '../../pipes/toClass.pipe';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { TableActionFn } from './models/table-action-fn';
+import { TableClassesFn } from './models/table-classes-fn';
 
-interface TableAction {
-	classes?: string[];
-	name: string;
-	condition: boolean;
-	icon: IconName;
-	click: () => void;
-}
-
-export type TableActionFn<T extends Identifiable> = (item: T) => TableAction[];
-export type TableClassesFn<T extends Identifiable> = (item: T) => string;
 
 @Component({
 	selector: 'app-table',
