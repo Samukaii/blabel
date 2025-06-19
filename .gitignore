@@ -13,6 +13,7 @@ yarn-error.log
 .idea/
 .idea/vcs.xml
 .idea/.gitignore
+.idea/watcherTasks.xml
 !.idea/
 !.idea/modules.xml
 !.idea/blabel.iml
