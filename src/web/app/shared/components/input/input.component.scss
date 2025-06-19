@@ -11,11 +11,11 @@
 
   &:focus-within {
     label {
-      @apply text-blue-500 transition;
+      @apply text-yellow-500 transition;
     }
 
     input {
-      @apply transition border-blue-500;
+      @apply transition border-yellow-500;
     }
   }
 }
