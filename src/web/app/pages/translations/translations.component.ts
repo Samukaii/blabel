@@ -83,6 +83,9 @@ export class TranslationsComponent {
 					this.response.reload();
 				},
 			},
+			panelOptions: {
+				height: "fit-content",
+			}
 		});
 	}
 
@@ -129,6 +132,9 @@ export class TranslationsComponent {
 					this.response.reload();
 				},
 			},
+			panelOptions: {
+				height: "fit-content",
+			}
 		});
 	}
 
