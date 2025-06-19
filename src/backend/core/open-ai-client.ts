@@ -2,12 +2,20 @@ import OpenAI from "openai";
 
 let openai: OpenAI;
 
+export const aiIntegrationKey = () => {
+	return process.env["OPENAI_API_KEY"];
+}
+
 export const openAiClient = () => {
 	if (openai) return openai;
 
-	openai = new OpenAI({
-		apiKey: process.env["OPENAI_API_KEY"]
-	});
+	const apiKey = aiIntegrationKey();
+
+	if(!apiKey) throw new Error(
+		"OPENAI_API_KEY not found. Please set it in your environment variables."
+	);
+
+	openai = new OpenAI({apiKey});
 
 	return openai;
 };
