@@ -2,41 +2,5 @@
 	[control]="searchControl"
 	[label]="label()"
 	[placeholder]="placeholder()"
-	(click)="showOverlay.set(true)"
+	(click)="openOverlay()"
 />
-<div
-	[class.show]="showOverlay()"
-	class="overlay-container">
-	<ul class="overlay">
-		@if (loading()) {
-			<div class="flex w-full justify-center items-center p-4">
-				<app-spinner/>
-			</div>
-		} @else {
-			@for (option of options(); track option.value) {
-				<li
-					(click)="selectOption(option)"
-				>{{ option.label }}
-
-					@if (option.value === selectedOption()?.value) {
-						<app-icon
-							iconClasses="text-gray-700 size-6"
-							name="check"
-						/>
-					}
-				</li>
-			} @empty {
-				<div class="flex w-full justify-center gap-2 items-center p-4 font-medium text-lg">
-					@let noResultsValue = noResults();
-					@if (noResultsValue.icon) {
-						<app-icon
-							[name]="noResultsValue.icon.name"
-							[iconClasses]="noResultsValue.icon.classes ?? ''"
-						/>
-					}
-					{{ noResultsValue.label }}
-				</div>
-			}
-		}
-	</ul>
-</div>

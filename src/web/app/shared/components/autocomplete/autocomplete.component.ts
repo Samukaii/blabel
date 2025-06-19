@@ -1,21 +1,20 @@
-import { Component, effect, input, output, signal, untracked } from '@angular/core';
+import { Component, computed, effect, inject, input, output, signal, untracked, viewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
 import { controlValueToSignal } from '../../utils/control-value-to-signal';
 import { outsideClickEffect } from '../../utils/outside-click-effect';
-import { IconComponent } from '../icon/icon.component';
-import { SpinnerComponent } from '../spinner/spinner.component';
 import { NoResults } from '../../models/no-results';
 import { MarkUsed } from '../../utils/mark-used';
 import { AutocompleteOption } from '@shared/models/autocomplete-option';
+import { AttachedOverlayService } from '../attached-overlay/attached-overlay.service';
+import { AutocompleteOptionsComponent } from './options/autocomplete-options.component';
+import { AttachedOverlayRef } from '../attached-overlay/models/attached-overlay-ref';
 
 
 @Component({
 	selector: 'app-autocomplete',
 	imports: [
-		InputComponent,
-		IconComponent,
-		SpinnerComponent
+		InputComponent
 	],
 	templateUrl: './autocomplete.component.html',
 	styleUrl: './autocomplete.component.scss',
@@ -36,13 +35,16 @@ export class AutocompleteComponent {
 
 	controlValue = controlValueToSignal(this.control);
 
+	private overlayService = inject(AttachedOverlayService);
+	private inputComponent = viewChild.required(InputComponent)
+
 	@MarkUsed()
 	updateSelectedOption = effect(() => {
 		const value = this.controlValue();
 
-		const option = this.options().find(option => option.value === value);
+		const option = this.options().find(option => option.value===value);
 
-		if(option) this.selectOption(option);
+		if (option) this.selectOption(option);
 	})
 
 	searchSignal = controlValueToSignal(this.searchControl, {
@@ -50,7 +52,7 @@ export class AutocompleteComponent {
 		defaultToNull: true
 	});
 
-	showOverlay = signal(false);
+	private overlay: null | AttachedOverlayRef<AutocompleteOptionsComponent> = null;
 
 	protected selectedOption = signal<AutocompleteOption | null>(null);
 
@@ -58,10 +60,9 @@ export class AutocompleteComponent {
 	protected emitSearch = effect(() => {
 		const value = this.searchSignal();
 
-		if (value === null) return;
+		if (value===null) return;
 
 		this.control().setValue(null);
-
 
 		untracked(() => {
 			this.search.emit(value);
@@ -70,14 +71,30 @@ export class AutocompleteComponent {
 
 	@MarkUsed()
 	protected closeOverlayOnOutsideClick = outsideClickEffect(() => {
-		this.showOverlay.set(false);
-	});
+		this.overlay?.close();
+	}, {excludeIds: ["autocomplete-options-overlay"]});
+
+	openOverlay() {
+		this.overlay = this.overlayService.open({
+			anchorElementRef: this.inputComponent().element(),
+			component: AutocompleteOptionsComponent,
+			data: {
+				options: this.options,
+				loading: this.loading,
+				selected: computed(() => this.selectedOption()?.value ?? null),
+				noResults: this.noResults(),
+				select: (option) => {
+					this.selectOption(option)
+				}
+			},
+		});
+	}
 
 	selectOption(option: AutocompleteOption) {
 		this.selectedOption.set(option);
 		this.search.emit('');
 		this.searchControl.setValue(option.label, {emitEvent: false});
 		this.control().setValue(option.value);
-		this.showOverlay.set(false);
+		this.overlay?.close();
 	}
 }
