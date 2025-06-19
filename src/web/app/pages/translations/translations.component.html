@@ -2,12 +2,16 @@
 	<ng-template ngSkipHydration
 				 #right>
 		<div class="w-full bg-gray-600 flex gap-2 items-center justify-end">
-			<app-icon
-				(click)="add()"
-				name="plus"
-				iconClasses="text-white size-8"
-				class="bg-yellow-500 transition hover:scale-110 hover:rotate-90 cursor-pointer drop-shadow-none hover:bg-yellow-400 shadow-xl z-0 w-fit h-fit block rounded-full p-2"
-			/>
+			@let responseValue = response.value();
+
+			@if (responseValue.languages.length > 0) {
+				<app-icon
+					(click)="add()"
+					name="plus"
+					iconClasses="text-white size-8"
+					class="bg-yellow-500 transition hover:scale-110 hover:rotate-90 cursor-pointer drop-shadow-none hover:bg-yellow-400 shadow-xl z-0 w-fit h-fit block rounded-full p-2"
+				/>
+			}
 			<div class="relative w-fit items-center">
 				<input
 					class="outline-none border-gray-400 min-w-[300px] border-2 rounded-md p-2"
