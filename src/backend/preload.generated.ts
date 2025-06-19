@@ -38,5 +38,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     openDevTools: (...args: any[]) => invoke('development:openDevTools', ...args),
     isProduction: (...args: any[]) => invoke('development:isProduction', ...args),
     isDebugAllowed: (...args: any[]) => invoke('development:isDebugAllowed', ...args)
+  },
+  ai: {
+    hasIntegratedAi: (...args: any[]) => invoke('ai:hasIntegratedAi', ...args)
   }
 });

@@ -5,6 +5,7 @@ import { developmentHandler } from './handlers/development/development-handler.j
 import { filesHandler } from './handlers/files/files.handler.js';
 import { translationsHandler } from './handlers/translations/translations.handler.js';
 import { windowHandler } from './handlers/window/window.handler.js';
+import { aiIntegrationKey } from './core/open-ai-client';
 
 export const ipcHandlers: ElectronFeatures = {
 	files: filesHandler,
@@ -14,5 +15,8 @@ export const ipcHandlers: ElectronFeatures = {
 		languages: applicationLanguagesHandler,
 		aiHints: aiHintsHandler
 	},
-	development: developmentHandler
+	development: developmentHandler,
+	ai: {
+		hasIntegratedAi: async () => !!aiIntegrationKey()
+	}
 };
