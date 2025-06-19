@@ -1,6 +1,7 @@
 import { Component, ComponentRef, inject, input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { CustomTableColumn } from '../models/table-column-fn';
-import { createComponentBinding } from '../../../utils/create-component-binding';
+import { createComponentBindings } from '../../../utils/create-component-bindings';
+
 
 @Component({
 	selector: 'app-custom-cell-renderer',
@@ -18,7 +19,7 @@ export class CustomCellRendererComponent implements OnInit, OnDestroy {
 		const column = this.column();
 
 		this.componentRef = this.viewRef.createComponent(column.component, {
-			bindings: createComponentBinding(column.component, column.bindings)
+			bindings: createComponentBindings(column.component, column.bindings)
 		});
 	}
 
