@@ -13,13 +13,5 @@ export class InputComponent {
   label = input('');
   placeholder = input('');
 
-  private element = viewChild('input', { read: ElementRef });
-
-  focus() {
-    const element = this.element()?.nativeElement as
-      | HTMLInputElement
-      | undefined;
-
-    element?.focus();
-  }
+  public element = viewChild('input', { read: ElementRef });
 }
