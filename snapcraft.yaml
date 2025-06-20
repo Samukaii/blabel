@@ -10,8 +10,8 @@ base: core22
 
 apps:
   blabel:
-    command: blabel
-    extensions: [gnome]
+    command: blabel --no-sandbox
+    extensions: [ gnome ]
     plugs:
       - network
       - home
@@ -34,6 +34,11 @@ parts:
     source: release/linux-unpacked
     override-build: |
       snapcraftctl build
+
+      mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui
+      cp $SNAPCRAFT_PROJECT_DIR/snap/gui/blabel.desktop $SNAPCRAFT_PART_INSTALL/blabel.desktop
+      cp $SNAPCRAFT_PROJECT_DIR/snap/gui/blabel.png $SNAPCRAFT_PART_INSTALL/meta/gui/blabel.png
+
       chmod 4755 $SNAPCRAFT_PART_INSTALL/chrome-sandbox || true
       chown root:root $SNAPCRAFT_PART_INSTALL/chrome-sandbox || true
     stage-packages:
@@ -42,10 +47,3 @@ parts:
       - libxss1
       - libasound2
       - libx11-xcb1
-
-  desktop-integration:
-    plugin: nil
-    source: .
-    organize:
-      snap/gui/blabel.desktop: blabel.desktop
-      snap/gui/blabel.png: meta/gui/blabel.png
