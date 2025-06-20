@@ -1,6 +1,9 @@
 [Desktop Entry]
 Name=Blabel
+Comment=Gerenciador offline de traduções com IA
 Exec=blabel
 Icon=${SNAP}/meta/gui/blabel.png
 Type=Application
-Categories=Utility;
+Categories=Utility;Development;Translation;
+StartupNotify=true
+Terminal=false

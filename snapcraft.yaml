@@ -2,32 +2,50 @@ name: blabel
 version: "1.0.0"
 summary: Gerenciador offline de traduções com inteligência artificial
 description: |
-    Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.
+  Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.
 
 grade: stable
 confinement: strict
 base: core22
 
 apps:
-    blabel:
-        command: blabel
-        extensions: [gnome]
-        plugs: [network, home, x11, wayland]
-        desktop: snap/gui/blabel.desktop
-        environment:
-            ELECTRON_DISABLE_SANDBOX: "false"
+  blabel:
+    command: blabel
+    extensions: [gnome]
+    plugs:
+      - network
+      - home
+      - x11
+      - wayland
+      - opengl
+      - browser-support
+      - desktop
+      - desktop-legacy
+      - gsettings
+      - unity7
+    desktop: blabel.desktop
+    environment:
+      ELECTRON_DISABLE_SANDBOX: "false"
+      TMPDIR: $XDG_RUNTIME_DIR
 
 parts:
-    blabel:
-        plugin: dump
-        source: release/linux-unpacked
-        override-build: |
-            snapcraftctl build
-            chmod 4755 $SNAPCRAFT_PART_INSTALL/chrome-sandbox || true
-            chown root:root $SNAPCRAFT_PART_INSTALL/chrome-sandbox || true
-        stage-packages:
-            - libgtk-3-0
-            - libnss3
-            - libxss1
-            - libasound2
-            - libx11-xcb1
+  blabel:
+    plugin: dump
+    source: release/linux-unpacked
+    override-build: |
+      snapcraftctl build
+      chmod 4755 $SNAPCRAFT_PART_INSTALL/chrome-sandbox || true
+      chown root:root $SNAPCRAFT_PART_INSTALL/chrome-sandbox || true
+    stage-packages:
+      - libgtk-3-0
+      - libnss3
+      - libxss1
+      - libasound2
+      - libx11-xcb1
+
+  desktop-integration:
+    plugin: nil
+    source: .
+    organize:
+      snap/gui/blabel.desktop: blabel.desktop
+      snap/gui/blabel.png: meta/gui/blabel.png
