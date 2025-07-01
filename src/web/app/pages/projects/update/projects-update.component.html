@@ -1,0 +1,45 @@
+@let projectValue = project.value().result;
+
+@if (projectValue) {
+	<ul class="flex text-lg font-semibold gap-2 p-4 border-b-2">
+		<li class="hover:text-yellow-600 transition cursor-pointer  border-b-2 border-transparent hover:border-yellow-600 ">
+			Projetos
+		</li>
+		<li>/</li>
+		<li>{{ projectValue.name }}</li>
+	</ul>
+
+	<app-tabs-container>
+		<app-tab label="Geral" icon="globe-alt" key="general">
+			<app-projects-form
+				[project]="projectValue"
+				[confirmButtonName]="'Salvar'"
+				[title]="'Editar projeto'"
+			/>
+		</app-tab>
+		<app-tab label="Repositório" icon="cube" key="git">
+			<app-projects-git-integration [projectId]="projectValue.id"/>
+		</app-tab>
+<!--		<app-tab label="Arquivos" icon="folder" key="files">-->
+<!--			<app-projects-form-->
+<!--				[project]="projectValue"-->
+<!--				[confirmButtonName]="'Salvar'"-->
+<!--				[title]="'Editar projeto'"-->
+<!--			/>-->
+<!--		</app-tab>-->
+<!--		<app-tab label="Campos de contexto" icon="queue-list" key="context-fields">-->
+<!--			<app-projects-form-->
+<!--				[project]="projectValue"-->
+<!--				[confirmButtonName]="'Salvar'"-->
+<!--				[title]="'Editar projeto'"-->
+<!--			/>-->
+<!--		</app-tab>-->
+<!--		<app-tab label="Revisões" icon="shield-check" key="revisions">-->
+<!--			<app-projects-form-->
+<!--				[project]="projectValue"-->
+<!--				[confirmButtonName]="'Salvar'"-->
+<!--				[title]="'Editar projeto'"-->
+<!--			/>-->
+<!--		</app-tab>-->
+	</app-tabs-container>
+}

@@ -9,6 +9,7 @@ import { Component, computed, input, output } from '@angular/core';
 export class SidebarComponent {
 	opened = input(false);
 	mode = input<'overlay' | 'push'>('push');
+	width = input('250px');
 	backdropClick = output();
 
 	protected canShowOverlay = computed(() => {

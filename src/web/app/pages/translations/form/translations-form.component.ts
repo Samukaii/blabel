@@ -26,7 +26,7 @@ import { getElectron } from '../../../shared/di/functions/get-electron';
 import { AiHintsPayload } from '@shared/models/ai-hints-payload';
 
 @Component({
-	selector: 'app-translations--form',
+	selector: 'app-translations-form',
 	templateUrl: './translations-form.component.html',
 	styleUrl: './translations-form.component.scss',
 	imports: [
@@ -57,7 +57,7 @@ export class TranslationsFormComponent implements OnInit, AfterViewInit {
 	private fb = inject(FormBuilder);
 	private document = inject(DOCUMENT);
 	private electronFeatures = getElectron();
-	private api = this.electronFeatures.api;
+	private api = this.electronFeatures;
 
 	private hasIntegratedAi = resource({
 		loader: () => this.electronFeatures.ai.hasIntegratedAi(),

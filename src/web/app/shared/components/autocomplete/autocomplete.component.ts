@@ -1,7 +1,7 @@
 import { Component, computed, effect, inject, input, output, signal, untracked, viewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
-import { controlValueToSignal } from '../../utils/control-value-to-signal';
+import { controlDisabledToSignal, controlValueToSignal } from '../../utils/control-value-to-signal';
 import { outsideClickEffect } from '../../utils/outside-click-effect';
 import { NoResults } from '../../models/no-results';
 import { MarkUsed } from '../../utils/mark-used';
@@ -31,30 +31,32 @@ export class AutocompleteComponent {
 	label = input('');
 	search = output<string>();
 
-	searchControl = new FormControl('', {nonNullable: true});
+	protected searchControl = new FormControl('', {nonNullable: true});
 
-	controlValue = controlValueToSignal(this.control);
+	protected controlValue = controlValueToSignal(this.control);
+	protected controlDisabled = controlDisabledToSignal(this.control);
 
 	private overlayService = inject(AttachedOverlayService);
 	private inputComponent = viewChild.required(InputComponent)
 
 	@MarkUsed()
-	updateSelectedOption = effect(() => {
+	protected updateSelectedOption = effect(() => {
 		const value = this.controlValue();
 
 		const option = this.options().find(option => option.value===value);
 
 		if (option) this.selectOption(option);
-	})
-
-	searchSignal = controlValueToSignal(this.searchControl, {
-		debounce: 250,
-		defaultToNull: true
 	});
 
-	private overlay: null | AttachedOverlayRef<AutocompleteOptionsComponent> = null;
+	@MarkUsed()
+	protected disableField = effect(() => {
+		const controlDisabled = this.controlDisabled();
 
-	protected selectedOption = signal<AutocompleteOption | null>(null);
+		untracked(() => {
+			if(controlDisabled) this.searchControl.disable({emitEvent: false});
+			else this.searchControl.enable({emitEvent: false});
+		})
+	})
 
 	@MarkUsed()
 	protected emitSearch = effect(() => {
@@ -71,10 +73,12 @@ export class AutocompleteComponent {
 
 	@MarkUsed()
 	protected closeOverlayOnOutsideClick = outsideClickEffect(() => {
-		this.overlay?.close();
+		this.closeOverlay();
 	}, {excludeIds: ["autocomplete-options-overlay"]});
 
-	openOverlay() {
+	protected openOverlay() {
+		if(!!this.overlay || this.controlDisabled()) return;
+
 		this.overlay = this.overlayService.open({
 			anchorElementRef: this.inputComponent().element(),
 			component: AutocompleteOptionsComponent,
@@ -90,11 +94,25 @@ export class AutocompleteComponent {
 		});
 	}
 
-	selectOption(option: AutocompleteOption) {
+	protected searchSignal = controlValueToSignal(this.searchControl, {
+		debounce: 250,
+		defaultToNull: true
+	});
+
+	private overlay: null | AttachedOverlayRef<AutocompleteOptionsComponent> = null;
+
+	protected selectedOption = signal<AutocompleteOption | null>(null);
+
+	protected selectOption(option: AutocompleteOption) {
 		this.selectedOption.set(option);
 		this.search.emit('');
 		this.searchControl.setValue(option.label, {emitEvent: false});
 		this.control().setValue(option.value);
+		this.closeOverlay();
+	}
+
+	private closeOverlay() {
 		this.overlay?.close();
+		this.overlay = null;
 	}
 }

@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+:host {
+  @font-face {
+    font-family: 'Anton SC';
+    src: url('/assets/fonts/anton-sc.ttf');
+  }
+
+  @font-face {
+    font-family: 'Alata';
+    src: url('/assets/fonts/alata.ttf');
+  }
+
+
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   position: relative;
 }

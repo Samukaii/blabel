@@ -7,6 +7,7 @@ export interface AttachedOverlayOptions<T> {
 	component: Type<T>;
 	data: ReactiveComponentData<T>;
 	panelOptions?: {
+		id?: string;
 		maxHeight?: number;
 		position?: GeometryPosition;
 	}

@@ -1,0 +1,48 @@
+<div class="card">
+  <img src="/assets/logos/logo-text-dark.svg" alt="Logo do Blabel" class="w-60">
+
+  <fieldset class="flex w-full flex-col gap-2 c-w-full">
+    <legend class="sr-only">Formulário de cadastro</legend>
+    <app-input
+      [control]="form.controls.name"
+      label="Nome"
+      placeholder="Informe aqui o seu nome"
+    />
+
+    <app-input
+      [control]="form.controls.email"
+      label="E-mail"
+      placeholder="email@email.com"
+
+    />
+
+    <app-input
+      [control]="form.controls.password"
+      label="Senha"
+      type="password"
+      placeholder="Informe aqui a senha"
+    />
+
+    <app-input
+      [control]="form.controls.passwordConfirmation"
+      label="Confirmação da senha"
+      type="password"
+      placeholder="Informe a senha novamente"
+    />
+  </fieldset>
+
+
+  <div class="w-full flex justify-end mt-8">
+    <app-button
+      (click)="submit()"
+      [disabled]="!valid()"
+      class="w-full"
+      color="yellow"
+      text="Se cadastrar"
+    />
+  </div>
+
+  <div class="text-sm text-gray-500 mt-4">
+    Já tem uma conta? <a routerLink="/auth/login" class="hover:underline text-yellow-600 cursor-pointer">Clique aqui para entrar</a>
+  </div>
+</div>

@@ -5,10 +5,26 @@ module.exports = {
   ],
   theme: {
     extend: {
-		colors: {
-			'accent-500': ''
-		}
-	},
+      colors: {
+      },
+      fontFamily: {
+        anton: ['Anton SC'],
+        alata: ['Alata'],
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          '.c-w-full > *': {
+            width: '100%',
+          },
+        },
+        {
+          layer: "utilities"
+        }
+      )
+    },
+  ],
 }

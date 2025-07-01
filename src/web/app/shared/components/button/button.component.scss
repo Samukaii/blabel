@@ -2,10 +2,14 @@
   display: block;
 }
 
+button {
+  @apply w-full flex justify-center;
+}
+
 .raised {
   @apply transition;
   @apply disabled:opacity-40 disabled:hover:shadow-none disabled:shadow-none;
-  @apply hover:shadow-gray-800 hover:shadow-md;
+  @apply hover:shadow-gray-800/30 hover:shadow-lg;
   @apply flex gap-2 font-semibold text-white px-4 py-2 rounded-md;
 
   &.primary {

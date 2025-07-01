@@ -55,7 +55,7 @@ async function convertSvgToIcons() {
 		console.log('✅ ICO salvo em:', icoPath)
 
 		console.log('🍏 Gerando ICNS...')
-		await iconGen(pngPath, outputDir, { modes: ['icns'], report: true })
+		await iconGen(pngPath, outputDir, { modes: ['icns'], report: true } as any)
 		const autoIcns = path.join(outputDir, '512x512.icns')
 		if (await fs.pathExists(autoIcns)) {
 			await fs.rename(autoIcns, icnsPath)

@@ -1,33 +1,88 @@
 <app-sidebar
-	mode="overlay"
-	[opened]="service.opened()"
-	(backdropClick)="service.close()">
-	<div class="w-full h-full flex flex-col"
-		 side-main>
-		<ng-content/>
-	</div>
-	<div class="bg-gray-700 w-full h-full"
-		 side-content>
-		<div class="flex z-20 flex-col p-3 gap-4">
-			<div class="flex flex-col gap-2">
-				@for (group of groups; track group.name) {
-					@if (group.name) {
-						<h2 class="text-gray-400">{{ group.name }}</h2>
-					}
-					@for (menu of group.items; track menu.path) {
-						<div
-							[routerLink]="menu.path"
-							class="w-full bg-gray-600  flex gap-2 text-white rounded-md cursor-pointer transition hover:bg-gray-500 p-2"
-							routerLinkActive="!bg-gray-100 !bg-opacity-40"
-						>
-							<app-icon [name]="menu.icon"/>
-							<p>
-								{{ menu.name }}
-							</p>
-						</div>
-					}
-				}
-			</div>
-		</div>
-	</div>
+  mode="push"
+  width="350px"
+  [opened]="service.opened()"
+  (backdropClick)="service.close()">
+  <div class="w-full h-full flex flex-col"
+       side-main>
+    <ng-content/>
+  </div>
+  <div class="bg-gray-700 w-full h-full flex flex-col justify-between"
+       side-content>
+    <div class="flex z-20 flex-col p-3">
+      @let user = currentUser.value();
+
+      @if (user) {
+        <div class="mb-4 w-full">
+          <div class="flex justify-between gap-4 w-full min-w-0">
+            <div class="flex gap-4 w-full  min-w-0">
+              <div class="text-white rounded-full bg-gray-800 w-fit h-fit p-4">
+                <app-icon name="user"/>
+              </div>
+              <div class="w-full min-w-0">
+                <p
+                  class="text-white w-full text-lg font-bold overflow-hidden text-ellipsis whitespace-nowrap">{{ user.name }}</p>
+                <p class="text-white w-full text-sm overflow-hidden text-ellipsis whitespace-nowrap">
+                  {{ user.email }}
+                </p>
+              </div>
+            </div>
+
+
+            <div class="text-white flex items-center  min-w-0">
+              <div
+                (click)="logout()"
+                class="cursor-pointer p-2 bg-gray-600 rounded-md hover:bg-gray-800 transition min-w-0"
+              >
+                <app-icon
+
+                  name="arrow-right-start-on-rectangle"/>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      }
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col">
+          <div class="px-0 mb-4 mt-2">
+            <hr class="border-gray-600">
+          </div>
+          @for (group of groups; track group.name) {
+            @if (group.name) {
+              <h2 class="text-gray-400 mt-4 mb-1">{{ group.name }}</h2>
+              <div class="mb-4">
+                <hr class="border-gray-600">
+              </div>
+            } @else {
+              @if (!$first) {
+                <div class="mb-4 mt-6">
+                  <hr class="border-gray-600">
+                </div>
+              }
+            }
+            <div
+              class="flex flex-col gap-2">
+              @for (menu of group.items; track menu.path) {
+                <div
+                  [routerLink]="menu.path"
+                  class="w-full bg-gray-600  flex gap-2 text-white rounded-xl cursor-pointer transition hover:bg-gray-500 p-3"
+                  routerLinkActive="!bg-gray-100 !bg-opacity-40"
+                >
+                  <app-icon [name]="menu.icon"/>
+                  <p>
+                    {{ menu.name }}
+                  </p>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
 </app-sidebar>

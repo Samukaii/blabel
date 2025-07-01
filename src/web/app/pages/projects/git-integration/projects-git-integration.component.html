@@ -1,0 +1,39 @@
+<app-autocomplete
+	label="Provedor"
+	[control]="form.controls.provider"
+	[options]="providers"
+	placeholder="Informe aqui o provedor"
+/>
+
+
+<app-input
+	label="Token de acesso"
+	[control]="form.controls.accessToken"
+	placeholder="Informe aqui o seu token de acesso"
+/>
+
+<div class="flex w-full justify-end">
+	<app-button
+		(click)="connect()"
+		text="Conectar"
+	/>
+</div>
+
+<app-autocomplete
+	label="Repositório"
+	[control]="form.controls.repository"
+	[options]="repositories.value().results"
+	placeholder="Informe aqui o repositório"
+/>
+<app-autocomplete
+	label="Branch principal"
+	[control]="form.controls.targetBranch"
+	[options]="branches.value().results"
+	placeholder="Informe aqui a branch principal"
+/>
+<app-autocomplete
+	label="Branch de desenvolvimento"
+	[control]="form.controls.sourceBranch"
+	[options]="branches.value().results"
+	placeholder="Informe aqui a branch de desenvolvimento"
+/>

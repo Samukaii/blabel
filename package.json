@@ -10,14 +10,15 @@
 	"type": "module",
 	"description": "Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.",
 	"scripts": {
-		"start:web": "npm run generate-icons && ng serve",
-		"build:web": "npm run generate-icons && ng build --configuration production",
+		"start:frontend": "npm run generate-icons && ng serve",
+		"build:frontend": "npm run generate-icons && ng build --configuration production",
 		"generate-icons": "tsx --tsconfig tsconfig.scripts.json scripts/generate-icons.ts",
 		"generate-favicons": "tsx --tsconfig tsconfig.scripts.json scripts/convert-icons-from-svg.ts",
-		"build:electron": "tsc -p tsconfig.electron.json && tsc-alias -p tsconfig.electron.json --outDir dist",
-		"start:electron": "npm run generate-preload && npm run build:electron && electron dist/backend/main.js",
+		"build:backend": "tsc -p tsconfig.electron.json && tsc-alias -p tsconfig.electron.json --outDir dist",
+		"restart:backend": "electron dist/backend/main.js",
+		"start:backend": "npm run generate-preload && npm run build:backend && npm run restart:backend",
 		"generate-preload": "tsx --tsconfig tsconfig.scripts.json scripts/generate-electron-preload.ts",
-		"dist": "npm run generate-preload && npm run build:electron && npm run build:web && electron-builder"
+		"dist": "npm run generate-preload && npm run build:backend && npm run build:backend && electron-builder"
 	},
 	"build": {
 		"appId": "com.blabel.app",
@@ -31,8 +32,8 @@
 		],
 		"extraResources": [
 			{
-			"from": "public/assets/favicons",
-			"to": "assets/favicons"
+				"from": "public/assets/favicons",
+				"to": "assets/favicons"
 			}
 		],
 		"win": {
@@ -42,7 +43,10 @@
 			"icon": "public/assets/favicons/icon.icns"
 		},
 		"linux": {
-			"target": ["AppImage", "deb"],
+			"target": [
+				"AppImage",
+				"deb"
+			],
 			"icon": "public/assets/favicons/linux-icons",
 			"category": "Utility"
 		}
@@ -58,8 +62,10 @@
 		"@angular/router": "^20.0.0",
 		"@angular/ssr": "^20.0.0",
 		"@tailwindcss/postcss": "^4.1.8",
+		"axios": "^1.10.0",
 		"cors": "^2.8.5",
 		"dotenv": "^16.5.0",
+		"electron-store": "^8.2.0",
 		"electronmon": "^2.0.3",
 		"express": "^4.18.2",
 		"openai": "^5.1.1",

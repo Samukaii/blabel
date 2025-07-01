@@ -9,10 +9,6 @@ import { TranslationsReviewChangesComponent } from './review-changes/translation
 import { ButtonComponent } from "../../shared/components/button/button.component";
 import { TableComponent } from '../../shared/components/table/table.component';
 import { TableColumnFn } from '../../shared/components/table/models/table-column-fn';
-import {
-	customTableColumn,
-	TranslationsCellsActionComponent
-} from '../../shared/components/table/cells/action/translations-cells-action.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-place.component';
 import { getElectron } from '../../shared/di/functions/get-electron';
@@ -21,6 +17,8 @@ import { Translation } from '@shared/models/translation';
 import { TranslationLanguage } from '@shared/models/translation-language';
 import { TableActionFn } from '../../shared/components/table/models/table-action-fn';
 import { TableClassesFn } from '../../shared/components/table/models/table-classes-fn';
+import { TableColumn } from '../../shared/components/table/models/table-column';
+
 
 @Component({
 	selector: 'app--translations',
@@ -36,7 +34,7 @@ import { TableClassesFn } from '../../shared/components/table/models/table-class
 })
 export class TranslationsComponent {
 	private dialog = inject(DialogService);
-	private api = getElectron().api;
+	private api = getElectron();
 
 	searchControl = new FormControl('', {nonNullable: true});
 	searchControlValue = toSignal(this.searchControl.valueChanges.pipe(debounceTime(200)), {
@@ -153,34 +151,41 @@ export class TranslationsComponent {
 			{
 				position: "path",
 				name: "Caminho",
-				value: element.path
+        cell: {
+          type: "default",
+          options: {
+            value: element.path
+          }
+        }
 			},
-			...element.entries.map(entry => customTableColumn({
-				component: TranslationsCellsActionComponent,
+			...element.entries.map((entry): TableColumn => ({
 				name: entry.language.label,
 				position: entry.language.key,
-				bindings: {
-					text: {
-						value: entry.value,
-						classes: [
-							entry.status==="edited" ? "font-bold":""
-						]
-					},
-					actions: [
-						{
-							icon: "arrow-turn-left",
-							click: () => this.reset(element.path, entry.language.key),
-							condition: entry.status==="edited",
-							classes: ['text-yellow-500']
-						},
-						{
-							icon: "pencil-square",
-							condition: entry.status!=="edited",
-							click: () => this.update(element, entry.language),
-							classes: ['text-blue-900']
-						},
-					]
-				}
+				cell: {
+          type: "with-action",
+          options: {
+            text: {
+              value: entry.value,
+              classes: [
+                entry.status==="edited" ? "font-bold":""
+              ]
+            },
+            actions: [
+              {
+                icon: "arrow-uturn-left",
+                click: () => this.reset(element.path, entry.language.key),
+                condition: entry.status==="edited",
+                classes: ['text-yellow-500']
+              },
+              {
+                icon: "pencil-square",
+                condition: entry.status!=="edited",
+                click: () => this.update(element, entry.language),
+                classes: ['text-blue-900']
+              },
+            ]
+          }
+        }
 			})),
 		]
 	});
@@ -196,7 +201,7 @@ export class TranslationsComponent {
 			}
 		},
 		{
-			icon: "arrow-turn-left",
+			icon: "arrow-uturn-left",
 			name: "revert",
 			condition: translation.operation==="delete",
 			classes: ['text-yellow-700'],

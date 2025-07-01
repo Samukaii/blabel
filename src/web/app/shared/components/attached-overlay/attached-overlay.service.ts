@@ -1,5 +1,4 @@
 import { inject, Injectable } from '@angular/core';
-import { GeometryAlignmentService } from '../../services/geometry-alignment/geometry-alignment.service';
 import { AttachedOverlayOptions } from './models/attached-overlay-options';
 import { AttachedOverlayRef } from './models/attached-overlay-ref';
 import { AttachedOverlayComponent } from './anchor/attached-overlay.component';
@@ -12,11 +11,19 @@ import { ElementAnchorService } from '../../services/element-anchor/element-anch
 })
 export class AttachedOverlayService {
 	private anchorService = inject(ElementAnchorService);
-	private alignmentService = inject(GeometryAlignmentService);
+	private overlays = new Map<string, AttachedOverlayRef<any>>();
 
 	open<T>(options: AttachedOverlayOptions<T>) {
+		if (options.panelOptions?.id && !this.canUseId(options.panelOptions.id))
+			throw new Error(
+				`The overlay id "${options.panelOptions.id}" is already in use. Please choose a different id.`
+			);
+
+		const id = options.panelOptions?.id ?? this.createId();
+
 		const anchor = this.anchorService.createAnchor(AttachedOverlayComponent, {
-			...this.getDimensions(options),
+			anchor: options.anchorElementRef,
+			id,
 			maxHeight: options.panelOptions?.maxHeight ?? 300,
 		});
 
@@ -24,37 +31,33 @@ export class AttachedOverlayService {
 			bindings: createComponentBindings(options.component, options.data)
 		});
 
-		return {
+		const overlayRef: AttachedOverlayRef<T> = {
 			componentRef,
 			close: () => {
+				this.overlays.delete(id);
 				anchor.destroy();
 				componentRef.destroy();
 			}
-		} as AttachedOverlayRef<T>;
+		};
+
+		this.overlays.set(id, overlayRef);
+
+		return overlayRef;
 	}
 
-	private getDimensions<T>(options: AttachedOverlayOptions<T>) {
-		const anchorRef = options.anchorElementRef;
+	private canUseId(id: string) {
+		return !this.overlays.has(id);
+	}
 
-		if (!anchorRef) return {width: "200px", height: "300px", x: 0, y: 0};
+	private createId() {
+		let counter = 1;
+		let id = `overlay-container-${counter}`;
 
-		const anchorElement = anchorRef.nativeElement;
+		while (!this.canUseId(id)) {
+			counter++;
+			id = `overlay-container-${counter}`;
+		}
 
-		const anchorRect = anchorElement.getBoundingClientRect();
-
-		const {result} = this.alignmentService.smartAlignTargetTo({
-			anchor: anchorRect,
-			targetSize: {
-				width: anchorRect.width,
-				height: options?.panelOptions?.maxHeight ?? 300,
-			},
-			preferredPositions: ["bottom-center"]
-		});
-
-		return {
-			width: `${anchorRect.width}px`,
-			x: result.x,
-			y: result.y,
-		};
+		return id;
 	}
 }

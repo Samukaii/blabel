@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Alata', sans-serif;
+      color: white;
+    }
+    body {
+      background-color: #2C2525;
+    }
+
+    input {
+      padding: 1rem;
+      outline: none;
+      font-size: 1rem;
+      border: 1px solid rgba(204, 204, 204, 0.43);
+      background-color: transparent;
+      width: 800px;
+      border-radius: 15px;
+    }
+
+    .search {
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(204, 204, 204, 0.43);
+      margin-bottom: 1rem;
+    }
+
+    .icon {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      width: 100px;
+      height: 100px;
+      border: 1px solid rgba(204, 204, 204, 0.43);
+      margin: 10px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 15px;
+    }
+
+    .icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    .icon p {
+      margin: 0;
+      max-width: 90px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .icon:hover::after {
+      content: attr(title);
+      position: absolute;
+      background: #000;
+      color: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      transform: translateY(110%);
+    }
+
+    .icon.selected {
+      border-color: dodgerblue;
+      background: rgba(30, 144, 255, 0.3);
+    }
+  </style>
+  <title>Icons</title>
+</head>
+<body>
+<div class="search">
+  <input id="search" onInput="search()" placeholder="Pesquisar">
+</div>
+<div id="icons-container"></div>
+
+<script type="module">
+  const run = async () => {
+    const container = document.getElementById('icons-container');
+
+    const selectedIcons = await fetch('./used-icons.json').then(res => res.json());
+    const allIcons = Object.entries(await fetch('./all-icons.json').then(res => res.json()));
+    const selected = new Set(selectedIcons);
+
+    console.log(selected);
+
+    const saveSelection = () => {
+      const list = Array.from(selected);
+      const json = JSON.stringify(list, null, 2);
+      navigator.clipboard.writeText(json);
+    };
+
+    window.search = () => {
+      const searchElement = document.getElementById('search');
+
+      renderIcons(allIcons.filter(([name]) => name.includes(searchElement.value)));
+    }
+
+    const renderIcons = (icons) => {
+      const children = Array.from(document.getElementById('icons-container').children);
+
+      children.forEach(child => child.remove());
+
+      icons.forEach(([name, svg]) => {
+        const div = document.createElement('div');
+        div.classList.add('icon');
+        div.style.cursor = "pointer";
+        div.setAttribute('title', name)
+        div.innerHTML = svg;
+
+        const iconName = document.createElement('p');
+
+        iconName.textContent = name;
+        div.appendChild(iconName);
+
+        const selectIcon = () => {
+          div.classList.toggle('selected');
+          selected.has(name) ? selected.delete(name) : selected.add(name);
+        }
+
+        if(selected.has(name)) {
+          div.classList.add('selected');
+        }
+
+        div.onclick = () => {
+          selectIcon();
+          saveSelection();
+        };
+        container.appendChild(div);
+      });
+    }
+
+    renderIcons(allIcons);
+
+    saveSelection();
+  }
+  run();
+</script>
+</body>
+</html>

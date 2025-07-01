@@ -2,6 +2,7 @@
 	<div
 		[class.show]="opened()"
 		[class.overlay]="mode() === 'overlay'"
+    [style.--show-width]="width()"
 		class="side-menu">
 		<ng-content select="[side-content]"/>
 	</div>

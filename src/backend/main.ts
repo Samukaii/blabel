@@ -2,6 +2,9 @@ import * as electron from 'electron';
 import { currentWindow } from './core/current-window';
 import { ipcHandlers } from './ipc-handlers.js';
 import { registerHandlers } from './register-handlers';
+import { configDotenv } from 'dotenv';
+
+configDotenv()
 
 electron.app.setName("Blabel");
 

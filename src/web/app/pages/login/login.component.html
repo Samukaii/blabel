@@ -1,0 +1,31 @@
+<div class="card">
+  <img src="/assets/logos/logo-text-dark.svg" alt="Logo do Blabel" class="w-60">
+
+  <fieldset class="flex w-full flex-col gap-2 c-w-full">
+    <app-input
+      [control]="form.controls.email"
+      label="E-mail"
+      placeholder="email@email.com"
+    />
+    <app-input
+      [control]="form.controls.password"
+      type="password"
+      label="Senha"
+      placeholder="Informe aqui a senha"
+    />
+  </fieldset>
+
+  <div class="w-full flex justify-end mt-6">
+    <app-button
+      class="w-full"
+      (click)="submit()"
+      [disabled]="!valid()"
+      color="yellow"
+      text="Entrar"
+    />
+  </div>
+
+  <div class="text-sm text-gray-500 mt-4">
+    Não tem uma conta ainda? <a routerLink="/auth/register" class="hover:underline text-yellow-600 cursor-pointer">Clique aqui para se cadastrar</a>
+  </div>
+</div>

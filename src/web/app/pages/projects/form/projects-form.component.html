@@ -1,0 +1,24 @@
+<h2 class="text-xl w-full text-center font-semibold mb-4">
+	{{title()}}
+</h2>
+<div class="w-full h-fit">
+	<app-input
+		label="Nome"
+		placeholder="Informe aqui o nome"
+		[control]="form.controls.name"
+	/>
+
+	<app-textarea
+		label="Descrição"
+		placeholder="Informe aqui a descrição"
+		[control]="form.controls.description"
+	/>
+</div>
+<div class="w-full flex justify-end items-center pt-2">
+	<app-button
+		[disabled]="!formIsValid()"
+		(click)="submit()"
+		theme="raised"
+		[text]="confirmButtonName()"
+	/>
+</div>

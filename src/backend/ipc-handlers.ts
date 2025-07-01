@@ -6,16 +6,20 @@ import { filesHandler } from './handlers/files/files.handler.js';
 import { translationsHandler } from './handlers/translations/translations.handler.js';
 import { windowHandler } from './handlers/window/window.handler.js';
 import { aiIntegrationKey } from './core/open-ai-client';
+import { authHandler } from './handlers/auth/auth.handler';
+import { projectsHandler } from './handlers/projects/projects.handler';
+import { gitHandler } from './handlers/git/git.handler';
 
 export const ipcHandlers: ElectronFeatures = {
 	files: filesHandler,
 	window: windowHandler,
-	api: {
-		translations: translationsHandler,
-		languages: applicationLanguagesHandler,
-		aiHints: aiHintsHandler
-	},
+	translations: translationsHandler,
+	languages: applicationLanguagesHandler,
+	git: gitHandler,
+	projects: projectsHandler,
+	aiHints: aiHintsHandler,
 	development: developmentHandler,
+	auth: authHandler,
 	ai: {
 		hasIntegratedAi: async () => !!aiIntegrationKey()
 	}

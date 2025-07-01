@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, OnInit, output, resource, signal } from '@angular/core';
+import { Component, input, OnInit, output, resource, signal } from '@angular/core';
 import { languageFileForm } from './language-file-form';
 import { InferFormValueFn } from '../../../shared/models/infer-form-value-fn';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -6,35 +6,9 @@ import { AutocompleteComponent } from '../../../shared/components/autocomplete/a
 import { NoResults } from '../../../shared/models/no-results';
 import { FileSelectorComponent } from '../../../shared/components/file-selector/file-selector.component';
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
-import { FormGroup } from '@angular/forms';
 import { TranslationFile } from '@shared/models/translation-file';
 import { getElectron } from '../../../shared/di/functions/get-electron';
-
-const formStatusSignal = <Form extends FormGroup>(formGroup: Form) => {
-	const destroyRef = inject(DestroyRef);
-
-	const statusSignal = signal(formGroup.status);
-
-	const subscription = formGroup.statusChanges.subscribe(status => {
-		statusSignal.set(status);
-	});
-
-	destroyRef.onDestroy(() => {
-		subscription.unsubscribe();
-	});
-
-	return statusSignal;
-}
-
-const formIsValid = (form: FormGroup) => {
-	const status = formStatusSignal(form);
-
-	return computed(() => {
-		status();
-
-		return form.valid
-	})
-}
+import { formIsValid } from '../../../shared/utils/form-is-valid';
 
 
 @Component({
@@ -54,7 +28,7 @@ export class LanguageFileFormComponent implements OnInit {
 	confirmButtonName = input.required<string>()
 
 	protected form = languageFileForm();
-	private api = getElectron().api;
+	private api = getElectron();
 
 	formIsValid = formIsValid(this.form);
 	search = signal('');

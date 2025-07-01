@@ -12,32 +12,49 @@ contextBridge.exposeInMainWorld('electronAPI', {
     maximize: (...args: any[]) => invoke('window:maximize', ...args),
     close: (...args: any[]) => invoke('window:close', ...args)
   },
-  api: {
-    translations: {
-      getAll: (...args: any[]) => invoke('api:translations:getAll', ...args),
-      registerChange: (...args: any[]) => invoke('api:translations:registerChange', ...args),
-      getAllChanges: (...args: any[]) => invoke('api:translations:getAllChanges', ...args),
-      registerRemoveChange: (...args: any[]) => invoke('api:translations:registerRemoveChange', ...args),
-      discardAllChanges: (...args: any[]) => invoke('api:translations:discardAllChanges', ...args),
-      revertEntryChange: (...args: any[]) => invoke('api:translations:revertEntryChange', ...args),
-      revertTranslationChange: (...args: any[]) => invoke('api:translations:revertTranslationChange', ...args),
-      saveAll: (...args: any[]) => invoke('api:translations:saveAll', ...args)
-    },
-    languages: {
-      get: (...args: any[]) => invoke('api:languages:get', ...args),
-      add: (...args: any[]) => invoke('api:languages:add', ...args),
-      remove: (...args: any[]) => invoke('api:languages:remove', ...args),
-      update: (...args: any[]) => invoke('api:languages:update', ...args),
-      autocomplete: (...args: any[]) => invoke('api:languages:autocomplete', ...args)
-    },
-    aiHints: {
-      translateEmptyLanguages: (...args: any[]) => invoke('api:aiHints:translateEmptyLanguages', ...args)
-    }
+  translations: {
+    getAll: (...args: any[]) => invoke('translations:getAll', ...args),
+    registerChange: (...args: any[]) => invoke('translations:registerChange', ...args),
+    getAllChanges: (...args: any[]) => invoke('translations:getAllChanges', ...args),
+    registerRemoveChange: (...args: any[]) => invoke('translations:registerRemoveChange', ...args),
+    discardAllChanges: (...args: any[]) => invoke('translations:discardAllChanges', ...args),
+    revertEntryChange: (...args: any[]) => invoke('translations:revertEntryChange', ...args),
+    revertTranslationChange: (...args: any[]) => invoke('translations:revertTranslationChange', ...args),
+    saveAll: (...args: any[]) => invoke('translations:saveAll', ...args)
+  },
+  languages: {
+    get: (...args: any[]) => invoke('languages:get', ...args),
+    add: (...args: any[]) => invoke('languages:add', ...args),
+    remove: (...args: any[]) => invoke('languages:remove', ...args),
+    update: (...args: any[]) => invoke('languages:update', ...args),
+    autocomplete: (...args: any[]) => invoke('languages:autocomplete', ...args)
+  },
+  git: {
+    connect: (...args: any[]) => invoke('git:connect', ...args),
+    getBranches: (...args: any[]) => invoke('git:getBranches', ...args),
+    getRepositories: (...args: any[]) => invoke('git:getRepositories', ...args),
+    getConnection: (...args: any[]) => invoke('git:getConnection', ...args)
+  },
+  projects: {
+    getAll: (...args: any[]) => invoke('projects:getAll', ...args),
+    getOne: (...args: any[]) => invoke('projects:getOne', ...args),
+    create: (...args: any[]) => invoke('projects:create', ...args),
+    remove: (...args: any[]) => invoke('projects:remove', ...args)
+  },
+  aiHints: {
+    translateEmptyLanguages: (...args: any[]) => invoke('aiHints:translateEmptyLanguages', ...args)
   },
   development: {
     openDevTools: (...args: any[]) => invoke('development:openDevTools', ...args),
     isProduction: (...args: any[]) => invoke('development:isProduction', ...args),
     isDebugAllowed: (...args: any[]) => invoke('development:isDebugAllowed', ...args)
+  },
+  auth: {
+    login: (...args: any[]) => invoke('auth:login', ...args),
+    isLoggedIn: (...args: any[]) => invoke('auth:isLoggedIn', ...args),
+    logout: (...args: any[]) => invoke('auth:logout', ...args),
+    register: (...args: any[]) => invoke('auth:register', ...args),
+    currentUser: (...args: any[]) => invoke('auth:currentUser', ...args)
   },
   ai: {
     hasIntegratedAi: (...args: any[]) => invoke('ai:hasIntegratedAi', ...args)

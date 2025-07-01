@@ -17,8 +17,11 @@ export class IconComponent {
 	iconClasses = input("");
 
     private classSelector = computed(() => {
-        return this.iconClasses() ? `class="${this.iconClasses()}"` : "";
+        return this.iconClasses() ? `class="${this.iconClasses()}"` : 'class="size-6"';
     })
 
-	icon = computed(() => iconsMapping[this.name()].replace('<svg', `<svg ${this.classSelector()}`));
+	icon = computed(() => iconsMapping[this.name()]
+    .replace(/class="[^"]*"/, '')
+    .replace('<svg', `<svg ${this.classSelector()}`)
+  )
 }

@@ -1,0 +1,8 @@
+:host {
+  @apply h-full w-full flex justify-center items-center;
+}
+
+.card {
+  @apply rounded-lg p-6 w-full flex flex-col items-center max-w-[800px];
+  box-shadow: 0 0 79px 5px rgba(0, 0, 0, 0.2);
+}

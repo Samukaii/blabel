@@ -11,7 +11,7 @@ import { getElectron } from '../../../shared/di/functions/get-electron';
 })
 export class TranslationsReviewChangesComponent {
   confirm = output<void>();
-  private api = getElectron().api;
+  private api = getElectron();
 
   changes = resource({
     defaultValue: { results: [] },

@@ -5,8 +5,8 @@ import { TableColumn } from './models/table-column';
 import { TableColumnFn } from './models/table-column-fn';
 import { Identifiable } from '../../models/identifiable';
 import { CallPipe } from '../../pipes/call.pipe';
-import { CustomCellRendererComponent } from './cell-renderer/custom-cell-renderer.component';
-import { toClassPipe } from '../../pipes/toClass.pipe';
+import { TableCellRendererComponent } from './cell-renderer/table-cell-renderer.component';
+import { ToClassPipe } from '../../pipes/to-class.pipe';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { TableActionFn } from './models/table-action-fn';
 import { TableClassesFn } from './models/table-classes-fn';
@@ -17,8 +17,8 @@ import { TableClassesFn } from './models/table-classes-fn';
 	imports: [
 		IconComponent,
 		CallPipe,
-		CustomCellRendererComponent,
-		toClassPipe,
+		TableCellRendererComponent,
+		ToClassPipe,
 		SpinnerComponent,
 	],
 	templateUrl: './table.component.html',
