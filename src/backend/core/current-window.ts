@@ -27,7 +27,7 @@ const getWindowUrl = async () => {
 			}) + '#/translations'
 		);
 	} else {
-		return 'http://localhost:4200';
+		return 'http://localhost:4201';
 	}
 };
 
