@@ -1,6 +1,19 @@
-import { GitConnectionStatus } from '@shared/models/git-connection-status';
+import { GitProvider } from '@shared/models/git-provider';
 
-export type GitConnectionResponse = {
-	status: GitConnectionStatus;
-};
+interface GitProviderInfoConnected {
+	status: 'connected' | 'disconnected';
+	info: {
+		provider: GitProvider;
+		login: string;
+		bio: string;
+		name: string;
+		avatarUrl: string;
+	}
+}
+
+interface GitProviderInfoDisconnected {
+	status: 'disconnected';
+}
+
+export type GitConnectionResponse = GitProviderInfoConnected | GitProviderInfoDisconnected;
 

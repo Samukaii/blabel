@@ -34,9 +34,8 @@ import { elementSizeSignal } from '../../../utils/element-size-signal';
 			max-height: var(--max-height, 300px);
 			overflow: auto;
 			background: white;
-			border: 1px solid #ccc;
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-			border-radius: 4px;
+			box-shadow: -4px 7px 20px 0px rgba(0, 0, 0, 0.18);
+			border-radius: 10px;
 		}
 	`,
 	standalone: true,

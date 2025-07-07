@@ -5,7 +5,9 @@ const invoke = (handlerName: string, ...args: any[]) => ipcRenderer.invoke(handl
 
 contextBridge.exposeInMainWorld('electronAPI', {
   files: {
-    openDialog: (...args: any[]) => invoke('files:openDialog', ...args)
+    openDialog: (...args: any[]) => invoke('files:openDialog', ...args),
+    saveDialog: (...args: any[]) => invoke('files:saveDialog', ...args),
+    download: (...args: any[]) => invoke('files:download', ...args)
   },
   window: {
     minimize: (...args: any[]) => invoke('window:minimize', ...args),
@@ -33,13 +35,23 @@ contextBridge.exposeInMainWorld('electronAPI', {
     connect: (...args: any[]) => invoke('git:connect', ...args),
     getBranches: (...args: any[]) => invoke('git:getBranches', ...args),
     getRepositories: (...args: any[]) => invoke('git:getRepositories', ...args),
-    getConnection: (...args: any[]) => invoke('git:getConnection', ...args)
+    getConnection: (...args: any[]) => invoke('git:getConnection', ...args),
+    disconnect: (...args: any[]) => invoke('git:disconnect', ...args),
+    findFile: (...args: any[]) => invoke('git:findFile', ...args)
   },
   projects: {
     getAll: (...args: any[]) => invoke('projects:getAll', ...args),
     getOne: (...args: any[]) => invoke('projects:getOne', ...args),
+    updateOne: (...args: any[]) => invoke('projects:updateOne', ...args),
     create: (...args: any[]) => invoke('projects:create', ...args),
-    remove: (...args: any[]) => invoke('projects:remove', ...args)
+    remove: (...args: any[]) => invoke('projects:remove', ...args),
+    languages: {
+      getAll: (...args: any[]) => invoke('projects:languages:getAll', ...args),
+      getOne: (...args: any[]) => invoke('projects:languages:getOne', ...args),
+      updateOne: (...args: any[]) => invoke('projects:languages:updateOne', ...args),
+      create: (...args: any[]) => invoke('projects:languages:create', ...args),
+      remove: (...args: any[]) => invoke('projects:languages:remove', ...args)
+    }
   },
   aiHints: {
     translateEmptyLanguages: (...args: any[]) => invoke('aiHints:translateEmptyLanguages', ...args)

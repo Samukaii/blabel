@@ -10,7 +10,7 @@ button {
   @apply transition;
   @apply disabled:opacity-40 disabled:hover:shadow-none disabled:shadow-none;
   @apply hover:shadow-gray-800/30 hover:shadow-lg;
-  @apply flex gap-2 font-semibold text-white px-4 py-2 rounded-md;
+  @apply flex gap-2 font-semibold text-white px-4 py-2 rounded-full;
 
   &.primary {
     @apply hover:bg-gray-700 disabled:hover:bg-gray-700;
@@ -30,8 +30,8 @@ button {
 
 .stroked {
   @apply transition;
-  @apply hover:bg-yellow-50 disabled:opacity-60 disabled:grayscale;
-  @apply items-center flex gap-2 font-semibold py-1 rounded-md;
+  @apply disabled:opacity-60 disabled:grayscale;
+  @apply items-center flex gap-2 font-semibold py-1 rounded-full;
 
   &.yellow {
     @apply hover:bg-yellow-50;
@@ -39,7 +39,7 @@ button {
   }
 
   &.primary {
-    @apply hover:bg-gray-50;
+    @apply hover:bg-gray-800 hover:text-gray-50 hover:border-gray-800;
     @apply text-gray-500 border-2 border-gray-500 px-2;
   }
 

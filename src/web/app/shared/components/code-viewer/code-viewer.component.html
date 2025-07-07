@@ -1,0 +1,10 @@
+<cdk-virtual-scroll-viewport itemSize="20" class="h-full min-h-0 w-full overflow-scroll">
+	<div class="flex" *cdkVirtualFor="let line of fileLines(); let i = index;">
+					<span
+						[style.width]="lineCounterWidth()"
+						class="border-r pr-4 border-gray-200 text-sm text-gray-400 mr-2 text-right">{{ i + 1 }}</span>
+		<pre class="code-line"
+			 [style.width]="codeWidth()"
+		>{{ line }}</pre>
+	</div>
+</cdk-virtual-scroll-viewport>

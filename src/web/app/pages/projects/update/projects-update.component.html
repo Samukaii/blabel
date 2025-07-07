@@ -1,45 +1,38 @@
 @let projectValue = project.value().result;
 
 @if (projectValue) {
-	<ul class="flex text-lg font-semibold gap-2 p-4 border-b-2">
-		<li class="hover:text-yellow-600 transition cursor-pointer  border-b-2 border-transparent hover:border-yellow-600 ">
+	<ul class="flex text-md font-semibold bg-gray-700 text-white gap-2 p-3 shadow-md">
+		<li routerLink="/home/projects"
+			class="hover:font-bold transition cursor-pointer  border-b-2 border-transparent hover:border-gray-100 ">
 			Projetos
 		</li>
 		<li>/</li>
 		<li>{{ projectValue.name }}</li>
 	</ul>
+	<div class="p-4">
+		<div class="rounded-xl shadow-lg border border-gray-300">
+			<app-tabs-container>
+				<app-tab label="Geral" icon="globe-alt" key="general">
+					<app-projects-form
+						[project]="projectValue"
+						[confirmButtonName]="'Salvar'"
+						[title]="'Editar projeto'"
+					/>
+				</app-tab>
+				<app-tab label="Repositório" icon="cube" key="git">
+					<app-projects-repository
+						[project]="projectValue"
+						(reload)="project.reload()"
+					/>
+				</app-tab>
+				<app-tab label="Idiomas" icon="language" key="files">
+					<app-projects-languages
+						[project]="projectValue"
+						(reload)="project.reload()"
+					/>
+				</app-tab>
+			</app-tabs-container>
+		</div>
 
-	<app-tabs-container>
-		<app-tab label="Geral" icon="globe-alt" key="general">
-			<app-projects-form
-				[project]="projectValue"
-				[confirmButtonName]="'Salvar'"
-				[title]="'Editar projeto'"
-			/>
-		</app-tab>
-		<app-tab label="Repositório" icon="cube" key="git">
-			<app-projects-git-integration [projectId]="projectValue.id"/>
-		</app-tab>
-<!--		<app-tab label="Arquivos" icon="folder" key="files">-->
-<!--			<app-projects-form-->
-<!--				[project]="projectValue"-->
-<!--				[confirmButtonName]="'Salvar'"-->
-<!--				[title]="'Editar projeto'"-->
-<!--			/>-->
-<!--		</app-tab>-->
-<!--		<app-tab label="Campos de contexto" icon="queue-list" key="context-fields">-->
-<!--			<app-projects-form-->
-<!--				[project]="projectValue"-->
-<!--				[confirmButtonName]="'Salvar'"-->
-<!--				[title]="'Editar projeto'"-->
-<!--			/>-->
-<!--		</app-tab>-->
-<!--		<app-tab label="Revisões" icon="shield-check" key="revisions">-->
-<!--			<app-projects-form-->
-<!--				[project]="projectValue"-->
-<!--				[confirmButtonName]="'Salvar'"-->
-<!--				[title]="'Editar projeto'"-->
-<!--			/>-->
-<!--		</app-tab>-->
-	</app-tabs-container>
+	</div>
 }

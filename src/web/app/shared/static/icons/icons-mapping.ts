@@ -28,6 +28,9 @@ import { documentText } from './document-text';
 import { folder } from './folder';
 import { queueList } from './queue-list';
 import { shieldCheck } from './shield-check';
+import { link } from './link';
+import { inbox } from './inbox';
+import { lockClosed } from './lock-closed';
 
 
 export const iconsMapping = {
@@ -61,4 +64,7 @@ export const iconsMapping = {
     'folder': folder,
     'queue-list': queueList,
     'shield-check': shieldCheck,
+    'link': link,
+    'inbox': inbox,
+    'lock-closed': lockClosed,
 };

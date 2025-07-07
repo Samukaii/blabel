@@ -3,19 +3,16 @@ import { TableComponent } from '../../shared/components/table/table.component';
 import { getElectron } from '../../shared/di/functions/get-electron';
 import { TableColumnFn } from '../../shared/components/table/models/table-column-fn';
 import { Project } from '@shared/models/project';
-import { IconComponent } from '../../shared/components/icon/icon.component';
-import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-place.component';
 import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { ProjectsFormComponent } from './form/projects-form.component';
 import { TableActionFn } from '../../shared/components/table/models/table-action-fn';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonAction } from '../../shared/components/button/models/button-action';
 
 @Component({
 	selector: 'app-projects',
 	imports: [
-		TableComponent,
-		IconComponent,
-		NavbarPlaceComponent
+		TableComponent
 	],
 	templateUrl: './projects.component.html',
 	styleUrl: './projects.component.scss'
@@ -26,9 +23,25 @@ export class ProjectsComponent {
 	private router = inject(Router);
 	private route = inject(ActivatedRoute);
 
+	protected createAction: ButtonAction = {
+		icon: "plus",
+		text: "Adicionar",
+		iconPosition: 'left',
+		identifier: "create",
+		click: () => {
+			this.create();
+		}
+	}
+
 	projects = resource({
 		defaultValue: {results: []},
-		loader: () => this.electron.projects.getAll()
+		loader: async () => {
+			const projects = await this.electron.projects.getAll();
+
+			console.log(projects);
+
+			return projects;
+		}
 	});
 
 	columnsFn = computed((): TableColumnFn<Project> => {
@@ -61,7 +74,7 @@ export class ProjectsComponent {
 		{
 			icon: "pencil-square",
 			name: "edit",
-			classes: ['text-blue-500'],
+			classes: ['text-blue-900'],
 			condition: true,
 			click: async () => {
 				await this.update(project);

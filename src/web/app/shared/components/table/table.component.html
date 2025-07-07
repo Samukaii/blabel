@@ -1,70 +1,88 @@
-<div class="overflow-x-auto w-full flex-1">
-  @if (loading()) {
-    <div class="w-full h-[70px] bg-gray-700"></div>
-    <div class="w-full min-h-[90vh] flex flex-col justify-center items-center">
-      <app-spinner/>
-    </div>
-  } @else if (data().length) {
-    <table class="w-full table-fixed border border-t-0 border-l-0 border-r-0 border-gray-200 text-sm">
-      <thead class="bg-gray-700 text-left">
-      <tr>
-        @for (header of headers(); track header.position) {
-          <th class="px-4 py-2 border-b text-white font-medium ">
-            <p>
-              {{ header.name }}
-            </p>
-          </th>
-        }
-        <th class="px-4 py-2 border-b font-bold text-gray-800 w-32">
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (item of columns(); track item) {
-          <tr
-            [class]="'hover:bg-gray-50 ' + (item.item | call: classesFn())"
-          >
-            @for (column of item.columns; track column.position) {
-              <td class="px-4 py-2 break-words border-b text-gray-800">
-                <app-table-cell-renderer
-                  [column]="column"
-                />
-              </td>
-            }
-            <td class="px-4 py-2 border-b text-gray-800 whitespace-nowrap">
-              <div class="flex gap-2 justify-end">
-                @for (action of actions()[$index]; track action.name) {
-                  @if (action.condition) {
-                    <app-icon
-                      [class]="'cursor-pointer hover:scale-125 transition ' + ((action.classes ?? []) | toClass)"
-                      (click)="action.click()"
-                      [name]="action.icon"
-                    />
-                  }
+@let action = mainAction();
+
+<div class="overflow-x-auto w-full h-full flex-1">
+    @if (loading() || !data().length) {
+        <div class="flex h-full flex-col">
+            <div class="w-full min-h-[70px] py-2 px-4 flex items-center justify-end border-b border-gray-300">
+
+				@if (action) {
+					<app-buttons-list
+						[actions]="[action]"
+					/>
+				}
+            </div>
+            <div class="w-full h-full flex flex-1 flex-col p-4 justify-center items-center">
+                @if (loading()) {
+                    <app-spinner [size]="80" [stroke]="8"/>
+                } @else {
+                    @let noResultsVar = noResults();
+                    @if (noResultsVar.icon) {
+                        <app-icon
+                                [name]="noResultsVar.icon.name"
+                                [iconClasses]="noResultsVar.icon.classes ?? ''"
+                        />
+                    }
+                    <h1 class="text-xl font-bold text-gray-500">{{ noResultsVar.label }}</h1>
+                    @if (noResultsVar.description) {
+                        <p class="text-lg font-medium text-gray-400">
+                            {{ noResultsVar.description }}
+                        </p>
+                    }
                 }
-              </div>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  } @else {
-    <div
-      class="min-w-full min-h-[80vh] flex flex-col justify-center items-center"
-    >
-      @let noResultsVar = noResults();
-      @if (noResultsVar.icon) {
-        <app-icon
-          [name]="noResultsVar.icon.name"
-          [iconClasses]="noResultsVar.icon.classes ?? ''"
-        />
-      }
-      <h1 class="text-xl font-bold text-gray-500">{{ noResultsVar.label }}</h1>
-      @if (noResultsVar.description) {
-        <p class="text-lg font-medium text-gray-400">
-          {{ noResultsVar.description }}
-        </p>
-      }
-    </div>
-  }
+            </div>
+        </div>
+
+    } @else {
+        <table class="w-full   overflow-hidden table-fixed  text-sm">
+            <thead class="text-left">
+            <tr>
+                @for (header of headers(); track header.position) {
+                    <th class="p-4  text-gray-900 font-semibold ">
+                        <p>
+                            {{ header.name }}
+                        </p>
+                    </th>
+                }
+                <th class="p-4 font-bold text-gray-800 w-52">
+					@if (action) {
+						<div class="flex w-full justify-end">
+							<app-buttons-list
+								[actions]="[action]"
+							/>
+						</div>
+
+					}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                @for (item of columns(); track item) {
+                    <tr
+                            [class]="'hover:bg-gray-200 ' + (item.item | call: classesFn())"
+                    >
+                        @for (column of item.columns; track column.position) {
+                            <td class="px-4 py-4 break-words text-gray-800">
+                                <app-table-cell-renderer
+                                        [column]="column"
+                                />
+                            </td>
+                        }
+                        <td class="p-4  text-gray-800  whitespace-nowrap">
+                            <div class="flex gap-4 justify-end">
+                                @for (action of actions()[$index]; track action.name) {
+                                    @if (action.condition) {
+                                        <app-icon
+                                                [class]="'cursor-pointer hover:scale-125 transition ' + ((action.classes ?? []) | toClass)"
+                                                (click)="action.click()"
+                                                [name]="action.icon"
+                                        />
+                                    }
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

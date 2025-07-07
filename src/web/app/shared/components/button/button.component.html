@@ -1,11 +1,17 @@
 <button [disabled]="disabled() || loading()" [class]="theme() + ' ' + color()">
-  @if (loading()) {
-    <div class="spinner"></div>
-    <p>{{ loadingText() || text() }}</p>
-  } @else {
-    <p>{{ text() }}</p>
-    @if (icon()) {
-      <app-icon class="transition rounded-full" name="sparkles"></app-icon>
-    }
-  }
+	@if (loading()) {
+		<div class="spinner"></div>
+		<p>{{ loadingText() || text() }}</p>
+	} @else {
+		<div
+			[class.flex-row-reverse]="iconPosition() === 'left'"
+			class="flex gap-2 items-center"
+		>
+			@let iconName = icon();
+			<p>{{ text() }}</p>
+			@if (iconName) {
+				<app-icon class="transition rounded-full" [name]="iconName"></app-icon>
+			}
+		</div>
+	}
 </button>

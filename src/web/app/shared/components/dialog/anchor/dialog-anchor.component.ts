@@ -29,7 +29,6 @@ import { Component, viewChild, ViewContainerRef } from '@angular/core';
         }
 
         .container {
-            border-radius: 5px;
             padding: 1rem;
             width: 100%;
             height: var(--height);
@@ -40,6 +39,7 @@ import { Component, viewChild, ViewContainerRef } from '@angular/core';
             display: flex;
             flex-direction: column;
             z-index: 20;
+			@apply rounded-2xl;
         }
     `,
     standalone: true,
@@ -49,7 +49,7 @@ import { Component, viewChild, ViewContainerRef } from '@angular/core';
 })
 export class DialogAnchorComponent {
     backdropClick = output();
-	height = input('100%');
+	height = input('fit-content');
 	width = input('100%');
 	maxHeight = input('90vh');
 

@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, ValidationErrors } from "@angular/forms";
 import { debounceTime, Subscription } from 'rxjs';
 import { afterRenderEffect, DestroyRef, inject, isSignal, signal, Signal } from '@angular/core';
 import { Prettify } from '../models/prettify';
@@ -76,6 +76,42 @@ export const controlDisabledToSignal: ControlDisabledToSignal = (control) => {
 	});
 
 	return disabled;
+};
+
+
+interface ControlErrorsToSignal {
+	<T>(control: FormControl<T> | Signal<FormControl<T>>): Signal<ValidationErrors | null>;
+}
+
+export const controlErrorsToSignal: ControlErrorsToSignal = (control) => {
+	const destroyRef = inject(DestroyRef);
+	const errors = signal<ValidationErrors | null>(null);
+	let sub: Subscription | null = null;
+
+	const watchFormControl = <T>(control: FormControl<T>) => {
+		let changes = control.statusChanges;
+
+		errors.set(control.errors);
+
+		return changes.subscribe(() => {
+			errors.set(control.errors);
+		});
+	}
+
+	if(!isSignal(control)) {
+		sub = watchFormControl(control);
+	}
+	else {
+		afterRenderEffect(() => {
+			sub = watchFormControl(control())
+		});
+	}
+
+	destroyRef.onDestroy(() => {
+		sub?.unsubscribe();
+	});
+
+	return errors;
 };
 
 

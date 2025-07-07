@@ -14,7 +14,7 @@ import { AttachedOverlayRef } from '../attached-overlay/models/attached-overlay-
 @Component({
 	selector: 'app-autocomplete',
 	imports: [
-		InputComponent
+		InputComponent,
 	],
 	templateUrl: './autocomplete.component.html',
 	styleUrl: './autocomplete.component.scss',
@@ -42,10 +42,15 @@ export class AutocompleteComponent {
 	@MarkUsed()
 	protected updateSelectedOption = effect(() => {
 		const value = this.controlValue();
+		const options = this.options();
 
-		const option = this.options().find(option => option.value===value);
+		untracked(() => {
+			if(value===null) return this.reset();
 
-		if (option) this.selectOption(option);
+			const option = options.find(option => option.value===value);
+
+			if (option) this.selectOption(option);
+		})
 	});
 
 	@MarkUsed()
@@ -108,6 +113,13 @@ export class AutocompleteComponent {
 		this.search.emit('');
 		this.searchControl.setValue(option.label, {emitEvent: false});
 		this.control().setValue(option.value);
+		this.closeOverlay();
+	}
+
+	protected reset() {
+		this.selectedOption.set(null);
+		this.search.emit('');
+		this.searchControl.setValue('', {emitEvent: false});
 		this.closeOverlay();
 	}
 

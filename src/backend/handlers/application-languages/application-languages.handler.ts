@@ -1,8 +1,8 @@
 import { applicationLanguagesService } from '../../services/languages/application-languages.service';
 import { AvailableLanguage, AvailableLanguageKey } from '@shared/models/available-languages';
 import { LanguagesHandler } from '@shared/models/handlers/languages-handler';
-import { availableLanguages } from '@shared/constants/available-languages';
 import { AutocompleteOption } from '@shared/models/autocomplete-option';
+import { api } from '../../core/auth/api';
 
 const get = async () => {
 	const results = await applicationLanguagesService.getAll();
@@ -23,13 +23,11 @@ const update = async (languageKey: AvailableLanguageKey, languageUpdated: { path
 }
 
 const autocomplete = async (search: string) => {
-	let results = availableLanguages as AvailableLanguage[];
+	let {data} = await api().get<{results: AvailableLanguage[]}>('languages', {
+		params: {search}
+	});
 
-	if (search)
-		results = availableLanguages.filter((lang) =>
-			lang.label.toLowerCase().includes(search.toLowerCase()))
-
-	const options = results.map((lang): AutocompleteOption => ({
+	const options = data.results.map((lang): AutocompleteOption => ({
 		label: lang.label,
 		value: lang.key
 	}));

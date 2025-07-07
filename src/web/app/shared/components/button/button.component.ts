@@ -19,4 +19,5 @@ export class ButtonComponent {
   color = input<AppColor>('primary');
   theme = input<ButtonTheme>('raised');
   icon = input<IconName>();
+  iconPosition = input<'left' | 'right'>('right');
 }

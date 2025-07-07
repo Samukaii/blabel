@@ -1,0 +1,46 @@
+<div>
+	<div
+		[class.border-green-500]="status() === 'found'"
+		[class.border-red-500]="status() === 'not-found'"
+		class="mt-4 p-4 flex flex-col justify-between border-[1px] text-gray-600 border-gray-200 rounded-lg h-fit">
+		<div class="w-full flex items-center justify-between gap-2">
+			<div class="flex flex-col gap-2">
+				@if (status() === 'found') {
+					<div class="flex text-sm items-center gap-1 text-green-500">
+						<app-icon name="check" iconClasses="size-5"/>
+						<p>Arquivo encontrado</p>
+					</div>
+				}
+
+				@if (status() === 'not-found') {
+					<div class="flex text-sm items-center gap-1 text-red-500">
+						<app-icon name="x-mark" iconClasses="size-5"/>
+						<p>Arquivo não encontrado</p>
+					</div>
+				}
+
+				<p class="m-0">{{ file() }}</p>
+			</div>
+
+			<div class="flex items-center justify-between">
+				<app-button
+					(click)="findFile()"
+					theme="stroked"
+					text="Checar arquivo"
+				/>
+			</div>
+		</div>
+		@let fileContent = content();
+
+		@if (fileContent) {
+			<div class="h-[30vh] w-full mt-4 border-t-[1px] border-gray-200 pb-4">
+				<app-code-viewer
+					class="border-none !p-0"
+					[content]="fileContent ?? ''"
+				/>
+			</div>
+		}
+	</div>
+
+
+</div>

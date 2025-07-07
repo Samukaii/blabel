@@ -27,15 +27,15 @@ export class SideMenuComponent {
 	});
 
 	groups: MenuGroup[] = [
-		// {
-		// 	items: [
-		// 		{
-		// 			name: "Traduções",
-		// 			icon: "language",
-		// 			path: "translations"
-		// 		}
-		// 	]
-		// },
+		{
+			items: [
+				{
+					name: "Traduções",
+					icon: "language",
+					path: "translations"
+				}
+			]
+		},
 		{
 			name: "Configurações",
 			items: [

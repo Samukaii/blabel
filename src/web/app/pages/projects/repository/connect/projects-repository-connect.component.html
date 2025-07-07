@@ -1,0 +1,40 @@
+<h2 class="text-xl font-semibold w-full text-center mb-2">{{ title() }}</h2>
+<fieldset class="mb-4">
+	<app-autocomplete
+		label="Provedor"
+		[control]="form.controls.provider"
+		[options]="providers"
+		placeholder="Selecione o seu provedor GIT"
+	/>
+
+
+	<app-input
+		label="Token de acesso"
+		[control]="form.controls.accessToken"
+		placeholder="Inform o seu token de acesso pessoal"
+	/>
+
+	<div class="bg-blue-50 border-2 border-blue-100 p-4 flex items-center gap-2 rounded-lg shadow-md mt-4">
+		<ul class="flex flex-col pl-4 list-disc">
+			<li>
+				O Blabel nunca acessa mais do que você permitir.
+			</li>
+			<li>
+				Aceita tokens fine-grained (GitHub), com acesso limitado a repositórios específicos.
+			</li>
+			<li>
+				O token é criptografado no banco de dados, nunca é exposto e pode ser revogado a qualquer momento por você.
+			</li>
+		</ul>
+
+	</div>
+</fieldset>
+
+
+<div class="flex w-full justify-end">
+	<app-button
+		(click)="connect()"
+		[disabled]="!isFormValid()"
+		[text]="confirmButtonName()"
+	/>
+</div>

@@ -2,30 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:host {
-  @font-face {
-    font-family: 'Anton SC';
-    src: url('/assets/fonts/anton-sc.ttf');
-  }
+:root {
+	@font-face {
+		font-family: 'Anton SC';
+		src: url('/assets/fonts/anton-sc.ttf');
+	}
 
-  @font-face {
-    font-family: 'Alata';
-    src: url('/assets/fonts/alata.ttf');
-  }
+	@font-face {
+		font-family: 'Alata';
+		src: url('/assets/fonts/alata.ttf');
+	}
 
+	@font-face {
+		font-family: 'Noto Color Emoji';
+		src: url('/assets/fonts/noto-color-emoji.ttf');
+	}
 
+	* {
+		font-family: Sans, 'Noto Color Emoji', sans-serif;
+	}
 }
 
 html,
 body {
-  overflow-x: hidden;
+	overflow-x: hidden;
 }
 
 body {
-  position: relative;
+	position: relative;
+	@apply bg-gray-100;
 }
 
 .spinner {
-  @apply border-yellow-100 size-5 border-[3px] rounded-full animate-spin;
-  @apply border-t-yellow-500;
+	@apply border-yellow-100 size-5 border-[3px] rounded-full animate-spin;
+	@apply border-t-yellow-500;
 }

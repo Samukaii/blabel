@@ -28,5 +28,8 @@
 	"document-text",
 	"folder",
 	"queue-list",
-	"shield-check"
+	"shield-check",
+	"link",
+	"inbox",
+	"lock-closed"
 ]

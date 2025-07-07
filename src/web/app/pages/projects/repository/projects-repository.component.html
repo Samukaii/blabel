@@ -1,0 +1,99 @@
+<div class="flex flex-col c-w-full items-center">
+	<div class="border-[1px] shadow-md rounded-lg p-4 flex mb-4 gap-4 items-center flex-col border-gray-200">
+		@let connectionValue = connection.value();
+		@if (connectionValue) {
+			@if (connectionValue.status === 'disconnected') {
+				<div class="w-full flex justify-between flex-wrap items-center gap-4">
+					<div class="flex items-center gap-4">
+						<app-icon name="cube" iconClasses="size-16"/>
+						<div class="w-full max-w-[600px]">
+							<p class="text-lg font-semibold">
+								Nenhuma conexão encontrada
+							</p>
+							<p>
+								Conecte seu repositório Git para acessar suas branches e gerenciar traduções com
+								facilidade.
+							</p>
+							<p>
+								Não se preocupe: <em> nenhuma alteração será feita no seu repositório.</em>
+							</p>
+						</div>
+					</div>
+
+					<app-button
+						(click)="connect()"
+						icon="link"
+						iconPosition="left"
+						text="Conectar repositório"
+					/>
+				</div>
+
+			} @else if (connectionValue.status === 'connected') {
+				<div class="w-full flex justify-between flex-wrap  items-center gap-4">
+					<div class="flex gap-4 items-center">
+						<img alt="Avatar image" class="size-16 rounded-full" [src]="connectionValue.info.avatarUrl">
+						<div class="flex flex-col">
+							<p class="text-lg font-semibold">
+								{{ connectionValue.info.name }}
+							</p>
+							<p class="max-w-[600px] line-clamp-3">
+								{{ connectionValue.info.bio }}
+							</p>
+						</div>
+
+					</div>
+
+
+					<div class="flex flex-col gap-2">
+						<app-button
+							(click)="updateConnection()"
+							icon="pencil-square"
+							iconPosition="left"
+							text="Editar conexão"
+						/>
+						<app-button
+							(click)="disconnect()"
+							icon="x-mark"
+							theme="stroked"
+							color="red"
+							iconPosition="left"
+							text="Revogar conexão"
+						/>
+					</div>
+
+				</div>
+			}
+		}
+	</div>
+
+
+	<app-autocomplete
+		label="Repositório"
+		[control]="form.controls.repository"
+		[options]="repositories.value().results"
+		placeholder="Informe aqui o repositório"
+	/>
+	<app-autocomplete
+		label="Branch principal"
+		[control]="form.controls.targetBranch"
+		[options]="branches.value().results"
+		placeholder="Informe aqui a branch principal"
+	/>
+	<app-autocomplete
+		label="Branch de desenvolvimento"
+		[control]="form.controls.sourceBranch"
+		[options]="branches.value().results"
+		placeholder="Informe aqui a branch de desenvolvimento"
+	/>
+
+	<div class="flex justify-end mt-4">
+		<app-button
+			[disabled]="!isFormValid()"
+			(click)="submit()"
+			iconPosition="left"
+			text="Salvar"
+		/>
+	</div>
+</div>
+
+

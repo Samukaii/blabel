@@ -1,0 +1,33 @@
+<h2 class="text-xl w-full text-center font-semibold mb-4">
+	{{ title() }}
+</h2>
+<div class="w-full h-fit">
+	<app-autocomplete
+		label="Idioma"
+		placeholder="Selecione aqui o idioma"
+		[control]="form.controls.key"
+		[loading]="availableLanguages.isLoading()"
+		[noResults]="noResults"
+		[options]="availableLanguages.value().results"
+		(search)="search.set($event)"
+	/>
+
+	<app-input
+		label="Caminho do arquivo no repositório"
+		placeholder="Ex: src/app/assets/i18n/pt-br.json"
+		[control]="form.controls.path"
+	/>
+	<app-git-file-checker
+		(result)="fileResult.set($event)"
+		[project]="project()"
+		[file]="path()"
+	/>
+</div>
+<div class="w-full flex justify-end items-center pt-2">
+	<app-button
+		[disabled]="!formIsValid() || fileResult().status !== 'found'"
+		(click)="submit()"
+		theme="raised"
+		[text]="confirmButtonName()"
+	/>
+</div>

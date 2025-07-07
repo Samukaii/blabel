@@ -10,6 +10,8 @@ import { ToClassPipe } from '../../pipes/to-class.pipe';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { TableActionFn } from './models/table-action-fn';
 import { TableClassesFn } from './models/table-classes-fn';
+import { ButtonAction } from '../button/models/button-action';
+import { ButtonsListComponent } from '../buttons-list/buttons-list.component';
 
 
 @Component({
@@ -20,6 +22,7 @@ import { TableClassesFn } from './models/table-classes-fn';
 		TableCellRendererComponent,
 		ToClassPipe,
 		SpinnerComponent,
+		ButtonsListComponent,
 	],
 	templateUrl: './table.component.html',
 	styleUrl: './table.component.scss'
@@ -29,6 +32,7 @@ export class TableComponent<T extends Identifiable> {
 	columnsFn = input.required<TableColumnFn<T>>();
 	classesFn = input<TableClassesFn<T>>(() => '');
 	actionsFn = input<TableActionFn<T>>(() => []);
+	mainAction = input<ButtonAction>();
 	loading = input(false);
 
 	createAction = output();

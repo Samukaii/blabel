@@ -18,6 +18,7 @@ import { TranslationLanguage } from '@shared/models/translation-language';
 import { TableActionFn } from '../../shared/components/table/models/table-action-fn';
 import { TableClassesFn } from '../../shared/components/table/models/table-classes-fn';
 import { TableColumn } from '../../shared/components/table/models/table-column';
+import { ButtonAction } from '../../shared/components/button/models/button-action';
 
 
 @Component({
@@ -40,6 +41,16 @@ export class TranslationsComponent {
 	searchControlValue = toSignal(this.searchControl.valueChanges.pipe(debounceTime(200)), {
 		initialValue: this.searchControl.value,
 	});
+
+	protected createAction: ButtonAction = {
+		icon: "plus",
+		text: "Adicionar",
+		iconPosition: 'left',
+		identifier: "create",
+		click: () => {
+			this.add();
+		}
+	}
 
 	protected response = resource({
 		params: this.searchControlValue,
@@ -151,41 +162,41 @@ export class TranslationsComponent {
 			{
 				position: "path",
 				name: "Caminho",
-        cell: {
-          type: "default",
-          options: {
-            value: element.path
-          }
-        }
+				cell: {
+					type: "default",
+					options: {
+						value: element.path
+					}
+				}
 			},
 			...element.entries.map((entry): TableColumn => ({
 				name: entry.language.label,
 				position: entry.language.key,
 				cell: {
-          type: "with-action",
-          options: {
-            text: {
-              value: entry.value,
-              classes: [
-                entry.status==="edited" ? "font-bold":""
-              ]
-            },
-            actions: [
-              {
-                icon: "arrow-uturn-left",
-                click: () => this.reset(element.path, entry.language.key),
-                condition: entry.status==="edited",
-                classes: ['text-yellow-500']
-              },
-              {
-                icon: "pencil-square",
-                condition: entry.status!=="edited",
-                click: () => this.update(element, entry.language),
-                classes: ['text-blue-900']
-              },
-            ]
-          }
-        }
+					type: "with-action",
+					options: {
+						text: {
+							value: entry.value,
+							classes: [
+								entry.status==="edited" ? "font-bold":""
+							]
+						},
+						actions: [
+							{
+								icon: "arrow-uturn-left",
+								click: () => this.reset(element.path, entry.language.key),
+								condition: entry.status==="edited",
+								classes: ['text-yellow-500']
+							},
+							{
+								icon: "pencil-square",
+								condition: entry.status!=="edited",
+								click: () => this.update(element, entry.language),
+								classes: ['text-blue-900']
+							},
+						]
+					}
+				}
 			})),
 		]
 	});
@@ -212,9 +223,9 @@ export class TranslationsComponent {
 	];
 
 	classesFn: TableClassesFn<Translation> = item => {
-		if (item.operation==='create') return 'bg-green-50 transition hover:bg-green-100';
-		if (item.operation==='delete') return 'bg-red-50 transition hover:bg-red-100';
-		if (item.operation==='edit') return 'bg-blue-50 transition hover:bg-blue-100';
+		if (item.operation==='create') return 'bg-green-100 transition hover:bg-green-200';
+		if (item.operation==='delete') return 'bg-red-100 transition hover:bg-red-200';
+		if (item.operation==='edit') return 'bg-blue-100 transition hover:bg-blue-200';
 
 		return '';
 	}

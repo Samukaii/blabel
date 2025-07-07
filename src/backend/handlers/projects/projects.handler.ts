@@ -1,6 +1,7 @@
 import { ElectronFeatures } from '@shared/models/electron-features';
 import { Project } from '@shared/models/project';
 import { api } from '../../core/auth/api';
+import { projectsLanguagesHandler } from './languages/projects-languages.handler';
 
 type ProjectsHandler = ElectronFeatures['projects'];
 
@@ -22,6 +23,12 @@ const create: ProjectsHandler['create'] = async (payload) => {
   return data;
 }
 
+const updateOne: ProjectsHandler['updateOne'] = async (id, payload) => {
+	const {data} = await api().patch<{ result: Project }>(`projects/${id}`, payload);
+
+	return data;
+}
+
 const remove: ProjectsHandler['remove'] = async (id) => {
   const {data} = await api().delete<void>(`projects/${id}`);
 
@@ -31,6 +38,8 @@ const remove: ProjectsHandler['remove'] = async (id) => {
 export const projectsHandler: ProjectsHandler = {
 	getAll,
 	getOne,
+	updateOne,
 	create,
 	remove,
+	languages: projectsLanguagesHandler
 };
