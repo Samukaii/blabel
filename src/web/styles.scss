@@ -18,8 +18,13 @@
 		src: url('/assets/fonts/noto-color-emoji.ttf');
 	}
 
+	@font-face {
+		font-family: 'Blabel';
+		src: url('/assets/fonts/blabel.ttf');
+	}
+
 	* {
-		font-family: Sans, 'Noto Color Emoji', sans-serif;
+		font-family: Blabel, sans-serif;
 	}
 }
 
