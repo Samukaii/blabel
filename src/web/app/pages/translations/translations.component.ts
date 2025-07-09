@@ -170,7 +170,7 @@ export class TranslationsComponent {
 				}
 			},
 			...element.entries.map((entry): TableColumn => ({
-				name: entry.language.label,
+				name: entry.language.name,
 				position: entry.language.key,
 				cell: {
 					type: "with-action",

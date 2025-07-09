@@ -31,6 +31,7 @@ import { shieldCheck } from './shield-check';
 import { link } from './link';
 import { inbox } from './inbox';
 import { lockClosed } from './lock-closed';
+import { ellipsisVertical } from './ellipsis-vertical';
 
 
 export const iconsMapping = {
@@ -67,4 +68,5 @@ export const iconsMapping = {
     'link': link,
     'inbox': inbox,
     'lock-closed': lockClosed,
+    'ellipsis-vertical': ellipsisVertical,
 };

@@ -6,7 +6,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { MainLayoutComponent } from './layouts/main/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
-import { ProjectsComponent } from './pages/projects/projects.component';
+import { SelectProjectComponent } from './pages/select-project/select-project.component';
+import { needsProjectGuard } from './core/guards/needs-project.guard';
 
 export const routes: Routes = [
 	{
@@ -16,9 +17,12 @@ export const routes: Routes = [
 			const electronFeatures = getElectron();
 
 			const isLogged = await electronFeatures.auth.isLoggedIn();
+			const projectIsConfigured = await electronFeatures.projects.isConfigured();
 			const existsConfiguration = await electronFeatures.languages.get();
 
 			if (!isLogged) return 'auth/login';
+
+			if(!projectIsConfigured) return "select-project";
 
 			if (existsConfiguration.results.length) return "home/translations";
 
@@ -26,15 +30,21 @@ export const routes: Routes = [
 		}
 	},
 	{
+		path: "select-project",
+		component: SelectProjectComponent
+	},
+	{
 		path: "home",
 		component: MainLayoutComponent,
 		children: [
 			{
 				path: "translations",
+				canActivate: [needsProjectGuard],
 				component: TranslationsComponent
 			},
 			{
 				path: "languages",
+				canActivate: [needsProjectGuard],
 				component: LanguagesComponent
 			},
 			{

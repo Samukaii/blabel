@@ -12,6 +12,8 @@
     <div class="flex z-20 flex-col p-3">
       @let user = currentUser.value();
 
+		{{user | json}}
+
       @if (user) {
         <div class="mb-4 w-full">
           <div class="flex justify-between gap-4 w-full min-w-0">

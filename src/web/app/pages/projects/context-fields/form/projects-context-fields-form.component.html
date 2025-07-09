@@ -1,0 +1,86 @@
+<h2 class="text-xl w-full text-center font-semibold mb-4">
+	{{ title() }}
+</h2>
+<div class="w-full h-fit">
+	<app-input
+		label="Nome"
+		placeholder="Informe aqui o nome"
+		[control]="form.controls.label"/>
+	<app-textarea
+		label="Descrição"
+		placeholder="Informe aqui a descrição"
+		[control]="form.controls.description"/>
+
+	<app-autocomplete
+		label="Tipo de campo"
+		placeholder="Informe aqui o tipo de campo"
+		[options]="typeOptions"
+		[control]="form.controls.type"/>
+
+
+	@if (selectedType() === 'select') {
+		<div class="my-4 max-h-[270px] overflow-y-auto">
+			<h3 class="w-full  font-semibold">Opções</h3>
+
+			<div
+				cdkDropList
+				[cdkDropListLockAxis]="'y'"
+				[cdkDropListData]="options()"
+				(cdkDropListDropped)="drop($event)"
+			>
+				@for (field of options(); track field.controls.id) {
+					<div
+						cdkDrag
+						class="flex items-center gap-2"
+					>
+						<app-button
+							cdkDragHandle
+							icon="ellipsis-vertical"
+							theme="basic"
+							variant="rect"
+						/>
+						<app-input
+							class="w-full"
+							placeholder="Nome da opção"
+							[control]="field.controls.label"
+						/>
+
+						<div class="flex items-center">
+							@if (options().length > 1) {
+								<app-button
+									(click)="removeField(field)"
+									class="!w-fit"
+									variant="rect"
+									theme="basic"
+									color="red"
+									icon="trash"
+								/>
+							}
+							<app-button
+								(click)="addField(field)"
+								class="!w-fit"
+								variant="rect"
+								theme="basic"
+								icon="plus"
+							/>
+						</div>
+
+					</div>
+				}
+			</div>
+		</div>
+	}
+
+	<app-checkbox
+		label="Campo obrigatório"
+		[control]="form.controls.required"
+	/>
+</div>
+<div class="w-full flex justify-end items-center pt-2">
+	<app-button
+		[disabled]="!formIsValid()"
+		(click)="submit()"
+		theme="raised"
+		[text]="confirmButtonName()"
+	/>
+</div>

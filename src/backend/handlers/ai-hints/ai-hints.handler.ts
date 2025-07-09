@@ -1,32 +1,41 @@
-import { applicationLanguagesService } from '../../services/languages/application-languages.service.js';
-import { aiHintsService } from '../../services/ai-hints/ai-hints.service.js';
+import { ApplicationLanguagesService } from '../../services/languages/application-languages.service.js';
+import { AiHintsService } from '../../services/ai-hints/ai-hints.service.js';
 import { AvailableLanguageKey } from '@shared/models/available-languages.js';
 import { AiHintsPayload } from '@shared/models/ai-hints-payload';
-import { AiHintsHandler } from '@shared/models/handlers/ai-hints-handler';
+import { inject, Injectable } from '../../di/di';
+import { aiIntegrationKey } from '../../core/open-ai-client';
+import { ElectronFeatures } from '@shared/models/electron-features';
 
-const translateEmptyLanguages = async (payload: AiHintsPayload) => {
-	const entries = payload.entries;
+type Interface = ElectronFeatures['aiHints'];
 
-	const mainLanguage = await applicationLanguagesService.getMain();
+@Injectable({providedIn: "root"})
+export class AiHintsHandler implements Interface {
+	private applicationLanguagesService = inject(ApplicationLanguagesService);
+	private service = inject(AiHintsService);
 
-	const mainLanguageValue = entries.find(entry => entry.language === mainLanguage.key)?.value;
+	async translateEmptyLanguages(payload: AiHintsPayload) {
+		const entries = payload.entries;
 
-	if (!mainLanguageValue)
-		throw new Error(`The main language ${mainLanguage.label} was not filled`);
+		const mainLanguage = (await this.applicationLanguagesService.getAll())[0];
 
-	const languagesToUse = entries.filter(entry => {
-		if (!payload.onlyEmptyFields) return entry.language !== mainLanguage.key;
+		const mainLanguageValue = entries.find(entry => entry.language===mainLanguage.key)?.value;
 
-		return !entry.value && (entry.language !== mainLanguage.key);
-	});
-	const languagesToUseKeys = languagesToUse.map(entry => entry.language as AvailableLanguageKey);
+		if (!mainLanguageValue)
+			throw new Error(`The main language ${mainLanguage.name} was not filled`);
 
-	const result = await aiHintsService.translate(mainLanguageValue, languagesToUseKeys, payload.additionalContext);
+		const languagesToUse = entries.filter(entry => {
+			if (!payload.onlyEmptyFields) return entry.language!==mainLanguage.key;
 
-	return {result};
-};
+			return !entry.value && (entry.language!==mainLanguage.key);
+		});
+		const languagesToUseKeys = languagesToUse.map(entry => entry.language as AvailableLanguageKey);
 
+		const result = await this.service.translate(mainLanguageValue, languagesToUseKeys, payload.additionalContext);
 
-export const aiHintsHandler: AiHintsHandler = {
-	translateEmptyLanguages
-};
+		return {result};
+	};
+
+	async hasIntegratedAi() {
+		return !!aiIntegrationKey()
+	}
+}

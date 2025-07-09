@@ -1,46 +1,56 @@
 import { ElectronFeatures } from '@shared/models/electron-features';
-import { api } from '../../core/auth/api';
+import { api } from '../../core/api/api';
 import { jwtToken } from '../../core/auth/jwt-token';
 import { User } from '@shared/models/user';
-import { currentUser } from '../../core/auth/current-user';
+import { LoginPayload, RegisterPayload } from '@shared/models/payloads/auth-payload';
+import { Injectable } from 'backend/di/di';
 
-type AuthHandler = ElectronFeatures['auth'];
+type Interface = ElectronFeatures['auth'];
 
-export const login: AuthHandler['login'] = async (payload) => {
-  const {data} = await api().post<{ token: string; user: User }>('auth/login', payload);
+@Injectable({providedIn: 'root'})
+export class AuthHandler implements Interface {
+	private currentUser: User | null = null;
 
-  jwtToken.set(data.token);
-  currentUser.set(data.user);
+	async login(payload: LoginPayload) {
+		const {data} = await api().post<{ token: string; user: User }>('auth/login', payload);
 
-  return data.user;
-}
+		jwtToken.set(data.token);
+		this.currentUser = data.user;
 
-export const isLoggedIn: AuthHandler['isLoggedIn'] = async () => {
-  return !!jwtToken.get();
-}
+		return data.user;
+	}
 
-export const logout: AuthHandler['logout'] = async () => {
-  jwtToken.clear();
-  currentUser.clear();
-}
+	async isLoggedIn() {
+		return !!jwtToken.get();
+	}
 
-export const register: AuthHandler['register'] = async (payload) => {
-  const {data} = await api().post<{ token: string; user: User }>('auth/register', payload);
+	async logout() {
+		jwtToken.clear();
+		this.currentUser = null;
+	}
 
-  jwtToken.set(data.token);
-  currentUser.set(data.user);
+	async register(payload: RegisterPayload) {
+		const {data} = await api().post<{ token: string; user: User }>('auth/register', payload);
 
-  return data.user;
-}
+		jwtToken.set(data.token);
+		this.currentUser = data.user;
 
-export const getCurrentUser: AuthHandler['currentUser'] = async () => {
-  return currentUser.get();
-}
+		return data.user;
+	}
 
-export const authHandler: ElectronFeatures['auth'] = {
-  login,
-  isLoggedIn,
-  logout,
-  register,
-  currentUser: getCurrentUser
+	async getCurrentUser() {
+		if (this.currentUser) return this.currentUser;
+
+		const {data} = await api().get<{ token: string; user: User }>('auth/current_user');
+
+		this.currentUser = data.user;
+
+		return data.user;
+	}
+
+	async refreshUser() {
+		this.currentUser = null;
+
+		return await this.getCurrentUser();
+	}
 }

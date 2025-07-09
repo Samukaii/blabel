@@ -4,6 +4,5 @@ export interface TranslationFile {
 	id: string;
 	path: string;
 	key: AvailableLanguageKey;
-	label: string;
-	isMain: boolean;
+	name: string;
 }

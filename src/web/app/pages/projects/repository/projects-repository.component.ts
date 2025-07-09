@@ -41,7 +41,6 @@ export class ProjectsRepositoryComponent {
 
 	@MarkUsed()
 	protected patchForm = effect(() => {
-		console.log(this.project())
 		this.form.patchValue(this.project());
 		setTimeout(() => {
 			this.preFilled = true;

@@ -10,15 +10,16 @@
 	"type": "module",
 	"description": "Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.",
 	"scripts": {
-		"start:frontend": "npm run generate-icons && ng serve",
-		"build:frontend": "npm run generate-icons && ng build --configuration production",
+		"postinstall": "node node_modules/electron/install.js",
+		"start:frontend": "pnpm run generate-icons && ng serve",
+		"build:frontend": "pnpm run generate-icons && ng build --configuration production",
 		"generate-icons": "tsx --tsconfig tsconfig.scripts.json scripts/generate-icons.ts",
 		"generate-favicons": "tsx --tsconfig tsconfig.scripts.json scripts/convert-icons-from-svg.ts",
 		"build:backend": "tsc -p tsconfig.electron.json && tsc-alias -p tsconfig.electron.json --outDir dist",
 		"restart:backend": "electron dist/backend/main.js",
-		"start:backend": "npm run generate-preload && npm run build:backend && npm run restart:backend",
+		"start:backend": "pnpm run generate-preload && pnpm run build:backend && pnpm run restart:backend",
 		"generate-preload": "tsx --tsconfig tsconfig.scripts.json scripts/generate-electron-preload.ts",
-		"dist": "npm run generate-preload && npm run build:backend && npm run build:backend && electron-builder"
+		"dist": "pnpm run generate-preload && pnpm run build:backend && pnpm run build:backend && electron-builder"
 	},
 	"build": {
 		"appId": "com.blabel.app",
@@ -70,6 +71,7 @@
 		"electronmon": "^2.0.3",
 		"express": "^4.18.2",
 		"openai": "^5.1.1",
+		"reflect-metadata": "^0.2.2",
 		"rxjs": "~7.8.0",
 		"strip-json-comments": "^5.0.2",
 		"tslib": "^2.3.0",

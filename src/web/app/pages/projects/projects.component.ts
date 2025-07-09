@@ -36,11 +36,7 @@ export class ProjectsComponent {
 	projects = resource({
 		defaultValue: {results: []},
 		loader: async () => {
-			const projects = await this.electron.projects.getAll();
-
-			console.log(projects);
-
-			return projects;
+			return await this.electron.projects.getAll();
 		}
 	});
 

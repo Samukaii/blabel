@@ -6,6 +6,7 @@ import { TabComponent } from '../../../shared/components/tabs/tab/tab.component'
 import { ProjectsRepositoryComponent } from '../repository/projects-repository.component';
 import { RouterLink } from '@angular/router';
 import { ProjectsLanguagesComponent } from '../languages/projects-languages.component';
+import { ProjectsContextFieldsComponent } from '../context-fields/projects-context-fields.component';
 
 @Component({
   selector: 'app-projects-update',
@@ -15,7 +16,8 @@ import { ProjectsLanguagesComponent } from '../languages/projects-languages.comp
 		TabComponent,
 		ProjectsRepositoryComponent,
 		RouterLink,
-		ProjectsLanguagesComponent
+		ProjectsLanguagesComponent,
+		ProjectsContextFieldsComponent
 	],
   templateUrl: './projects-update.component.html',
   styleUrl: './projects-update.component.scss'

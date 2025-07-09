@@ -60,7 +60,7 @@ export class TranslationsFormComponent implements OnInit, AfterViewInit {
 	private api = this.electronFeatures;
 
 	private hasIntegratedAi = resource({
-		loader: () => this.electronFeatures.ai.hasIntegratedAi(),
+		loader: () => this.electronFeatures.aiHints.hasIntegratedAi(),
 	})
 
 	form = this.fb.nonNullable.group({

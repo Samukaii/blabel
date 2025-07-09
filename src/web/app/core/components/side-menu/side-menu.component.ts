@@ -5,6 +5,7 @@ import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MenuGroup } from '../../../shared/models/menu-group';
 import { getElectron } from '../../../shared/di/functions/get-electron';
+import { JsonPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-side-menu',
@@ -13,6 +14,7 @@ import { getElectron } from '../../../shared/di/functions/get-electron';
 		IconComponent,
 		RouterLink,
 		RouterLinkActive,
+		JsonPipe,
 	],
 	templateUrl: './side-menu.component.html',
 	styleUrl: './side-menu.component.scss'
@@ -23,7 +25,9 @@ export class SideMenuComponent {
 	private router = inject(Router);
 
 	currentUser = resource({
-		loader: () => this.electron.auth.currentUser()
+		loader: async () => {
+			return await this.electron.auth.getCurrentUser()
+		}
 	});
 
 	groups: MenuGroup[] = [
@@ -39,11 +43,11 @@ export class SideMenuComponent {
 		{
 			name: "Configurações",
 			items: [
-				// {
-				// 	name: "Idiomas",
-				// 	icon: "language",
-				// 	path: "languages"
-				// },
+				{
+					name: "Idiomas",
+					icon: "language",
+					path: "languages"
+				},
 				{
 					name: "Projetos",
 					icon: "archive-box",

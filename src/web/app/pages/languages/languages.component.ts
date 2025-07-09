@@ -47,7 +47,7 @@ export class LanguagesComponent {
         cell: {
           type: 'default',
           options: {
-            value: item.label,
+            value: item.name,
             classes: [
               'font-bold'
             ]
@@ -72,35 +72,6 @@ export class LanguagesComponent {
               'shadow-md',
               'font-medium',
               'text-sm'
-            ]
-          }
-        }
-      },
-      {
-        position: "isMain",
-        name: "Linguagem principal",
-        cell: {
-          type: 'default',
-          options: {
-            value: item.isMain ? "Sim":"Não",
-            classes: item.isMain ? [
-              'bg-green-700',
-              'w-fit',
-              'min-w-16',
-              'justify-center',
-              'text-center',
-              'p-1',
-              'rounded-full',
-              'text-white',
-            ]:[
-              'bg-red-500',
-              'w-fit',
-              'min-w-16',
-              'justify-center',
-              'text-center',
-              'p-1',
-              'rounded-full',
-              'text-white',
             ]
           }
         }

@@ -3,22 +3,22 @@ import { AvailableLanguage } from "@shared/models/available-languages.js";
 export const availableLanguages = [
 	{
 		key: "en-us",
-		label: "Inglês"
+		name: "Inglês"
 	},
 	{
 		key: "es",
-		label: "Espanhol"
+		name: "Espanhol"
 	},
 	{
 		key: "ko",
-		label: "Coreano"
+		name: "Coreano"
 	},
 	{
 		key: "pt-br",
-		label: "Português"
+		name: "Português"
 	},
 	{
 		key: "zh-cn",
-		label: "Mandarim"
+		name: "Mandarim"
 	}
 ] as const satisfies AvailableLanguage[];

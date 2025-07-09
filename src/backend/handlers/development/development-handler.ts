@@ -1,25 +1,31 @@
-import { currentWindow } from 'backend/core/current-window';
-import * as electron from 'electron';
+import { ElectronFeatures } from '@shared/models/electron-features';
+import { inject, Injectable } from '../../di/di';
+import { CurrentWindowService } from '../../services/current-window/current-window.service';
+import { isProduction } from '../../utils/is-production';
+import { isDebugAllowed } from '../../utils/is-debug-allowed';
 
+type Interface = ElectronFeatures['development'];
 
-const isProduction = async () => {
-	return electron.app.isPackaged;
-};
+@Injectable({providedIn: 'root'})
+export class DevelopmentHandler implements Interface {
+	private currentWindowService = inject(CurrentWindowService);
 
-const isDebugAllowed = async () => {
-	return !(await isProduction());
+	async openDevTools() {
+		const window = this.currentWindowService.get();
+
+		const debugAllowed = await this.isDebugAllowed();
+
+		if(!debugAllowed) return;
+
+		window.webContents.openDevTools({
+			mode: 'detach',
+		});
+	}
+	async isProduction() {
+		return isProduction();
+	}
+
+	async isDebugAllowed() {
+		return isDebugAllowed();
+	}
 }
-
-const openDevTools = async () => {
-	const window = currentWindow.get();
-
-	const debugAllowed = await isDebugAllowed();
-
-	if(!debugAllowed) return;
-
-	window.webContents.openDevTools({
-		mode: 'detach',
-	});
-};
-
-export const developmentHandler = {openDevTools, isProduction, isDebugAllowed};

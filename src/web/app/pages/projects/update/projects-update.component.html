@@ -31,6 +31,12 @@
 						(reload)="project.reload()"
 					/>
 				</app-tab>
+				<app-tab label="Campos de contexto" icon="queue-list" key="context-fields">
+					<app-projects-context-fields
+						[project]="projectValue"
+						(reload)="project.reload()"
+					/>
+				</app-tab>
 			</app-tabs-container>
 		</div>
 

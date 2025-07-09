@@ -1,0 +1,32 @@
+<div class="flex justify-between gap-4 text-gray-800 flex-col w-full max-w-[1000px] shadow-xl rounded-xl items-center p-10 bg-white">
+	<h2 class="font-semibold text-xl">
+		Opa! Você ainda não escolheu um projeto pra começar.
+	</h2>
+
+	<div
+		class=" p-4 flex border-blue-500 bg-blue-50 flex-col justify-between border-[1px] text-gray-600 rounded-lg h-fit">
+		O administrador da sua organização criou esses projetos e associou você. Agora é só escolher um e começar a traduzir.
+
+	</div>
+
+
+	<div class="w-full flex flex-col">
+		<app-autocomplete
+			class="w-full"
+			[control]="form.controls.projectId"
+			[options]="projects.value()"
+			placeholder="Selecione um projeto"
+		/>
+	</div>
+
+
+	<div class="w-full flex justify-end">
+		<app-button
+			[disabled]="!formIsValid()"
+			(click)="submit()"
+			class="w-fit"
+			text="Selecionar"
+		/>
+	</div>
+
+</div>

@@ -35,7 +35,7 @@ import { Component, viewChild, ViewContainerRef } from '@angular/core';
             max-width: 1200px;
             max-height: 90vh;
             background-color: white;
-            overflow: hidden;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             z-index: 20;

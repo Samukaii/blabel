@@ -1,1 +1,1 @@
-export type ButtonTheme = 'raised' | 'stroked';
+export type ButtonTheme = 'raised' | 'stroked' | 'basic';

@@ -91,8 +91,6 @@
     const allIcons = Object.entries(await fetch('./all-icons.json').then(res => res.json()));
     const selected = new Set(selectedIcons);
 
-    console.log(selected);
-
     const saveSelection = () => {
       const list = Array.from(selected);
       const json = JSON.stringify(list, null, 2);

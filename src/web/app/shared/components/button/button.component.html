@@ -1,4 +1,4 @@
-<button [disabled]="disabled() || loading()" [class]="theme() + ' ' + color()">
+<button [disabled]="disabled() || loading()" [class]="classes()">
 	@if (loading()) {
 		<div class="spinner"></div>
 		<p>{{ loadingText() || text() }}</p>
@@ -8,7 +8,9 @@
 			class="flex gap-2 items-center"
 		>
 			@let iconName = icon();
-			<p>{{ text() }}</p>
+			@if (text()) {
+				<p>{{ text() }}</p>
+			}
 			@if (iconName) {
 				<app-icon class="transition rounded-full" [name]="iconName"></app-icon>
 			}

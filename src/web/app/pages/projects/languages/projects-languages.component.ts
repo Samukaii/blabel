@@ -26,7 +26,7 @@ export class ProjectsLanguagesComponent {
 	protected response = resource({
 		params: this.project,
 		defaultValue: {results: []},
-		loader: ({params: project}) => this.api.projects.languages.getAll(project.id)
+		loader: ({params: project}) => this.api.projectLanguages.getAll(project.id)
 	});
 
 	protected createAction: ButtonAction = {
@@ -113,7 +113,7 @@ export class ProjectsLanguagesComponent {
 				confirmButtonName: "Adicionar",
 				project: this.project(),
 				confirm: async (form) => {
-					await this.api.projects.languages.create(this.project().id, form)
+					await this.api.projectLanguages.create(this.project().id, form)
 					this.response.reload();
 					this.dialog.closeAll();
 				}
@@ -133,7 +133,7 @@ export class ProjectsLanguagesComponent {
 				project: this.project(),
 				confirmButtonName: "Salvar",
 				confirm: async (form) => {
-					await this.api.projects.languages.updateOne(this.project().id, item.id, form)
+					await this.api.projectLanguages.updateOne(this.project().id, item.id, form)
 					this.response.reload();
 					this.dialog.closeAll();
 				}
@@ -145,7 +145,7 @@ export class ProjectsLanguagesComponent {
 	}
 
 	protected async remove(language: ProjectLanguage) {
-		await this.api.projects.languages.remove(this.project().id, language.id);
+		await this.api.projectLanguages.remove(this.project().id, language.id);
 		this.response.reload();
 	}
 }

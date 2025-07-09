@@ -6,23 +6,23 @@ const invoke = (handlerName: string, ...args: any[]) => ipcRenderer.invoke(handl
 contextBridge.exposeInMainWorld('electronAPI', {
   files: {
     openDialog: (...args: any[]) => invoke('files:openDialog', ...args),
-    saveDialog: (...args: any[]) => invoke('files:saveDialog', ...args),
-    download: (...args: any[]) => invoke('files:download', ...args)
+    saveDialog: (...args: any[]) => invoke('files:saveDialog', ...args)
   },
   window: {
+    close: (...args: any[]) => invoke('window:close', ...args),
     minimize: (...args: any[]) => invoke('window:minimize', ...args),
-    maximize: (...args: any[]) => invoke('window:maximize', ...args),
-    close: (...args: any[]) => invoke('window:close', ...args)
+    maximize: (...args: any[]) => invoke('window:maximize', ...args)
   },
   translations: {
     getAll: (...args: any[]) => invoke('translations:getAll', ...args),
     registerChange: (...args: any[]) => invoke('translations:registerChange', ...args),
     getAllChanges: (...args: any[]) => invoke('translations:getAllChanges', ...args),
-    registerRemoveChange: (...args: any[]) => invoke('translations:registerRemoveChange', ...args),
-    discardAllChanges: (...args: any[]) => invoke('translations:discardAllChanges', ...args),
     revertEntryChange: (...args: any[]) => invoke('translations:revertEntryChange', ...args),
     revertTranslationChange: (...args: any[]) => invoke('translations:revertTranslationChange', ...args),
-    saveAll: (...args: any[]) => invoke('translations:saveAll', ...args)
+    registerRemoveChange: (...args: any[]) => invoke('translations:registerRemoveChange', ...args),
+    discardAllChanges: (...args: any[]) => invoke('translations:discardAllChanges', ...args),
+    saveAll: (...args: any[]) => invoke('translations:saveAll', ...args),
+    getWithChanges: (...args: any[]) => invoke('translations:getWithChanges', ...args)
   },
   languages: {
     get: (...args: any[]) => invoke('languages:get', ...args),
@@ -30,6 +30,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
     remove: (...args: any[]) => invoke('languages:remove', ...args),
     update: (...args: any[]) => invoke('languages:update', ...args),
     autocomplete: (...args: any[]) => invoke('languages:autocomplete', ...args)
+  },
+  contextFields: {
+    getAll: (...args: any[]) => invoke('contextFields:getAll', ...args),
+    getOne: (...args: any[]) => invoke('contextFields:getOne', ...args),
+    create: (...args: any[]) => invoke('contextFields:create', ...args),
+    updateOne: (...args: any[]) => invoke('contextFields:updateOne', ...args),
+    remove: (...args: any[]) => invoke('contextFields:remove', ...args)
   },
   git: {
     connect: (...args: any[]) => invoke('git:connect', ...args),
@@ -42,19 +49,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
   projects: {
     getAll: (...args: any[]) => invoke('projects:getAll', ...args),
     getOne: (...args: any[]) => invoke('projects:getOne', ...args),
-    updateOne: (...args: any[]) => invoke('projects:updateOne', ...args),
+    select: (...args: any[]) => invoke('projects:select', ...args),
+    isConfigured: (...args: any[]) => invoke('projects:isConfigured', ...args),
+    clearSelected: (...args: any[]) => invoke('projects:clearSelected', ...args),
     create: (...args: any[]) => invoke('projects:create', ...args),
-    remove: (...args: any[]) => invoke('projects:remove', ...args),
-    languages: {
-      getAll: (...args: any[]) => invoke('projects:languages:getAll', ...args),
-      getOne: (...args: any[]) => invoke('projects:languages:getOne', ...args),
-      updateOne: (...args: any[]) => invoke('projects:languages:updateOne', ...args),
-      create: (...args: any[]) => invoke('projects:languages:create', ...args),
-      remove: (...args: any[]) => invoke('projects:languages:remove', ...args)
-    }
+    updateOne: (...args: any[]) => invoke('projects:updateOne', ...args),
+    remove: (...args: any[]) => invoke('projects:remove', ...args)
   },
   aiHints: {
-    translateEmptyLanguages: (...args: any[]) => invoke('aiHints:translateEmptyLanguages', ...args)
+    translateEmptyLanguages: (...args: any[]) => invoke('aiHints:translateEmptyLanguages', ...args),
+    hasIntegratedAi: (...args: any[]) => invoke('aiHints:hasIntegratedAi', ...args)
   },
   development: {
     openDevTools: (...args: any[]) => invoke('development:openDevTools', ...args),
@@ -66,9 +70,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     isLoggedIn: (...args: any[]) => invoke('auth:isLoggedIn', ...args),
     logout: (...args: any[]) => invoke('auth:logout', ...args),
     register: (...args: any[]) => invoke('auth:register', ...args),
-    currentUser: (...args: any[]) => invoke('auth:currentUser', ...args)
+    getCurrentUser: (...args: any[]) => invoke('auth:getCurrentUser', ...args),
+    refreshUser: (...args: any[]) => invoke('auth:refreshUser', ...args)
   },
-  ai: {
-    hasIntegratedAi: (...args: any[]) => invoke('ai:hasIntegratedAi', ...args)
+  projectLanguages: {
+    getAll: (...args: any[]) => invoke('projectLanguages:getAll', ...args),
+    getOne: (...args: any[]) => invoke('projectLanguages:getOne', ...args),
+    create: (...args: any[]) => invoke('projectLanguages:create', ...args),
+    updateOne: (...args: any[]) => invoke('projectLanguages:updateOne', ...args),
+    remove: (...args: any[]) => invoke('projectLanguages:remove', ...args)
   }
 });

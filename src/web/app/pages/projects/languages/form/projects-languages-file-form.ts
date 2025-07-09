@@ -8,6 +8,6 @@ export const projectsLanguagesFileForm = () => {
 
 	return fb.nonNullable.group({
 		key: [formType.required<AvailableLanguageKey>(), Validators.required],
-		path: [formType<string>('src/app/assets/i18n/zh-cn.json'), Validators.required],
+		path: [formType.required<string>(), Validators.required],
 	});
 }

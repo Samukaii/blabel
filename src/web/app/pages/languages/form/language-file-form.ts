@@ -9,6 +9,5 @@ export const languageFileForm = () => {
 	return fb.nonNullable.group({
 		key: [formType.required<AvailableLanguageKey>(), Validators.required],
 		path: [formType.required<string>(), Validators.required],
-		isMain: [formType(false)]
 	});
 }

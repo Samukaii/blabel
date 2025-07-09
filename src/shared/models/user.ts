@@ -5,7 +5,7 @@ export interface User {
   name: string;
   email: string;
   plan: {
-    id: PlanType;
-    name: string
+    key: PlanType;
+    label: string
   };
 }

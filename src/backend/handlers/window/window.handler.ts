@@ -1,25 +1,26 @@
 import * as electron from 'electron';
+import { Injectable } from '../../di/di';
+import { ElectronFeatures } from '@shared/models/electron-features';
 
-const close =  () => {
-	electron.BrowserWindow.getFocusedWindow()?.close();
-};
+type Interface = ElectronFeatures['window'];
 
-const minimize =  () => {
-	electron.BrowserWindow.getFocusedWindow()?.minimize();
-};
-
-const maximize =  () => {
-	const window = electron.BrowserWindow.getFocusedWindow();
-	if (!window) return;
-	if (window.isMaximized()) {
-		window.unmaximize();
-	} else {
-		window.maximize();
+@Injectable({providedIn: 'root'})
+export class WindowHandler implements Interface {
+	async close() {
+		electron.BrowserWindow.getFocusedWindow()?.close();
 	}
-};
 
-export const windowHandler = {
-	minimize,
-	maximize,
-	close,
-};
+	async minimize() {
+		electron.BrowserWindow.getFocusedWindow()?.minimize();
+	}
+
+	async maximize() {
+		const window = electron.BrowserWindow.getFocusedWindow();
+		if (!window) return;
+		if (window.isMaximized()) {
+			window.unmaximize();
+		} else {
+			window.maximize();
+		}
+	}
+}

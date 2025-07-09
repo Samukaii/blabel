@@ -5,7 +5,6 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { AutocompleteComponent } from '../../../shared/components/autocomplete/autocomplete.component';
 import { NoResults } from '../../../shared/models/no-results';
 import { FileSelectorComponent } from '../../../shared/components/file-selector/file-selector.component';
-import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
 import { TranslationFile } from '@shared/models/translation-file';
 import { getElectron } from '../../../shared/di/functions/get-electron';
 import { formIsValid } from '../../../shared/utils/form-is-valid';
@@ -16,8 +15,7 @@ import { formIsValid } from '../../../shared/utils/form-is-valid';
 	imports: [
 		ButtonComponent,
 		AutocompleteComponent,
-		FileSelectorComponent,
-		CheckboxComponent
+		FileSelectorComponent
 	],
 	templateUrl: './language-file-form.component.html',
 	styleUrl: './language-file-form.component.scss'
@@ -36,8 +34,9 @@ export class LanguageFileFormComponent implements OnInit {
 	protected availableLanguages = resource({
 		params: this.search,
 		defaultValue: { results: []},
-		loader: ({params}) =>
-			this.api.languages.autocomplete(params)
+		loader: async ({params}) => {
+			return await this.api.languages.autocomplete(params);
+		}
 	});
 
 	protected noResults: NoResults = {

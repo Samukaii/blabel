@@ -5,7 +5,7 @@ export interface TranslationDiff {
 	entries: {
 		path: string;
 		languages: {
-			label: string;
+			name: string;
 			oldValue: string | null;
 			newValue: string | null;
 		}[];
