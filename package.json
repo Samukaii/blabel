@@ -63,6 +63,7 @@
 		"@angular/platform-server": "^20.0.0",
 		"@angular/router": "^20.0.0",
 		"@angular/ssr": "^20.0.0",
+		"@frakton-ng/core": "^1.0.0",
 		"@tailwindcss/postcss": "^4.1.8",
 		"axios": "^1.10.0",
 		"cors": "^2.8.5",
