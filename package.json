@@ -1,119 +1,119 @@
 {
-	"name": "blabel",
-	"version": "1.0.0",
-	"main": "dist/backend/main.js",
-	"author": {
-		"name": "Samuel Alejandro",
-		"email": "samuelalejandro.dev@gmail.com"
-	},
-	"email": "samuelalejandro.dev@gmail.com",
-	"type": "module",
-	"description": "Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.",
-	"scripts": {
-		"postinstall": "node node_modules/electron/install.js",
-		"start:frontend": "pnpm run generate-icons && ng serve",
-		"build:frontend": "pnpm run generate-icons && ng build --configuration production",
-		"generate-icons": "tsx --tsconfig tsconfig.scripts.json scripts/generate-icons.ts",
-		"generate-favicons": "tsx --tsconfig tsconfig.scripts.json scripts/convert-icons-from-svg.ts",
-		"build:backend": "tsc -p tsconfig.electron.json && tsc-alias -p tsconfig.electron.json --outDir dist",
-		"restart:backend": "electron dist/backend/main.js",
-		"start:backend": "pnpm run generate-preload && pnpm run build:backend && pnpm run restart:backend",
-		"generate-preload": "tsx --tsconfig tsconfig.scripts.json scripts/generate-electron-preload.ts",
-		"dist": "pnpm run generate-preload && pnpm run build:backend && pnpm run build:backend && electron-builder"
-	},
-	"build": {
-		"appId": "com.blabel.app",
-		"productName": "Blabel",
-		"directories": {
-			"output": "release"
-		},
-		"files": [
-			"dist/**/*",
-			"main.js"
-		],
-		"extraResources": [
-			{
-				"from": "public/assets/favicons",
-				"to": "assets/favicons"
-			}
-		],
-		"win": {
-			"icon": "public/assets/favicons/icon.ico"
-		},
-		"mac": {
-			"icon": "public/assets/favicons/icon.icns"
-		},
-		"linux": {
-			"target": [
-				"AppImage",
-				"deb"
-			],
-			"icon": "public/assets/favicons/linux-icons",
-			"category": "Utility"
-		}
-	},
-	"dependencies": {
-		"@angular/cdk": "^20.0.5",
-		"@angular/common": "^20.0.0",
-		"@angular/compiler": "^20.0.0",
-		"@angular/core": "^20.0.0",
-		"@angular/forms": "^20.0.0",
-		"@angular/platform-browser": "^20.0.0",
-		"@angular/platform-browser-dynamic": "^20.0.0",
-		"@angular/platform-server": "^20.0.0",
-		"@angular/router": "^20.0.0",
-		"@angular/ssr": "^20.0.0",
-		"@frakton-ng/core": "^1.0.0",
-		"@tailwindcss/postcss": "^4.1.8",
-		"axios": "^1.10.0",
-		"cors": "^2.8.5",
-		"dotenv": "^16.5.0",
-		"electron-store": "^8.2.0",
-		"electronmon": "^2.0.3",
-		"express": "^4.18.2",
-		"openai": "^5.1.1",
-		"reflect-metadata": "^0.2.2",
-		"rxjs": "~7.8.0",
-		"strip-json-comments": "^5.0.2",
-		"tslib": "^2.3.0",
-		"zod": "^3.25.51"
-	},
-	"devDependencies": {
-		"@angular/build": "^20.0.0",
-		"@angular/cli": "^20.0.0",
-		"@angular/compiler-cli": "^20.0.0",
-		"@tailwindcss/cli": "^4.1.8",
-		"@types/cors": "^2.8.18",
-		"@types/express": "^4.17.21",
-		"@types/jasmine": "~5.1.0",
-		"@types/node": "^20.6.0",
-		"autoprefixer": "^10.4.21",
-		"concurrently": "^9.1.2",
-		"copyfiles": "^2.4.1",
-		"electron": "^28.3.3",
-		"electron-builder": "^26.0.12",
-		"fs-extra": "^11.3.0",
-		"icon-gen": "^5.0.0",
-		"jasmine-core": "~5.6.0",
-		"karma": "~6.4.0",
-		"karma-chrome-launcher": "~3.2.0",
-		"karma-coverage": "~2.2.0",
-		"karma-jasmine": "~5.1.0",
-		"karma-jasmine-html-reporter": "~2.1.0",
-		"nodemon": "^3.1.10",
-		"npx": "^10.2.2",
-		"png-to-ico": "^2.1.8",
-		"postcss": "^8.5.4",
-		"prettier": "^3.5.3",
-		"sharp": "^0.34.2",
-		"svgo": "^3.3.2",
-		"tailwindcss": "^3.4.1",
-		"ts-morph": "^26.0.0",
-		"ts-node": "^10.9.2",
-		"ts-node-dev": "^2.0.0",
-		"tsc-alias": "^1.8.16",
-		"tsconfig-paths": "^4.2.0",
-		"tsx": "^4.20.3",
-		"typescript": "~5.8.3"
-	}
+  "name": "blabel",
+  "version": "1.0.0",
+  "main": "dist/backend/main.js",
+  "author": {
+    "name": "Samuel Alejandro",
+    "email": "samuelalejandro.dev@gmail.com"
+  },
+  "email": "samuelalejandro.dev@gmail.com",
+  "type": "module",
+  "description": "Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.",
+  "scripts": {
+    "postinstall": "node node_modules/electron/install.js",
+    "start:frontend": "pnpm run generate-icons && ng serve",
+    "build:frontend": "pnpm run generate-icons && ng build --configuration production",
+    "generate-icons": "tsx --tsconfig tsconfig.scripts.json scripts/generate-icons.ts",
+    "generate-favicons": "tsx --tsconfig tsconfig.scripts.json scripts/convert-icons-from-svg.ts",
+    "build:backend": "tsc -p tsconfig.electron.json && tsc-alias -p tsconfig.electron.json --outDir dist",
+    "restart:backend": "electron dist/backend/main.js",
+    "start:backend": "pnpm run generate-preload && pnpm run build:backend && pnpm run restart:backend",
+    "generate-preload": "tsx --tsconfig tsconfig.scripts.json scripts/generate-electron-preload.ts",
+    "dist": "pnpm run generate-preload && pnpm run build:backend && pnpm run build:backend && electron-builder"
+  },
+  "build": {
+    "appId": "com.blabel.app",
+    "productName": "Blabel",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js"
+    ],
+    "extraResources": [
+      {
+        "from": "public/assets/favicons",
+        "to": "assets/favicons"
+      }
+    ],
+    "win": {
+      "icon": "public/assets/favicons/icon.ico"
+    },
+    "mac": {
+      "icon": "public/assets/favicons/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "public/assets/favicons/linux-icons",
+      "category": "Utility"
+    }
+  },
+  "dependencies": {
+    "@angular/cdk": "^20.0.5",
+    "@angular/common": "^20.2.1",
+    "@angular/compiler": "^20.2.1",
+    "@angular/core": "^20.2.1",
+    "@angular/forms": "^20.2.1",
+    "@angular/platform-browser": "^20.2.1",
+    "@angular/platform-browser-dynamic": "^20.2.1",
+    "@angular/platform-server": "^20.2.1",
+    "@angular/router": "^20.2.1",
+    "@angular/ssr": "^20.2.0",
+    "@frakton-ng/core": "^1.0.0",
+    "@tailwindcss/postcss": "^4.1.8",
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "electron-store": "^8.2.0",
+    "electronmon": "^2.0.3",
+    "express": "^4.18.2",
+    "openai": "^5.1.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "~7.8.0",
+    "strip-json-comments": "^5.0.2",
+    "tslib": "^2.3.0",
+    "zod": "^3.25.51"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.2.0",
+    "@angular/cli": "^20.2.0",
+    "@angular/compiler-cli": "^20.2.1",
+    "@tailwindcss/cli": "^4.1.8",
+    "@types/cors": "^2.8.18",
+    "@types/express": "^4.17.21",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^20.6.0",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.1.2",
+    "copyfiles": "^2.4.1",
+    "electron": "^28.3.3",
+    "electron-builder": "^26.0.12",
+    "fs-extra": "^11.3.0",
+    "icon-gen": "^5.0.0",
+    "jasmine-core": "~5.6.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "nodemon": "^3.1.10",
+    "npx": "^10.2.2",
+    "png-to-ico": "^2.1.8",
+    "postcss": "^8.5.4",
+    "prettier": "^3.5.3",
+    "sharp": "^0.34.2",
+    "svgo": "^3.3.2",
+    "tailwindcss": "^3.4.1",
+    "ts-morph": "^26.0.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.16",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.20.3",
+    "typescript": "~5.8.3"
+  }
 }
