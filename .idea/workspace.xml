@@ -4,83 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a8d4462-b550-41a2-b761-eb3c8af6f2a3" name="Changes" comment="updated project to use frakton ng">
+    <list default="true" id="5a8d4462-b550-41a2-b761-eb3c8af6f2a3" name="Changes" comment="removed application icons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/pages/languages/form/language-file-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/languages/form/language-file-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/pages/languages/form/language-file-form.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/pages/languages/languages.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/languages/languages.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/projects-context-fields.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/projects-context-fields.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/languages/form/projects-languages-file-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/languages/form/projects-languages-file-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/languages/form/projects-languages-file-form.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/languages/projects-languages.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/languages/projects-languages.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/translations.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/translations.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/app-color.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/component-data.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/component-input-names.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/component-inputs.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/component-output-names.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/component-outputs.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/geometry-offset.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/geometry-point.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/geometry-position-calculation-fn.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/geometry-position.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/geometry-rect.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/geometry-size.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/icon-name.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/identifiable.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/infer-form-value-fn.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/infer-form-value.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/menu-group.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/menu-item.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/no-results.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/or-signal.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/prettify.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/models/reactive-component-data.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/archive-box.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-long-right.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-right-start-on-rectangle.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-uturn-left.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/bars-3.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/check.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/cog-6-tooth.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/cube.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/document-text.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/ellipsis-vertical.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/eye-slash.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/eye.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/folder.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/globe-alt.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/icons-mapping.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/inbox.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/language.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/link.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/lock-closed.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/magnifying-glass.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus-circle.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil-square.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus-circle.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/queue-list.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/shield-check.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/sparkles.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/stop.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/trash.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/user-group.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/user.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/wrench-screwdriver.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/x-mark.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/control-errors-signal.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/control-value-to-signal.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/create-component-bindings.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/element-size-signal.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/form-is-valid.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/form-status-signal.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/form-type.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/geometry-position-calculations.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/outside-click-effect.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/app/shared/utils/promise-to-signal.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +87,7 @@
       <workItem from="1756646574462" duration="1278000" />
       <workItem from="1756672302760" duration="1666000" />
       <workItem from="1756674695184" duration="4059000" />
-      <workItem from="1756689678613" duration="9218000" />
+      <workItem from="1756689678613" duration="9355000" />
     </task>
     <task id="LOCAL-00001" summary="updated project to use frakton ng">
       <option name="closed" value="true" />
@@ -171,7 +97,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756700013172</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="removed application icons">
+      <option name="closed" value="true" />
+      <created>1756700992825</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1756700992825</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,6 +113,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated project to use frakton ng" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated project to use frakton ng" />
+    <MESSAGE value="removed application icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed application icons" />
   </component>
 </project>

@@ -11,9 +11,8 @@
   "description": "Blabel é uma aplicação offline de gerenciamento de traduções com visualização inteligente, comparações por versão e integração com IA para autocompletar textos com base em contexto. Feita para times que valorizam clareza, agilidade e controle total sobre seus arquivos de idioma.",
   "scripts": {
     "postinstall": "node node_modules/electron/install.js",
-    "start:frontend": "pnpm run generate-icons && ng serve",
-    "build:frontend": "pnpm run generate-icons && ng build --configuration production",
-    "generate-icons": "tsx --tsconfig tsconfig.scripts.json scripts/generate-icons.ts",
+    "start:frontend": "ng serve",
+    "build:frontend": "ng build --configuration production",
     "generate-favicons": "tsx --tsconfig tsconfig.scripts.json scripts/convert-icons-from-svg.ts",
     "build:backend": "tsc -p tsconfig.electron.json && tsc-alias -p tsconfig.electron.json --outDir dist",
     "restart:backend": "electron dist/backend/main.js",
