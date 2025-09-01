@@ -1,19 +1,19 @@
-<div class="w-full h-fit">
-	<app-input
+<div class="w-full flex flex-col gap-2 h-fit">
+	<fkt-input
 		label="Nome"
 		placeholder="Informe aqui o nome"
 		[control]="form.controls.name"
 	/>
 
-	<app-textarea
+	<fkt-textarea
 		label="Descrição"
 		placeholder="Informe aqui a descrição"
 		[control]="form.controls.description"
 	/>
 </div>
 <div class="w-full flex justify-end items-center pt-2">
-	<app-button
-		[disabled]="!formIsValid()"
+	<fkt-button
+		[disabled]="!form.valid()"
 		(click)="submit()"
 		theme="raised"
 		[text]="confirmButtonName()"

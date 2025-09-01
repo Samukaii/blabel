@@ -53,7 +53,7 @@
     }
   },
   "dependencies": {
-    "@angular/cdk": "^20.0.5",
+    "@angular/cdk": "^20.2.0",
     "@angular/common": "^20.2.1",
     "@angular/compiler": "^20.2.1",
     "@angular/core": "^20.2.1",
@@ -63,9 +63,9 @@
     "@angular/platform-server": "^20.2.1",
     "@angular/router": "^20.2.1",
     "@angular/ssr": "^20.2.0",
-    "@frakton-ng/core": "^1.0.0",
+    "@frakton-ng/core": "^1.16.0",
     "@tailwindcss/postcss": "^4.1.8",
-    "axios": "^1.10.0",
+    "axios": "1.11.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "electron-store": "^8.2.0",

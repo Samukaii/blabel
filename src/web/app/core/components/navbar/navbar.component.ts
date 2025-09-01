@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NavbarService } from './navbar.service';
-import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { SideMenuService } from '../side-menu/side-menu.service';
 import { NgTemplateOutlet } from '@angular/common';
+import { FktIconComponent } from '@frakton-ng/core';
 
 @Component({
 	selector: 'app-navbar',
-	imports: [IconComponent, NgTemplateOutlet],
+	imports: [NgTemplateOutlet, FktIconComponent],
 	templateUrl: './navbar.component.html',
 	styleUrl: './navbar.component.scss',
 	host: {
-		ngSkipHydration: "true",
+		ngSkipHydration: 'true',
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

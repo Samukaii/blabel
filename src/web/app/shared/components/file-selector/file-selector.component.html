@@ -10,18 +10,19 @@
 		<div class="flex gap-4 justify-between w-full items-center">
 			<div class="flex flex-wrap gap-4">
 				@for (file of files(); track file) {
-					<div class="rounded-full bg-gray-200 p-2 flex gap-2 items-center drop-shadow shadow-md text-sm font-medium">
+					<div
+						class="rounded-full bg-gray-200 p-2 flex gap-2 items-center drop-shadow shadow-md text-sm font-medium">
 						{{ file }}
-						<app-icon (click)="removeFile(file)"
+						<fkt-icon (click)="removeFile(file)"
 								  name="x-mark"
-								  class="hover:bg-gray-400 transition hover:text-white p-1 bg-gray-100 text-white rounded-full"
-								  iconClasses="cursor-pointer block hover:text-white text-black size-4"/>
+								  class="cursor-pointer block hover:text-white text-black size-4 hover:bg-gray-400 transition hover:text-white p-1 bg-gray-100 text-white rounded-full"
+						/>
 					</div>
 				}
 			</div>
-			<app-icon (click)="select()"
+			<fkt-icon (click)="select()"
 					  name="pencil-square"
-					  iconClasses="cursor-pointer block text-black size-6"/>
+					  class="cursor-pointer block text-black size-6" />
 		</div>
 	} @else {
 		<p class="w-full h-full font-medium text-lg cursor-pointer"

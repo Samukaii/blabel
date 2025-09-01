@@ -1,18 +1,20 @@
 import { Component, inject, input, output, resource } from '@angular/core';
 import { Project } from '@shared/models/project';
-import { TableComponent } from '../../../shared/components/table/table.component';
-import { DialogService } from '../../../shared/components/dialog/dialog.service';
 import { getElectron } from '../../../shared/di/functions/get-electron';
-import { ButtonAction } from '../../../shared/components/button/models/button-action';
 import { NoResults } from '../../../shared/models/no-results';
-import { TableColumnFn } from '../../../shared/components/table/models/table-column-fn';
-import { TableActionFn } from '../../../shared/components/table/models/table-action-fn';
 import { ProjectContextField } from '@shared/models/project-context-field';
 import { ProjectsContextFieldsFormComponent } from './form/projects-context-fields-form.component';
+import {
+	FktButtonAction,
+	FktDialogService,
+	FktTableActionFn,
+	FktTableColumnFn,
+	FktTableComponent,
+} from '@frakton-ng/core';
 
 @Component({
 	selector: 'app-projects-context-fields',
-	imports: [TableComponent],
+	imports: [FktTableComponent],
 	templateUrl: './projects-context-fields.component.html',
 	styleUrl: './projects-context-fields.component.scss',
 })
@@ -20,7 +22,7 @@ export class ProjectsContextFieldsComponent {
 	project = input.required<Project>();
 	reload = output();
 
-	private dialog = inject(DialogService);
+	private dialog = inject(FktDialogService);
 	private api = getElectron();
 
 	protected response = resource({
@@ -31,7 +33,7 @@ export class ProjectsContextFieldsComponent {
 		},
 	});
 
-	protected createAction: ButtonAction = {
+	protected createAction: FktButtonAction = {
 		icon: 'plus',
 		text: 'Adicionar',
 		iconPosition: 'left',
@@ -50,7 +52,7 @@ export class ProjectsContextFieldsComponent {
 		},
 	};
 
-	protected columnsFn: TableColumnFn<ProjectContextField> = item => {
+	protected columnsFn: FktTableColumnFn<ProjectContextField> = item => {
 		return [
 			{
 				position: 'label',
@@ -116,18 +118,20 @@ export class ProjectsContextFieldsComponent {
 		];
 	};
 
-	protected actionsFn: TableActionFn<ProjectContextField> = item => [
+	protected actionsFn: FktTableActionFn<ProjectContextField> = item => [
 		{
 			icon: 'pencil-square',
-			name: 'edit',
-			classes: ['text-gray-500'],
+			identifier: 'edit',
+			color: 'primary',
+			theme: 'basic',
 			condition: true,
 			click: () => this.update(item),
 		},
 		{
 			icon: 'trash',
-			name: 'remove',
-			classes: ['text-red-500'],
+			identifier: 'remove',
+			color: 'red',
+			theme: 'basic',
 			condition: true,
 			click: () => this.remove(item),
 		},

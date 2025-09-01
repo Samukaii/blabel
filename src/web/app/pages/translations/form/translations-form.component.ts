@@ -10,20 +10,23 @@ import {
 	resource,
 	signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { map } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CallPipe } from '../../../shared/pipes/call.pipe';
 import { TranslationsFormLanguageComponent } from './language/translations-form-language.component';
-import { InputComponent } from "../../../shared/components/input/input.component";
-import { TextareaComponent } from "../../../shared/components/textarea/textarea.component";
-import { ButtonComponent } from "../../../shared/components/button/button.component";
 import { Translation } from '@shared/models/translation';
 import { TranslationChange } from '@shared/models/translation-change';
 import { TranslationLanguage } from '@shared/models/translation-language';
 import { AvailableLanguageKey } from '@shared/models/available-languages.js';
 import { getElectron } from '../../../shared/di/functions/get-electron';
 import { AiHintsPayload } from '@shared/models/ai-hints-payload';
+import {
+	FktButtonComponent,
+	FktInputComponent,
+	FktTextareaComponent,
+	SignalFormBuilder,
+	SignalValidators,
+} from '@frakton-ng/core';
+import { Generic } from '@shared/models/generic';
 
 @Component({
 	selector: 'app-translations-form',
@@ -33,9 +36,9 @@ import { AiHintsPayload } from '@shared/models/ai-hints-payload';
 		ReactiveFormsModule,
 		TranslationsFormLanguageComponent,
 		CallPipe,
-		InputComponent,
-		TextareaComponent,
-		ButtonComponent,
+		FktButtonComponent,
+		FktTextareaComponent,
+		FktInputComponent,
 	],
 })
 export class TranslationsFormComponent implements OnInit, AfterViewInit {
@@ -52,41 +55,37 @@ export class TranslationsFormComponent implements OnInit, AfterViewInit {
 	otherLanguages = computed(() => this.languages().slice(1));
 	requestingAi = signal(false);
 
-	mainLanguageEntry = computed(() => this.getEntry(this.mainLanguage()))
+	mainLanguageEntry = computed(() => this.getEntry(this.mainLanguage()));
 
-	private fb = inject(FormBuilder);
+	private fb = inject(SignalFormBuilder);
 	private document = inject(DOCUMENT);
 	private electronFeatures = getElectron();
 	private api = this.electronFeatures;
 
 	private hasIntegratedAi = resource({
 		loader: () => this.electronFeatures.aiHints.hasIntegratedAi(),
-	})
-
-	form = this.fb.nonNullable.group({
-		path: ['', Validators.required],
-		entries: this.fb.nonNullable.record<string>({}),
 	});
 
-	aiHintsForm = this.fb.nonNullable.group({
+	form = this.fb.group({
+		path: ['', SignalValidators.required()],
+		entries: this.fb.strictGroup<Generic>({}),
+	});
+
+	aiHintsForm = this.fb.group({
 		onlyEmptyFields: [false],
-		additionalContext: [""]
+		additionalContext: [''],
 	});
-
-	formValue = toSignal(
-		this.form.valueChanges.pipe(map(() => this.form.getRawValue())),
-		{initialValue: this.form.getRawValue()}
-	);
 
 	mainLanguageIsFilled = computed(() => {
-		const formValue = this.formValue();
+		const formValue = this.form.value();
+		const entries = (formValue as Generic)['entries'] as Generic;
 
-		return !!formValue.entries[this.mainLanguage().key];
+		return !!entries[this.mainLanguage().key];
 	});
 
 	canShowAi = computed(() => {
 		return !!this.hasIntegratedAi.value() && this.mainLanguageIsFilled();
-	})
+	});
 
 	ngOnInit() {
 		const path = this.form.controls.path;
@@ -113,16 +112,17 @@ export class TranslationsFormComponent implements OnInit, AfterViewInit {
 
 	getEntry = (language: TranslationLanguage) => {
 		return this.translation()?.entries.find(
-			(entry) => entry.language.key===language.key
+			entry => entry.language.key === language.key,
 		);
 	};
 
 	getFormValue() {
-		const formValue = this.form.getRawValue();
+		const formValue = this.form.value();
+		const entries = (formValue as Generic)['entries'] as Generic;
 
 		return {
 			path: formValue.path,
-			entries: Object.entries(formValue.entries).map(([key, value]) => ({
+			entries: Object.entries(entries).map(([key, value]) => ({
 				language: key,
 				value: value,
 			})),
@@ -130,11 +130,12 @@ export class TranslationsFormComponent implements OnInit, AfterViewInit {
 	}
 
 	save() {
-		const formValue = this.form.getRawValue();
+		const formValue = this.form.value();
+		const entries = (formValue as Generic)['entries'] as Generic;
 
 		const value = {
 			path: formValue.path,
-			entries: Object.entries(formValue.entries).map(([key, value]) => ({
+			entries: Object.entries(entries).map(([key, value]) => ({
 				language: key as AvailableLanguageKey,
 				value: value,
 			})),
@@ -147,12 +148,14 @@ export class TranslationsFormComponent implements OnInit, AfterViewInit {
 		this.requestingAi.set(true);
 
 		const value = {
-			...this.aiHintsForm.getRawValue(),
-			entries: this.getFormValue().entries as AiHintsPayload['entries']
-		}
+			...this.aiHintsForm.value(),
+			entries: this.getFormValue().entries as AiHintsPayload['entries'],
+		};
 
-		const {result} = await this.api.aiHints.translateEmptyLanguages(value);
-		this.form.controls.entries.patchValue(result);
+		const { result } =
+			await this.api.aiHints.translateEmptyLanguages(value);
+
+		this.form.controls.entries.patchValue(result as any);
 		this.requestingAi.set(false);
 	}
 }

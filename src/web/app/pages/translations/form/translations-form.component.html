@@ -1,6 +1,6 @@
 <h2 class="text-xl w-full text-center font-semibold text-gray-700 mb-4 border-b-[1px] border-gray-300 pb-3">{{ title() }}</h2>
 <div class="max-h-[72vh] overflow-y-auto overflow-x-hidden">
-	<app-input
+	<fkt-input
 		label="Caminho da tradução"
 		placeholder="Insira aqui o caminho da tradução"
 		[control]="form.controls.path"
@@ -13,13 +13,13 @@
 	/>
 
 	@if (canShowAi()) {
-		<app-textarea
+		<fkt-textarea
 			label="Contexto adicional"
 			placeholder="Para uma tradução mais precisa, você pode fornecer uma explicação mais ampla sobre este texto como qual o sentido dele ou onde ele está localizado"
 			[control]="aiHintsForm.controls.additionalContext"
 		/>
 		<div class="flex items-center gap-2">
-			<app-button
+			<fkt-button
 				[loading]="requestingAi()"
 				(click)="fillWithAi()"
 				icon="sparkles"
@@ -48,8 +48,8 @@
 </div>
 
 <div class="w-full flex justify-end items-center pt-2">
-	<app-button
-		[disabled]="form.invalid"
+	<fkt-button
+		[disabled]="form.invalid()"
 		(click)="save()"
 		theme="raised"
 		[text]="confirmButtonName()"

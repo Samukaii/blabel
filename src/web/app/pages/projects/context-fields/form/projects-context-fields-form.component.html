@@ -1,17 +1,17 @@
 <h2 class="text-xl w-full text-center font-semibold mb-4">
 	{{ title() }}
 </h2>
-<div class="w-full h-fit">
-	<app-input
+<div class="w-full h-fit flex flex-col gap-2">
+	<fkt-input
 		label="Nome"
 		placeholder="Informe aqui o nome"
 		[control]="form.controls.label"/>
-	<app-textarea
+	<fkt-textarea
 		label="Descrição"
 		placeholder="Informe aqui a descrição"
 		[control]="form.controls.description"/>
 
-	<app-autocomplete
+	<fkt-autocomplete
 		label="Tipo de campo"
 		placeholder="Informe aqui o tipo de campo"
 		[options]="typeOptions"
@@ -25,29 +25,30 @@
 			<div
 				cdkDropList
 				[cdkDropListLockAxis]="'y'"
-				[cdkDropListData]="options()"
+				[cdkDropListData]="form.controls.options.controls()"
 				(cdkDropListDropped)="drop($event)"
 			>
-				@for (field of options(); track field.controls.id) {
+				@for (field of form.controls.options.controls(); track field.controls.id) {
 					<div
 						cdkDrag
 						class="flex items-center gap-2"
 					>
-						<app-button
+						<fkt-button
 							cdkDragHandle
 							icon="ellipsis-vertical"
 							theme="basic"
 							variant="rect"
 						/>
-						<app-input
+						<fkt-input
 							class="w-full"
-							placeholder="Nome da opção"
+							label="Nome da opção"
+							placeholder="Informe aqui o nome"
 							[control]="field.controls.label"
 						/>
 
 						<div class="flex items-center">
-							@if (options().length > 1) {
-								<app-button
+							@if (form.controls.options.controls().length > 1) {
+								<fkt-button
 									(click)="removeField(field)"
 									class="!w-fit"
 									variant="rect"
@@ -56,7 +57,7 @@
 									icon="trash"
 								/>
 							}
-							<app-button
+							<fkt-button
 								(click)="addField(field)"
 								class="!w-fit"
 								variant="rect"
@@ -71,14 +72,14 @@
 		</div>
 	}
 
-	<app-checkbox
+	<fkt-checkbox
 		label="Campo obrigatório"
 		[control]="form.controls.required"
 	/>
 </div>
 <div class="w-full flex justify-end items-center pt-2">
-	<app-button
-		[disabled]="!formIsValid()"
+	<fkt-button
+		[disabled]="!form.valid()"
 		(click)="submit()"
 		theme="raised"
 		[text]="confirmButtonName()"

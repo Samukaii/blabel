@@ -5,7 +5,7 @@
 			@if (connectionValue.status === 'disconnected') {
 				<div class="w-full flex justify-between flex-wrap items-center gap-4">
 					<div class="flex items-center gap-4">
-						<app-icon name="cube" iconClasses="size-16"/>
+						<fkt-icon name="cube" class="size-16"/>
 						<div class="w-full max-w-[600px]">
 							<p class="text-lg font-semibold">
 								Nenhuma conexão encontrada
@@ -20,7 +20,7 @@
 						</div>
 					</div>
 
-					<app-button
+					<fkt-button
 						(click)="connect()"
 						icon="link"
 						iconPosition="left"
@@ -45,13 +45,13 @@
 
 
 					<div class="flex flex-col gap-2">
-						<app-button
+						<fkt-button
 							(click)="updateConnection()"
 							icon="pencil-square"
 							iconPosition="left"
 							text="Editar conexão"
 						/>
-						<app-button
+						<fkt-button
 							(click)="disconnect()"
 							icon="x-mark"
 							theme="stroked"
@@ -67,19 +67,19 @@
 	</div>
 
 
-	<app-autocomplete
+	<fkt-autocomplete
 		label="Repositório"
 		[control]="form.controls.repository"
 		[options]="repositories.value().results"
 		placeholder="Informe aqui o repositório"
 	/>
-	<app-autocomplete
+	<fkt-autocomplete
 		label="Branch principal"
 		[control]="form.controls.targetBranch"
 		[options]="branches.value().results"
 		placeholder="Informe aqui a branch principal"
 	/>
-	<app-autocomplete
+	<fkt-autocomplete
 		label="Branch de desenvolvimento"
 		[control]="form.controls.sourceBranch"
 		[options]="branches.value().results"
@@ -87,8 +87,8 @@
 	/>
 
 	<div class="flex justify-end mt-4">
-		<app-button
-			[disabled]="!isFormValid()"
+		<fkt-button
+			[disabled]="!form.valid()"
 			(click)="submit()"
 			iconPosition="left"
 			text="Salvar"

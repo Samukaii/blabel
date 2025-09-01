@@ -4,25 +4,263 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5a8d4462-b550-41a2-b761-eb3c8af6f2a3" name="Changes" comment="">
+    <list default="true" id="5a8d4462-b550-41a2-b761-eb3c8af6f2a3" name="Changes" comment="updated project to use frakton ng">
+      <change beforePath="$PROJECT_DIR$/.idea/webResources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-workspace.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-workspace.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/core/current-project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/core/current-project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/preload.generated.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/preload.generated.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/services/languages/application-languages.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/services/languages/application-languages.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/models/payloads/auth-payload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/models/payloads/auth-payload.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/core/components/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/core/components/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/core/components/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/core/components/navbar/navbar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/core/components/side-menu/side-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/core/components/side-menu/side-menu.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/core/components/side-menu/side-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/core/components/side-menu/side-menu.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/core/components/title-bar/title-bar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/core/components/title-bar/title-bar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/core/components/title-bar/title-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/core/components/title-bar/title-bar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/languages/form/language-file-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/languages/form/language-file-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/languages/form/language-file-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/languages/form/language-file-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/languages/languages.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/languages/languages.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/languages/languages.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/languages/languages.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/languages/languages.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/languages/languages.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/form/projects-context-fields-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/form/projects-context-fields-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/form/projects-context-fields-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/form/projects-context-fields-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/form/projects-context-fields-form.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/projects-context-fields.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/projects-context-fields.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/projects-context-fields.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/context-fields/projects-context-fields.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/form/projects-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/form/projects-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/form/projects-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/form/projects-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/form/projects-form.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/form/project-payload.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/languages/form/projects-languages-file-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/languages/form/projects-languages-file-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/languages/form/projects-languages-file-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/languages/form/projects-languages-file-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/languages/projects-languages.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/languages/projects-languages.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/languages/projects-languages.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/languages/projects-languages.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/projects.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/projects.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/projects.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/projects.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/repository/connect/projects-repository-connect.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/repository/connect/projects-repository-connect.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/repository/connect/projects-repository-connect.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/repository/connect/projects-repository-connect.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/repository/projects-repository.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/repository/projects-repository.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/repository/projects-repository.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/repository/projects-repository.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/update/projects-update.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/update/projects-update.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/projects/update/projects-update.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/projects/update/projects-update.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/register/register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/register/register.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/register/register.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/select-project/select-project.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/select-project/select-project.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/select-project/select-project.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/select-project/select-project.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/form/language/translations-form-language.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/form/language/translations-form-language.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/form/language/translations-form-language.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/form/language/translations-form-language.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/form/translations-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/form/translations-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/form/translations-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/form/translations-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/review-changes/translations-review-changes.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/review-changes/translations-review-changes.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/review-changes/translations-review-changes.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/review-changes/translations-review-changes.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/translations.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/translations.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/translations.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/translations.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/pages/translations/translations.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/translations/translations.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/attached-overlay/anchor/attached-overlay.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/attached-overlay/attached-overlay.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/attached-overlay/models/attached-overlay-options.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/attached-overlay/models/attached-overlay-ref.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/autocomplete/autocomplete.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/autocomplete/autocomplete.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/autocomplete/autocomplete.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/autocomplete/options/autocomplete-options.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/autocomplete/options/autocomplete-options.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/autocomplete/options/autocomplete-options.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/button/button.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/button/button.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/button/button.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/button/models/button-action.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/button/models/button-theme.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/button/models/button-variant.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/buttons-list/buttons-list.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/buttons-list/buttons-list.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/buttons-list/buttons-list.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/checkbox/checkbox.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/checkbox/checkbox.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/pages/languages/models/language-file-payload.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/checkbox/checkbox.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/dialog/anchor/dialog-anchor.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/dialog/dialog.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/dialog/models/dialog-options.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/field-error/field-error.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/field-error/field-error.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/field-error/field-error.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/file-selector/file-selector.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/components/file-selector/file-selector.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/file-selector/file-selector.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/components/file-selector/file-selector.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/git-file-checker/git-file-checker.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/components/git-file-checker/git-file-checker.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/git-file-checker/git-file-checker.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/components/git-file-checker/git-file-checker.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/icon/icon.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/icon/icon.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/icon/icon.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/input/input.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/input/input.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/input/input.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/sidebar/sidebar.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/sidebar/sidebar.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/sidebar/sidebar.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/spinner/spinner.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/spinner/spinner.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/spinner/spinner.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/cell-renderer/table-cell-renderer.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/cells/action/table-cell-with-action.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/cells/action/table-cell-with-action.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/cells/action/table-cell-with-action.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/cells/default/table-cell-default.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/cells/default/table-cell-default.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/cells/default/table-cell-default.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/cells/table-cells-mapping.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/models/table-action-fn.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/models/table-action.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/models/table-classes-fn.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/models/table-column-fn.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/models/table-column.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/table.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/table.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/table/table.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/tabs/tab/tab.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/tabs/tab/tab.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/tabs/tab/tab.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/tabs/tabs-container.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/tabs/tabs-container.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/tabs/tabs-container.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/textarea/textarea.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/textarea/textarea.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/components/textarea/textarea.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/directives/tab-lazy.directive.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/services/element-anchor/element-anchor.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/services/geometry-alignment/geometry-alignment.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/services/geometry-alignment/models/align-target-to.options.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/services/geometry-alignment/models/smart-align-target-to.options.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/archive-box.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/archive-box.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-long-right.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-long-right.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-right-start-on-rectangle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-right-start-on-rectangle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-uturn-left.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/arrow-uturn-left.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/bars-3.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/bars-3.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/check.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/check.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/cog-6-tooth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/cog-6-tooth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/cube.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/cube.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/document-text.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/document-text.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/ellipsis-vertical.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/ellipsis-vertical.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/eye-slash.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/eye-slash.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/eye.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/eye.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/folder.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/folder.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/globe-alt.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/globe-alt.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/icons-mapping.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/icons-mapping.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/inbox.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/inbox.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/language.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/language.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/link.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/link.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/lock-closed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/lock-closed.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/magnifying-glass.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/magnifying-glass.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus-circle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus-circle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/minus.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil-square.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil-square.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/pencil.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus-circle.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus-circle.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/plus.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/queue-list.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/queue-list.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/shield-check.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/shield-check.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/sparkles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/sparkles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/stop.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/stop.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/trash.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/trash.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/user-group.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/user-group.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/wrench-screwdriver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/wrench-screwdriver.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/static/icons/x-mark.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/static/icons/x-mark.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/app/shared/validators/custom-validators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/app/shared/validators/custom-validators.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="false" />
+    <option name="myAllFileTypesSelected" value="true" />
+    <option name="mySelectedFileTypes">
+      <set />
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "feature/online-mode",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Samukaii&quot;
   }
-}]]></component>
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Samukaii/blabel.git&quot;,
+    &quot;accountId&quot;: &quot;05fd4e45-ce6b-4255-8f8c-70295a84d1c6&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="31nhms7xCBxbXcuVwjCNO8UqXyu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/online-mode&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\samuel\\programming\\blabel\\node_modules\\prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\samuel\\programming\\blabel\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-WS-252.25557.126" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5a8d4462-b550-41a2-b761-eb3c8af6f2a3" name="Changes" comment="" />
+      <created>1756165906128</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756165906128</updated>
+      <workItem from="1756165908008" duration="7480000" />
+      <workItem from="1756255452215" duration="620000" />
+      <workItem from="1756287943631" duration="26000" />
+      <workItem from="1756498046284" duration="6000000" />
+      <workItem from="1756520271301" duration="81000" />
+      <workItem from="1756644542393" duration="1876000" />
+      <workItem from="1756646574462" duration="1278000" />
+      <workItem from="1756672302760" duration="1666000" />
+      <workItem from="1756674695184" duration="4059000" />
+      <workItem from="1756689678613" duration="8303000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated project to use frakton ng" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated project to use frakton ng" />
   </component>
 </project>

@@ -2,12 +2,12 @@
   <img src="/assets/logos/logo-text-dark.svg" alt="Logo do Blabel" class="w-60">
 
   <fieldset class="flex w-full flex-col gap-2 c-w-full">
-    <app-input
+    <fkt-input
       [control]="form.controls.email"
       label="E-mail"
       placeholder="email@email.com"
     />
-    <app-input
+    <fkt-input
       [control]="form.controls.password"
       type="password"
       label="Senha"
@@ -16,10 +16,10 @@
   </fieldset>
 
   <div class="w-full flex justify-end mt-6">
-    <app-button
+    <fkt-button
       class="w-full"
       (click)="submit()"
-      [disabled]="!valid()"
+      [disabled]="!form.valid()"
       color="yellow"
       text="Entrar"
     />

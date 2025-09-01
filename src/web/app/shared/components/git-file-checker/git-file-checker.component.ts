@@ -1,21 +1,24 @@
-import { Component, computed, effect, input, output, resource, signal } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
+import {
+	Component,
+	computed,
+	effect,
+	input,
+	output,
+	resource,
+	signal,
+} from '@angular/core';
 import { CodeViewerComponent } from '../code-viewer/code-viewer.component';
 import { getElectron } from '../../di/functions/get-electron';
 import { Project } from '@shared/models/project';
 import { GitIntegrationFile } from '@shared/models/git-integration-file';
-import { IconComponent } from '../icon/icon.component';
 import { MarkUsed } from '../../utils/mark-used';
+import { FktButtonComponent, FktIconComponent } from '@frakton-ng/core';
 
 @Component({
-  selector: 'app-git-file-checker',
-	imports: [
-		ButtonComponent,
-		CodeViewerComponent,
-		IconComponent,
-	],
-  templateUrl: './git-file-checker.component.html',
-  styleUrl: './git-file-checker.component.scss'
+	selector: 'app-git-file-checker',
+	imports: [CodeViewerComponent, FktIconComponent, FktButtonComponent],
+	templateUrl: './git-file-checker.component.html',
+	styleUrl: './git-file-checker.component.scss',
 })
 export class GitFileCheckerComponent {
 	project = input.required<Project>();
@@ -27,12 +30,13 @@ export class GitFileCheckerComponent {
 	protected isFirst = signal(true);
 
 	protected response = resource({
-		defaultValue: {status: "not-checked"},
+		defaultValue: { status: 'not-checked' },
 		loader: async () => {
-			if(this.isFirst()) return {status: "not-checked"} as GitIntegrationFile;
+			if (this.isFirst())
+				return { status: 'not-checked' } as GitIntegrationFile;
 
 			return this.api.git.findFile(this.project().id, this.file());
-		}
+		},
 	});
 
 	@MarkUsed()
@@ -44,12 +48,14 @@ export class GitFileCheckerComponent {
 	protected reset = effect(() => {
 		this.file();
 
-		this.response.set({status: "not-checked"});
+		this.response.set({ status: 'not-checked' });
 	});
 
 	protected status = computed(() => this.response.value().status);
 	protected content = computed(() => this.response.value().result?.content);
-	protected downloadUrl = computed(() => this.response.value().result?.downloadUrl);
+	protected downloadUrl = computed(
+		() => this.response.value().result?.downloadUrl,
+	);
 
 	protected async findFile() {
 		this.isFirst.set(false);

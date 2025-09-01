@@ -1,118 +1,119 @@
 import { Component, computed, inject, resource } from '@angular/core';
-import { TableComponent } from '../../shared/components/table/table.component';
 import { getElectron } from '../../shared/di/functions/get-electron';
-import { TableColumnFn } from '../../shared/components/table/models/table-column-fn';
 import { Project } from '@shared/models/project';
-import { DialogService } from '../../shared/components/dialog/dialog.service';
 import { ProjectsFormComponent } from './form/projects-form.component';
-import { TableActionFn } from '../../shared/components/table/models/table-action-fn';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ButtonAction } from '../../shared/components/button/models/button-action';
+import {
+	FktButtonAction,
+	FktDialogService,
+	FktTableActionFn,
+	FktTableColumnFn,
+	FktTableComponent,
+} from '@frakton-ng/core';
 
 @Component({
 	selector: 'app-projects',
-	imports: [
-		TableComponent
-	],
+	imports: [FktTableComponent],
 	templateUrl: './projects.component.html',
-	styleUrl: './projects.component.scss'
+	styleUrl: './projects.component.scss',
 })
 export class ProjectsComponent {
 	private electron = getElectron();
-	private dialog = inject(DialogService);
+	private dialog = inject(FktDialogService);
 	private router = inject(Router);
 	private route = inject(ActivatedRoute);
 
-	protected createAction: ButtonAction = {
-		icon: "plus",
-		text: "Adicionar",
+	protected createAction: FktButtonAction = {
+		icon: 'plus',
+		text: 'Adicionar',
 		iconPosition: 'left',
-		identifier: "create",
+		identifier: 'create',
 		click: () => {
 			this.create();
-		}
-	}
+		},
+	};
 
 	projects = resource({
-		defaultValue: {results: []},
+		defaultValue: { results: [] },
 		loader: async () => {
 			return await this.electron.projects.getAll();
-		}
+		},
 	});
 
-	columnsFn = computed((): TableColumnFn<Project> => {
+	columnsFn = computed((): FktTableColumnFn<Project> => {
 		return element => [
 			{
-				position: "name",
-				name: "Nome",
+				position: 'name',
+				name: 'Nome',
 				cell: {
-					type: "default",
+					type: 'default',
 					options: {
-						value: element.name
-					}
-				}
+						value: element.name,
+					},
+				},
 			},
 			{
-				position: "description",
-				name: "Descrição",
+				position: 'description',
+				name: 'Descrição',
 				cell: {
-					type: "default",
+					type: 'default',
 					options: {
-						value: element.description ?? '--'
-					}
-				}
+						value: element.description ?? '--',
+					},
+				},
 			},
-
-		]
+		];
 	});
 
-	actionsFn: TableActionFn<Project> = (project) => [
+	actionsFn: FktTableActionFn<Project> = project => [
 		{
-			icon: "pencil-square",
-			name: "edit",
-			classes: ['text-blue-900'],
+			icon: 'pencil-square',
+			identifier: 'edit',
+			theme: 'basic',
 			condition: true,
+			color: 'primary',
 			click: async () => {
 				await this.update(project);
-			}
+			},
 		},
 		{
-			icon: "trash",
-			name: "revert",
+			icon: 'trash',
+			identifier: 'revert',
+			theme: 'basic',
 			condition: true,
-			classes: ['text-red-500'],
+			color: 'red',
 			click: async () => {
 				await this.remove(project);
-			}
+			},
 		},
 	];
 
 	private async update(project: Project) {
 		await this.router.navigate([project.id], {
-			relativeTo: this.route
-		})
-	};
+			relativeTo: this.route,
+		});
+	}
 
 	private async remove(project: Project) {
 		await this.electron.projects.remove(project.id);
 		this.projects.reload();
-	};
+	}
 
 	protected create() {
 		this.dialog.open({
 			component: ProjectsFormComponent,
 			data: {
-				title: "Criar projeto",
-				confirmButtonName: "Criar",
-				confirm: async (form) => {
+				title: 'Criar projeto',
+				confirmButtonName: 'Criar',
+				confirm: async form => {
 					await this.electron.projects.create(form);
 					this.projects.reload();
 					this.dialog.closeAll();
-				}
+				},
 			},
 			panelOptions: {
-				height: "fit-content",
-			}
-		})
-	};
+				height: 'fit-content',
+			},
+		});
+	}
 }

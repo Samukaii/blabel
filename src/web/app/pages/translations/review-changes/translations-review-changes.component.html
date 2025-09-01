@@ -8,9 +8,9 @@
           @for (entry of change.entries; track $index) {
             <div class="p-2 bg-green-50 shadow-md">
               <h3 class="font-medium mb-2 flex gap-1">
-                <app-icon
+                <fkt-icon
                   name="plus-circle"
-                  iconClasses="text-green-600 size-6"
+                  class="text-green-600 size-6"
                 />
                 A tradução
                 <strong class="font-bold">{{ entry.path }}</strong> foi
@@ -36,9 +36,9 @@
           @for (entry of change.entries; track $index) {
             <div class="p-2 bg-blue-50 shadow-md">
               <h3 class="font-medium mb-2 flex gap-1">
-                <app-icon
+                <fkt-icon
                   name="pencil-square"
-                  iconClasses="text-blue-900 size-6"
+                  class="text-blue-900 size-6"
                 />
 
                 A tradução
@@ -51,7 +51,7 @@
                     <strong>{{ language.name }}</strong>
                     <div class="flex gap-2">
                       <p class="line-through">{{ language.oldValue }}</p>
-                      <app-icon name="arrow-long-right"/>
+                      <fkt-icon name="arrow-long-right"/>
                       <p>{{ language.newValue }}</p>
                     </div>
                   </div>
@@ -66,9 +66,9 @@
           @for (entry of change.entries; track $index) {
             <div class="p-2 bg-red-50 shadow-md">
               <h3 class="font-semibold mb-2 flex gap-1">
-                <app-icon
+                <fkt-icon
                   name="minus-circle"
-                  iconClasses="text-red-700 size-6"
+                  class="text-red-700 size-6"
                 />
 
                 A tradução

@@ -1,15 +1,10 @@
-<div class="w-full bg-gray-600 h-full flex z-0 gap-2 items-center justify-between px-4 py-2">
+<div class="w-full bg-gray-700 h-full flex z-0 gap-2 items-center justify-between px-4 py-2">
 	<div class="w-full">
-		<app-icon (click)="sideMenuService.toggle()"
+		<fkt-icon (click)="sideMenuService.toggle()"
 				  name="bars-3"
-				  iconClasses="size-8 text-white cursor-pointer"/>
+				  class="size-8 text-white cursor-pointer"/>
 	</div>
-	<div class="w-full flex justify-center">
-		<img class="w-[140px]"
-			 alt="logo"
-			 src="assets/logos/logo-text-white.svg"/>
-	</div>
-	<div class="w-full">
+	<div class="w-full flex justify-end">
 		<ng-container [ngTemplateOutlet]="service.templates()['right']"></ng-container>
 	</div>
 </div>

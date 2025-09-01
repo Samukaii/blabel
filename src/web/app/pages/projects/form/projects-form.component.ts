@@ -1,42 +1,53 @@
-import { Component, input, OnInit, output, signal } from '@angular/core';
-import { projectsForm } from './projects-form';
-import { InferFormValueFn } from '../../../shared/models/infer-form-value-fn';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { formIsValid } from '../../../shared/utils/form-is-valid';
-import { InputComponent } from '../../../shared/components/input/input.component';
-import { TextareaComponent } from '../../../shared/components/textarea/textarea.component';
+import {
+	Component,
+	inject,
+	input,
+	OnInit,
+	output,
+	signal,
+} from '@angular/core';
+import { ProjectPayload } from './project-payload';
 import { Project } from '@shared/models/project';
-
+import {
+	FktButtonComponent,
+	FktInputComponent,
+	FktTextareaComponent,
+	SignalFormBuilder,
+	SignalValidators,
+} from '@frakton-ng/core';
 
 @Component({
 	selector: 'app-projects-form',
-	imports: [
-		ButtonComponent,
-		InputComponent,
-		TextareaComponent
-	],
+	imports: [FktButtonComponent, FktTextareaComponent, FktInputComponent],
 	templateUrl: './projects-form.component.html',
-	styleUrl: './projects-form.component.scss'
+	styleUrl: './projects-form.component.scss',
 })
 export class ProjectsFormComponent implements OnInit {
-	confirm = output<InferFormValueFn<typeof projectsForm>>();
-	title = input.required<string>()
-	project = input<Project>()
-	confirmButtonName = input.required<string>()
+	confirm = output<ProjectPayload>();
+	title = input.required<string>();
+	project = input<Project>();
+	confirmButtonName = input.required<string>();
 
-	protected form = projectsForm();
+	private fb = inject(SignalFormBuilder);
 
-	formIsValid = formIsValid(this.form);
+	protected form = this.fb.strictGroup<ProjectPayload>({
+		name: ['', SignalValidators.required()],
+		description: '',
+	});
+
 	search = signal('');
 
 	ngOnInit() {
 		const project = this.project();
 
 		if (project)
-			this.form.patchValue(project);
+			this.form.patchValue({
+				name: project.name,
+				description: project.description as string,
+			});
 	}
 
 	protected submit() {
-		this.confirm.emit(this.form.getRawValue());
+		this.confirm.emit(this.form.value());
 	}
 }

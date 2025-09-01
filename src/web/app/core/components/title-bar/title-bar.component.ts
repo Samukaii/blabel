@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { getElectron } from 'web/app/shared/di/functions/get-electron';
-import { IconComponent } from "../../../shared/components/icon/icon.component";
 import { AsyncPipe } from '@angular/common';
+import { FktIconComponent } from '@frakton-ng/core';
 
 @Component({
-  selector: 'app-title-bar',
-  imports: [IconComponent, AsyncPipe],
-  templateUrl: './title-bar.component.html',
-  styleUrl: './title-bar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-title-bar',
+	imports: [AsyncPipe, FktIconComponent],
+	templateUrl: './title-bar.component.html',
+	styleUrl: './title-bar.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleBarComponent {
 	private electron = getElectron();

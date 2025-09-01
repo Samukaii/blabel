@@ -5,31 +5,27 @@
 	<div class="w-full flex justify-end items-center">
 		<div class="w-fit no-drag flex justify-end items-center">
 			@if (isDebugAllowed | async) {
-				<app-icon
+				<fkt-icon
 					(click)="openDevTools()"
 					name="wrench-screwdriver"
-					class="bg-transparent size-8 flex justify-center items-center hover:bg-gray-700 cursor-pointer transition rounded-md"
-					iconClasses="text-white size-6"
+					class="text-white size-6 bg-transparent size-8 flex justify-center items-center hover:bg-gray-700 cursor-pointer transition rounded-md"
 				/>
 			}
 
-			<app-icon
+			<fkt-icon
 				(click)="minimize()"
 				name="minus"
-				class="bg-transparent size-8 flex justify-center items-center hover:bg-gray-700 cursor-pointer transition rounded-md"
-				iconClasses="text-white size-6"
+				class="text-white size-6 bg-transparent size-8 flex justify-center items-center hover:bg-gray-700 cursor-pointer transition rounded-md"
 			/>
-			<app-icon
+			<fkt-icon
 				(click)="maximize()"
 				name="stop"
-				class="bg-transparent size-8 flex justify-center items-center hover:bg-gray-700 cursor-pointer transition rounded-md"
-				iconClasses="text-white size-6"
+				class="text-white size-6 bg-transparent size-8 flex justify-center items-center hover:bg-gray-700 cursor-pointer transition rounded-md"
 			/>
-			<app-icon
+			<fkt-icon
 				(click)="close()"
 				name="x-mark"
-				class="bg-transparent size-8 flex justify-center items-center hover:bg-red-500 cursor-pointer transition rounded-md"
-				iconClasses="text-white size-6"
+				class="text-white size-6 bg-transparent size-8 flex justify-center items-center hover:bg-red-500 cursor-pointer transition rounded-md"
 			/>
 		</div>
 	</div>

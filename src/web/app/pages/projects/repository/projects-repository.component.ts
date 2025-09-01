@@ -1,42 +1,47 @@
-import { Component, effect, inject, input, output, resource, untracked } from '@angular/core';
-import { AutocompleteComponent } from '../../../shared/components/autocomplete/autocomplete.component';
-import { FormBuilder, Validators } from '@angular/forms';
-import { formType } from '../../../shared/utils/form-type';
-import { controlValueToSignal, formValueToSignal } from '../../../shared/utils/control-value-to-signal';
+import {
+	Component,
+	effect,
+	inject,
+	input,
+	output,
+	resource,
+	untracked,
+} from '@angular/core';
 import { getElectron } from '../../../shared/di/functions/get-electron';
 import { MarkUsed } from '../../../shared/utils/mark-used';
-import { DialogService } from '../../../shared/components/dialog/dialog.service';
-import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { Project } from '@shared/models/project';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { formIsValid } from '../../../shared/utils/form-is-valid';
 import { ProjectsRepositoryConnectComponent } from './connect/projects-repository-connect.component';
+import {
+	FktAutocompleteComponent,
+	FktButtonComponent,
+	FktDialogService,
+	FktIconComponent,
+	SignalFormBuilder,
+	SignalValidators,
+} from '@frakton-ng/core';
 
 @Component({
 	selector: 'app-projects-repository',
-	imports: [
-		AutocompleteComponent,
-		IconComponent,
-		ButtonComponent,
-	],
+	imports: [FktAutocompleteComponent, FktButtonComponent, FktIconComponent],
 	templateUrl: './projects-repository.component.html',
-	styleUrl: './projects-repository.component.scss'
+	styleUrl: './projects-repository.component.scss',
 })
 export class ProjectsRepositoryComponent {
 	project = input.required<Project>();
 	reload = output();
 
-	protected form = inject(FormBuilder).nonNullable.group({
-		repository: [formType.required<string>(), Validators.required],
-		sourceBranch: [formType<string>(), Validators.required],
-		targetBranch: [formType<string>(), Validators.required],
+	protected form = inject(SignalFormBuilder).strictGroup<{
+		repository: string;
+		sourceBranch: string;
+		targetBranch: string;
+	}>({
+		repository: [null as unknown as string, SignalValidators.required()],
+		sourceBranch: [null as unknown as string, SignalValidators.required()],
+		targetBranch: [null as unknown as string, SignalValidators.required()],
 	});
 
-	private formValue = formValueToSignal(this.form, {checkEquality: true});
 	private electron = getElectron();
-	private dialog = inject(DialogService);
-	private repositoryValue = controlValueToSignal(this.form.controls.repository);
-	protected isFormValid = formIsValid(this.form);
+	private dialog = inject(FktDialogService);
 	protected preFilled = false;
 
 	@MarkUsed()
@@ -44,30 +49,31 @@ export class ProjectsRepositoryComponent {
 		this.form.patchValue(this.project());
 		setTimeout(() => {
 			this.preFilled = true;
-		}, 100)
+		}, 100);
 	});
 
 	@MarkUsed()
 	protected clearBranches = effect(() => {
-		this.repositoryValue();
+		this.form.controls.repository.value();
 
 		if (!this.preFilled) return;
 
 		untracked(() => {
-			const {targetBranch, sourceBranch} = this.form.controls;
+			const { targetBranch, sourceBranch } = this.form.controls;
 
-			sourceBranch.setValue(null);
-			targetBranch.setValue(null);
-		})
-	})
+			sourceBranch.setValue(null as unknown as string);
+			targetBranch.setValue(null as unknown as string);
+		});
+	});
 
 	@MarkUsed()
 	protected disableFields = effect(() => {
 		const connection = this.connection.value();
-		const form = this.formValue();
+		const form = this.form.value();
 
 		untracked(() => {
-			const {repository, targetBranch, sourceBranch} = this.form.controls;
+			const { repository, targetBranch, sourceBranch } =
+				this.form.controls;
 
 			if (!connection) {
 				repository.disable();
@@ -76,7 +82,7 @@ export class ProjectsRepositoryComponent {
 				return;
 			}
 
-			if (connection.status==='disconnected') {
+			if (connection.status === 'disconnected') {
 				repository.disable();
 				targetBranch.disable();
 				sourceBranch.disable();
@@ -93,75 +99,88 @@ export class ProjectsRepositoryComponent {
 			repository.enable();
 			targetBranch.enable();
 			sourceBranch.enable();
-		})
-	})
-
+		});
+	});
 
 	protected connection = resource({
 		params: this.project,
-		loader: ({params: project}) => this.electron.git.getConnection(project.id),
-	})
+		loader: ({ params: project }) =>
+			this.electron.git.getConnection(project.id),
+	});
 
 	protected repositories = resource({
-		params: () => ({connection: this.connection.value(), projectId: this.project().id}),
-		defaultValue: {results: []},
-		loader: ({params}) => {
-			if (!params.connection) return Promise.resolve({results: []});
-			if (params.connection.status==='disconnected') return Promise.resolve({results: []});
+		params: () => ({
+			connection: this.connection.value(),
+			projectId: this.project().id,
+		}),
+		defaultValue: { results: [] },
+		loader: ({ params }) => {
+			if (!params.connection) return Promise.resolve({ results: [] });
+			if (params.connection.status === 'disconnected')
+				return Promise.resolve({ results: [] });
 
 			return this.electron.git.getRepositories(params.projectId);
-		}
+		},
 	});
 
 	protected branches = resource({
-		params: () => ({connection: this.connection.value(), projectId: this.project().id, form: this.formValue()}),
-		defaultValue: {results: []},
-		loader: ({params}) => {
-			if (!params.connection) return Promise.resolve({results: []});
-			if (params.connection.status==='disconnected') return Promise.resolve({results: []});
-			if (!params.form.repository) return Promise.resolve({results: []});
+		params: () => ({
+			connection: this.connection.value(),
+			projectId: this.project().id,
+			form: this.form.value(),
+		}),
+		defaultValue: { results: [] },
+		loader: ({ params }) => {
+			if (!params.connection) return Promise.resolve({ results: [] });
+			if (params.connection.status === 'disconnected')
+				return Promise.resolve({ results: [] });
+			if (!params.form.repository)
+				return Promise.resolve({ results: [] });
 
-			return this.electron.git.getBranches(params.projectId, params.form.repository);
-		}
+			return this.electron.git.getBranches(
+				params.projectId,
+				params.form.repository,
+			);
+		},
 	});
 
 	protected connect() {
 		this.dialog.open({
 			component: ProjectsRepositoryConnectComponent,
 			data: {
-				title: "Conectar repositório",
-				confirmButtonName: "Conectar",
-				submit: async (value) => {
+				title: 'Conectar repositório',
+				confirmButtonName: 'Conectar',
+				submit: async value => {
 					await this.electron.git.connect({
 						projectId: this.project().id,
-						token: value.accessToken,
-						provider: value.provider
+						token: value.token,
+						provider: value.provider,
 					});
 					this.connection.reload();
 					this.dialog.closeAll();
-				}
-			}
-		})
+				},
+			},
+		});
 	}
 
 	protected updateConnection() {
 		this.dialog.open({
 			component: ProjectsRepositoryConnectComponent,
 			data: {
-				title: "Atualizar conexão",
-				confirmButtonName: "Salvar",
+				title: 'Atualizar conexão',
+				confirmButtonName: 'Salvar',
 				connection: this.connection.value(),
-				submit: async (value) => {
+				submit: async value => {
 					await this.electron.git.connect({
 						projectId: this.project().id,
-						token: value.accessToken,
-						provider: value.provider
+						token: value.token,
+						provider: value.provider,
 					});
 					this.connection.reload();
 					this.dialog.closeAll();
-				}
-			}
-		})
+				},
+			},
+		});
 	}
 
 	protected async disconnect() {
@@ -171,7 +190,10 @@ export class ProjectsRepositoryComponent {
 	}
 
 	protected async submit() {
-		await this.electron.projects.updateOne(this.project().id, this.form.getRawValue());
+		await this.electron.projects.updateOne(
+			this.project().id,
+			this.form.value(),
+		);
 		this.reload.emit();
 	}
 }

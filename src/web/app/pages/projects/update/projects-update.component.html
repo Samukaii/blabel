@@ -1,9 +1,9 @@
 @let projectValue = project.value().result;
 
 @if (projectValue) {
-	<ul class="flex text-md font-semibold bg-gray-700 text-white gap-2 p-3 shadow-md">
+	<ul class="flex text-md font-semibold bg-gray-100 text-gray-600 gap-2 p-3 shadow-md">
 		<li routerLink="/home/projects"
-			class="hover:font-bold transition cursor-pointer  border-b-2 border-transparent hover:border-gray-100 ">
+			class="hover:font-bold transition cursor-pointer  border-b-2 border-transparent hover:border-gray-400 ">
 			Projetos
 		</li>
 		<li>/</li>
@@ -11,33 +11,33 @@
 	</ul>
 	<div class="p-4">
 		<div class="rounded-xl shadow-lg border border-gray-300">
-			<app-tabs-container>
-				<app-tab label="Geral" icon="globe-alt" key="general">
+			<fkt-tabs-list>
+				<fkt-tab label="Geral" icon="globe-alt" key="general">
 					<app-projects-form
 						[project]="projectValue"
 						[confirmButtonName]="'Salvar'"
 						[title]="'Editar projeto'"
 					/>
-				</app-tab>
-				<app-tab label="Repositório" icon="cube" key="git">
+				</fkt-tab>
+				<fkt-tab label="Repositório" icon="cube" key="git">
 					<app-projects-repository
 						[project]="projectValue"
 						(reload)="project.reload()"
 					/>
-				</app-tab>
-				<app-tab label="Idiomas" icon="language" key="files">
+				</fkt-tab>
+				<fkt-tab label="Idiomas" icon="language" key="files">
 					<app-projects-languages
 						[project]="projectValue"
 						(reload)="project.reload()"
 					/>
-				</app-tab>
-				<app-tab label="Campos de contexto" icon="queue-list" key="context-fields">
+				</fkt-tab>
+				<fkt-tab label="Campos de contexto" icon="queue-list" key="context-fields">
 					<app-projects-context-fields
 						[project]="projectValue"
 						(reload)="project.reload()"
 					/>
-				</app-tab>
-			</app-tabs-container>
+				</fkt-tab>
+			</fkt-tabs-list>
 		</div>
 
 	</div>

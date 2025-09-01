@@ -3,27 +3,27 @@
 
   <fieldset class="flex w-full flex-col gap-2 c-w-full">
     <legend class="sr-only">Formulário de cadastro</legend>
-    <app-input
+    <fkt-input
       [control]="form.controls.name"
       label="Nome"
       placeholder="Informe aqui o seu nome"
     />
 
-    <app-input
+    <fkt-input
       [control]="form.controls.email"
       label="E-mail"
       placeholder="email@email.com"
 
     />
 
-    <app-input
+    <fkt-input
       [control]="form.controls.password"
       label="Senha"
       type="password"
       placeholder="Informe aqui a senha"
     />
 
-    <app-input
+    <fkt-input
       [control]="form.controls.passwordConfirmation"
       label="Confirmação da senha"
       type="password"
@@ -33,9 +33,9 @@
 
 
   <div class="w-full flex justify-end mt-8">
-    <app-button
+    <fkt-button
       (click)="submit()"
-      [disabled]="!valid()"
+      [disabled]="form.invalid()"
       class="w-full"
       color="yellow"
       text="Se cadastrar"

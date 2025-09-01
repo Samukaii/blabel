@@ -18,11 +18,11 @@ export const routes: Routes = [
 
 			const isLogged = await electronFeatures.auth.isLoggedIn();
 			const projectIsConfigured = await electronFeatures.projects.isConfigured();
-			const existsConfiguration = await electronFeatures.languages.get();
 
 			if (!isLogged) return 'auth/login';
 
 			if(!projectIsConfigured) return "select-project";
+			const existsConfiguration = await electronFeatures.languages.get();
 
 			if (existsConfiguration.results.length) return "home/translations";
 
@@ -64,6 +64,7 @@ export const routes: Routes = [
 			},
 			{
 				path: "login",
+				children: [],
 				component: LoginComponent
 			},
 			{

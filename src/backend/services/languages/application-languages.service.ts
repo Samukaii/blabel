@@ -5,6 +5,7 @@ import { applicationConfigService } from '../../core/services/application-config
 import { currentProject } from '../../core/current-project.js';
 import { api } from '../../core/api/api.js';
 import { Injectable } from 'backend/di/di.js';
+import path from 'path';
 
 @Injectable({ providedIn: 'root' })
 export class ApplicationLanguagesService {
@@ -18,12 +19,14 @@ export class ApplicationLanguagesService {
 			`projects/${currentProjectId}/languages`
 		);
 
-		return data.results.map((language): TranslationFile => ({
-			name: language.name,
-			key: language.key,
-			path: `/mnt/c/Users/samue/Downloads/languages/${language.path}`,
-			id: language.id,
-		}));
+		return data.results.map(
+			(language): TranslationFile => ({
+				name: language.name,
+				key: language.key,
+				path: `C:\\Users\\samuel\\programming\\blabel-translations-test\\${path.join(...language.path.split('/'))}`,
+				id: language.id,
+			}),
+		);
 	}
 
 	async getOne(key: AvailableLanguageKey): Promise<TranslationFile | undefined> {

@@ -11,7 +11,7 @@
 
 
 	<div class="w-full flex flex-col">
-		<app-autocomplete
+		<fkt-autocomplete
 			class="w-full"
 			[control]="form.controls.projectId"
 			[options]="projects.value()"
@@ -21,8 +21,8 @@
 
 
 	<div class="w-full flex justify-end">
-		<app-button
-			[disabled]="!formIsValid()"
+		<fkt-button
+			[disabled]="!form.valid()"
 			(click)="submit()"
 			class="w-fit"
 			text="Selecionar"

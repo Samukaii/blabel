@@ -9,7 +9,7 @@ let store: Store<StoreType>;
 const getStore = () => {
 	if (store) return store;
 
-	store = new Store<StoreType>({encryptionKey: process.env['JWT_ENCRYPTION_KEY']});
+	store = new Store<StoreType>({name: 'current-project'});
 
 	return store;
 };

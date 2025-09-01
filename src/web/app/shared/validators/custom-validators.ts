@@ -1,4 +1,5 @@
 import { ValidatorFn } from '@angular/forms';
+import { SignalValidatorFn } from '@frakton-ng/core';
 
 const equalConfirmation = (otherFieldName: string, message = "Campos não coincidem"): ValidatorFn => (control) => {
   const root = control.root;
@@ -15,7 +16,7 @@ const equalConfirmation = (otherFieldName: string, message = "Campos não coinci
   return null;
 }
 
-const password = (): ValidatorFn => control => {
+const password = (): SignalValidatorFn<any> => control => {
   const passwordRules = [
     {
       regex: /^.{8,}$/,

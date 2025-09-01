@@ -1,6 +1,6 @@
 <h2 class="text-xl font-semibold w-full text-center mb-2">{{ title() }}</h2>
 <fieldset class="mb-4">
-	<app-autocomplete
+	<fkt-autocomplete
 		label="Provedor"
 		[control]="form.controls.provider"
 		[options]="providers"
@@ -8,9 +8,9 @@
 	/>
 
 
-	<app-input
+	<fkt-input
 		label="Token de acesso"
-		[control]="form.controls.accessToken"
+		[control]="form.controls.token"
 		placeholder="Inform o seu token de acesso pessoal"
 	/>
 
@@ -32,9 +32,9 @@
 
 
 <div class="flex w-full justify-end">
-	<app-button
+	<fkt-button
 		(click)="connect()"
-		[disabled]="!isFormValid()"
+		[disabled]="!form.valid()"
 		[text]="confirmButtonName()"
 	/>
 </div>

@@ -1,65 +1,63 @@
 import { Component, computed, inject, resource } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime } from 'rxjs';
-import { DialogService } from '../../shared/components/dialog/dialog.service';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NoResults } from '../../shared/models/no-results';
 import { TranslationsFormComponent } from './form/translations-form.component';
 import { TranslationsReviewChangesComponent } from './review-changes/translations-review-changes.component';
-import { ButtonComponent } from "../../shared/components/button/button.component";
-import { TableComponent } from '../../shared/components/table/table.component';
-import { TableColumnFn } from '../../shared/components/table/models/table-column-fn';
-import { IconComponent } from '../../shared/components/icon/icon.component';
 import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-place.component';
 import { getElectron } from '../../shared/di/functions/get-electron';
 import { AvailableLanguageKey } from '@shared/models/available-languages.js';
 import { Translation } from '@shared/models/translation';
 import { TranslationLanguage } from '@shared/models/translation-language';
-import { TableActionFn } from '../../shared/components/table/models/table-action-fn';
-import { TableClassesFn } from '../../shared/components/table/models/table-classes-fn';
-import { TableColumn } from '../../shared/components/table/models/table-column';
-import { ButtonAction } from '../../shared/components/button/models/button-action';
-
+import {
+	FktButtonAction,
+	FktButtonComponent,
+	FktDialogService,
+	FktInputComponent,
+	FktTableActionFn,
+	FktTableClassesFn,
+	FktTableColumn,
+	FktTableColumnFn,
+	FktTableComponent,
+	SignalFormControl,
+} from '@frakton-ng/core';
 
 @Component({
-	selector: 'app--translations',
+	selector: 'app-translations',
 	templateUrl: './translations.component.html',
 	styleUrl: './translations.component.scss',
 	imports: [
 		ReactiveFormsModule,
-		ButtonComponent,
-		TableComponent,
-		IconComponent,
 		NavbarPlaceComponent,
+		FktTableComponent,
+		FktInputComponent,
+		FktButtonComponent,
 	],
 })
 export class TranslationsComponent {
-	private dialog = inject(DialogService);
+	private dialog = inject(FktDialogService);
 	private api = getElectron();
 
-	searchControl = new FormControl('', {nonNullable: true});
-	searchControlValue = toSignal(this.searchControl.valueChanges.pipe(debounceTime(200)), {
-		initialValue: this.searchControl.value,
-	});
+	searchControl = new SignalFormControl('');
 
-	protected createAction: ButtonAction = {
-		icon: "plus",
-		text: "Adicionar",
+	protected createAction: FktButtonAction = {
+		icon: 'plus',
+		text: 'Adicionar',
 		iconPosition: 'left',
-		identifier: "create",
+		identifier: 'create',
 		click: () => {
 			this.add();
-		}
-	}
+		},
+	};
 
 	protected response = resource({
-		params: this.searchControlValue,
-		defaultValue: {results: [], languages: [], changesCount: 0},
-		loader: ({params: search}) => this.api.translations.getAll({search}),
+		params: this.searchControl.value,
+		defaultValue: { results: [], languages: [], changesCount: 0 },
+		loader: ({ params: search }) =>
+			this.api.translations.getAll({ search }),
 	});
 
 	noResults = computed<NoResults>(() => {
-		if (!!this.searchControlValue())
+		if (!!this.searchControl.value())
 			return {
 				label: 'Nenhuma tradução encontrada',
 				description: 'Tente pesquisar por outro nome',
@@ -84,17 +82,17 @@ export class TranslationsComponent {
 			component: TranslationsFormComponent,
 			data: {
 				title: 'Adicionar tradução',
-				confirmButtonName: "Adicionar",
+				confirmButtonName: 'Adicionar',
 				languages: this.response.value().languages,
-				submit: async (form) => {
+				submit: async form => {
 					await this.api.translations.registerChange(form);
 					this.dialog.closeAll();
 					this.response.reload();
 				},
 			},
 			panelOptions: {
-				height: "fit-content",
-			}
+				height: 'fit-content',
+			},
 		});
 	}
 
@@ -110,9 +108,9 @@ export class TranslationsComponent {
 				confirm: async () => {
 					await this.saveAll();
 					this.dialog.closeAll();
-				}
-			}
-		})
+				},
+			},
+		});
 	}
 
 	async saveAll() {
@@ -130,20 +128,20 @@ export class TranslationsComponent {
 			component: TranslationsFormComponent,
 			data: {
 				title: 'Editar tradução',
-				confirmButtonName: "Salvar",
+				confirmButtonName: 'Salvar',
 				disablePath: true,
 				languages: this.response.value().languages,
 				selectedLanguage: language,
 				translation: translation,
-				submit: async (form) => {
+				submit: async form => {
 					await this.api.translations.registerChange(form);
 					this.dialog.closeAll();
 					this.response.reload();
 				},
 			},
 			panelOptions: {
-				height: "fit-content",
-			}
+				height: 'fit-content',
+			},
 		});
 	}
 
@@ -157,76 +155,91 @@ export class TranslationsComponent {
 		this.response.reload();
 	}
 
-	columnsFn = computed((): TableColumnFn<Translation> => {
+	columnsFn = computed((): FktTableColumnFn<Translation> => {
 		return element => [
 			{
-				position: "path",
-				name: "Caminho",
+				position: 'path',
+				name: 'Caminho',
 				cell: {
-					type: "default",
+					type: 'default',
 					options: {
-						value: element.path
-					}
-				}
+						value: element.path,
+					},
+				},
 			},
-			...element.entries.map((entry): TableColumn => ({
-				name: entry.language.name,
-				position: entry.language.key,
-				cell: {
-					type: "with-action",
-					options: {
-						text: {
-							value: entry.value,
-							classes: [
-								entry.status==="edited" ? "font-bold":""
-							]
+			...element.entries.map(
+				(entry): FktTableColumn => ({
+					name: entry.language.name,
+					position: entry.language.key,
+					cell: {
+						type: 'with-action',
+						options: {
+							text: {
+								value: entry.value,
+								classes: [
+									entry.status === 'edited'
+										? 'font-bold'
+										: '',
+								],
+							},
+							actions: [
+								{
+									identifier: 'revert',
+									icon: 'arrow-uturn-left',
+									theme: 'basic',
+									click: () =>
+										this.reset(
+											element.path,
+											entry.language.key,
+										),
+									condition: entry.status === 'edited',
+									color: 'yellow',
+								},
+								{
+									identifier: 'edit',
+									icon: 'pencil-square',
+									theme: 'basic',
+									condition: entry.status !== 'edited',
+									click: () =>
+										this.update(element, entry.language),
+									color: 'primary',
+								},
+							],
 						},
-						actions: [
-							{
-								icon: "arrow-uturn-left",
-								click: () => this.reset(element.path, entry.language.key),
-								condition: entry.status==="edited",
-								classes: ['text-yellow-500']
-							},
-							{
-								icon: "pencil-square",
-								condition: entry.status!=="edited",
-								click: () => this.update(element, entry.language),
-								classes: ['text-blue-900']
-							},
-						]
-					}
-				}
-			})),
-		]
+					},
+				}),
+			),
+		];
 	});
 
-	actionsFn: TableActionFn<Translation> = (translation) => [
+	actionsFn: FktTableActionFn<Translation> = translation => [
 		{
-			icon: "minus-circle",
-			name: "delete",
-			condition: translation.operation!=="delete",
-			classes: ['text-red-500'],
+			icon: 'minus-circle',
+			identifier: 'delete',
+			theme: 'basic',
+			condition: translation.operation !== 'delete',
+			color: 'red',
 			click: async () => {
 				await this.remove(translation.path);
-			}
+			},
 		},
 		{
-			icon: "arrow-uturn-left",
-			name: "revert",
-			condition: translation.operation==="delete",
-			classes: ['text-yellow-700'],
+			icon: 'arrow-uturn-left',
+			identifier: 'revert',
+			theme: 'basic',
+			condition: translation.operation === 'delete',
+			color: 'yellow',
 			click: async () => {
 				await this.revertTranslation(translation.path);
-			}
+			},
 		},
 	];
 
-	classesFn: TableClassesFn<Translation> = item => {
-		if (item.operation==='create') return 'bg-green-100 transition hover:bg-green-200';
-		if (item.operation==='delete') return 'bg-red-100 transition hover:bg-red-200';
-		if (item.operation==='edit') return 'bg-blue-100 transition hover:bg-blue-200';
+	classesFn: FktTableClassesFn<Translation> = item => {
+		if (item.operation === 'create') return 'table-translations-created';
+		if (item.operation === 'delete') return 'table-translations-deleted';
+		if (item.operation === 'edit') return 'table-translations-updated';
 
 		return '';
-	}
+	};
 }

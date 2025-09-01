@@ -2,7 +2,7 @@
 	Adicionar idioma
 </h2>
 <div class="w-full h-fit">
-	<app-autocomplete
+	<fkt-autocomplete
 		label="Idioma"
 		placeholder="Selecione aqui o idioma"
 		[control]="form.controls.key"
@@ -17,8 +17,8 @@
 		[control]="form.controls.path"/>
 </div>
 <div class="w-full flex justify-end items-center pt-2">
-	<app-button
-		[disabled]="!formIsValid()"
+	<fkt-button
+		[disabled]="!form.valid()"
 		(click)="submit()"
 		theme="raised"
 		[text]="confirmButtonName()"
