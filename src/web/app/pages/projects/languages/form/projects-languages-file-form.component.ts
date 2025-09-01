@@ -1,8 +1,13 @@
-import { Component, inject, input, OnInit, output, resource, signal, } from '@angular/core';
-import { projectsLanguagesFileForm } from './projects-languages-file-form';
-import { InferFormValueFn } from '../../../../shared/models/infer-form-value-fn';
+import {
+	Component,
+	inject,
+	input,
+	OnInit,
+	output,
+	resource,
+	signal,
+} from '@angular/core';
 import { getElectron } from '../../../../shared/di/functions/get-electron';
-import { NoResults } from '../../../../shared/models/no-results';
 import { ProjectLanguage } from '@shared/models/project-language';
 import { Project } from '@shared/models/project';
 import { GitFileCheckerComponent } from '../../../../shared/components/git-file-checker/git-file-checker.component';
@@ -11,6 +16,7 @@ import {
 	FktAutocompleteComponent,
 	FktButtonComponent,
 	FktInputComponent,
+	FktNoResults,
 	SignalFormBuilder,
 	SignalValidators,
 } from '@frakton-ng/core';
@@ -28,7 +34,7 @@ import { ProjectLanguagePayload } from '@shared/models/payloads/project-language
 	styleUrl: './projects-languages-file-form.component.scss',
 })
 export class ProjectsLanguagesFileFormComponent implements OnInit {
-	confirm = output<InferFormValueFn<typeof projectsLanguagesFileForm>>();
+	confirm = output<ProjectLanguagePayload>();
 	language = input<ProjectLanguage>();
 	project = input.required<Project>();
 	confirmButtonName = input.required<string>();
@@ -51,7 +57,7 @@ export class ProjectsLanguagesFileFormComponent implements OnInit {
 		loader: ({ params }) => this.api.languages.autocomplete(params),
 	});
 
-	protected noResults: NoResults = {
+	protected noResults: FktNoResults = {
 		label: 'Nenhum idioma disponível',
 		icon: {
 			name: 'language',

@@ -1,12 +1,12 @@
 import { Component, inject, input, output, resource } from '@angular/core';
 import { Project } from '@shared/models/project';
 import { getElectron } from '../../../shared/di/functions/get-electron';
-import { NoResults } from '../../../shared/models/no-results';
 import { ProjectsLanguagesFileFormComponent } from './form/projects-languages-file-form.component';
 import { ProjectLanguage } from '@shared/models/project-language';
 import {
 	FktButtonAction,
 	FktDialogService,
+	FktNoResults,
 	FktTableActionFn,
 	FktTableColumnFn,
 	FktTableComponent,
@@ -42,12 +42,12 @@ export class ProjectsLanguagesComponent {
 		},
 	};
 
-	protected noResults: NoResults = {
+	protected noResults: FktNoResults = {
 		label: 'Nenhum idioma registrado',
 		description: "Clique em '+' para adicionar um novo idioma",
 		icon: {
 			name: 'globe-alt',
-			classes: 'size-14 text-gray-500',
+			size: '60px',
 		},
 	};
 

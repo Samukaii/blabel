@@ -1,12 +1,12 @@
 import { Component, inject, input, output, resource } from '@angular/core';
 import { Project } from '@shared/models/project';
 import { getElectron } from '../../../shared/di/functions/get-electron';
-import { NoResults } from '../../../shared/models/no-results';
 import { ProjectContextField } from '@shared/models/project-context-field';
 import { ProjectsContextFieldsFormComponent } from './form/projects-context-fields-form.component';
 import {
 	FktButtonAction,
 	FktDialogService,
+	FktNoResults,
 	FktTableActionFn,
 	FktTableColumnFn,
 	FktTableComponent,
@@ -43,12 +43,12 @@ export class ProjectsContextFieldsComponent {
 		},
 	};
 
-	protected noResults: NoResults = {
+	protected noResults: FktNoResults = {
 		label: 'Nenhum campo de contexto registrado',
 		description: 'Clique em "+ Adicionar" para adicionar um novo campo',
 		icon: {
 			name: 'queue-list',
-			classes: 'size-14 text-gray-500',
+			size: '20px',
 		},
 	};
 

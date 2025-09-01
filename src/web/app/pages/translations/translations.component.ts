@@ -1,6 +1,5 @@
 import { Component, computed, inject, resource } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NoResults } from '../../shared/models/no-results';
 import { TranslationsFormComponent } from './form/translations-form.component';
 import { TranslationsReviewChangesComponent } from './review-changes/translations-review-changes.component';
 import { NavbarPlaceComponent } from '../../core/components/navbar/place/navbar-place.component';
@@ -13,6 +12,7 @@ import {
 	FktButtonComponent,
 	FktDialogService,
 	FktInputComponent,
+	FktNoResults,
 	FktTableActionFn,
 	FktTableClassesFn,
 	FktTableColumn,
@@ -56,7 +56,7 @@ export class TranslationsComponent {
 			this.api.translations.getAll({ search }),
 	});
 
-	noResults = computed<NoResults>(() => {
+	noResults = computed<FktNoResults>(() => {
 		if (!!this.searchControl.value())
 			return {
 				label: 'Nenhuma tradução encontrada',

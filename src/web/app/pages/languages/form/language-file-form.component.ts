@@ -7,13 +7,13 @@ import {
 	resource,
 	signal,
 } from '@angular/core';
-import { NoResults } from '../../../shared/models/no-results';
 import { FileSelectorComponent } from '../../../shared/components/file-selector/file-selector.component';
 import { TranslationFile } from '@shared/models/translation-file';
 import { getElectron } from '../../../shared/di/functions/get-electron';
 import {
 	FktAutocompleteComponent,
 	FktButtonComponent,
+	FktNoResults,
 	SignalFormBuilder,
 	SignalValidators,
 } from '@frakton-ng/core';
@@ -51,7 +51,7 @@ export class LanguageFileFormComponent implements OnInit {
 		},
 	});
 
-	protected noResults: NoResults = {
+	protected noResults: FktNoResults = {
 		label: 'Nenhum idioma disponível',
 		icon: {
 			name: 'language',

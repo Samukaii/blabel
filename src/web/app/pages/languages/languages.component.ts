@@ -1,11 +1,16 @@
-import { ChangeDetectionStrategy, Component, inject, resource, } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	resource,
+} from '@angular/core';
 import { LanguageFileFormComponent } from './form/language-file-form.component';
-import { NoResults } from '../../shared/models/no-results';
 import { getElectron } from '../../shared/di/functions/get-electron';
 import { TranslationFile } from '@shared/models/translation-file';
 import {
 	FktButtonAction,
 	FktDialogService,
+	FktNoResults,
 	FktTableActionFn,
 	FktTableColumnFn,
 	FktTableComponent,
@@ -27,12 +32,12 @@ export class LanguagesComponent {
 		loader: () => this.api.languages.get(),
 	});
 
-	protected noResults: NoResults = {
+	protected noResults: FktNoResults = {
 		label: 'Nenhum idioma registrado',
 		description: "Clique em '+' para adicionar um novo idioma",
 		icon: {
 			name: 'globe-alt',
-			classes: 'size-14 text-gray-500',
+			size: '20px',
 		},
 	};
 
